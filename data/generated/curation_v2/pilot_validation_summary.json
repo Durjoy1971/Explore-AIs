@@ -1,0 +1,180 @@
+{
+  "total_candidates": 312,
+  "accepted_count": 300,
+  "independently_reviewed_accepted_count": 300,
+  "pending_independent_review_count": 0,
+  "rejected_count": 12,
+  "acceptance_rate_pct": 96.15,
+  "review_status_counts": {
+    "accepted": 300
+  },
+  "accepted_by_class": {
+    "Normal": 39,
+    "Promotional": 261,
+    "Smishing": 0
+  },
+  "accepted_by_class_language": {
+    "Normal|Banglish": 8,
+    "Normal|Bengali": 10,
+    "Normal|CodeMix": 14,
+    "Normal|English": 7,
+    "Promotional|Banglish": 115,
+    "Promotional|Bengali": 65,
+    "Promotional|CodeMix": 60,
+    "Promotional|English": 21
+  },
+  "accepted_by_domain": {
+    "banking_mfs": 55,
+    "civic_utility_health": 21,
+    "delivery_parcel": 39,
+    "education": 34,
+    "employment": 25,
+    "personal_or_general": 13,
+    "shopping_ecommerce": 59,
+    "telecom": 54
+  },
+  "accepted_by_class_domain": {
+    "Normal": {
+      "banking_mfs": 12,
+      "civic_utility_health": 7,
+      "delivery_parcel": 7,
+      "education": 5,
+      "shopping_ecommerce": 1,
+      "telecom": 7
+    },
+    "Promotional": {
+      "banking_mfs": 43,
+      "civic_utility_health": 14,
+      "delivery_parcel": 32,
+      "education": 29,
+      "employment": 25,
+      "personal_or_general": 13,
+      "shopping_ecommerce": 58,
+      "telecom": 47
+    },
+    "Smishing": {}
+  },
+  "unique_accepted_families": 292,
+  "shared_family_groups": {
+    "fam_pilot_par_barendra_outage": [
+      "syn_p2_a_0005",
+      "syn_p2_a_0036"
+    ],
+    "fam_pilot_par_chayaneer_tuition": [
+      "syn_p2_a_0004",
+      "syn_p2_a_0014",
+      "syn_p2_a_0022",
+      "syn_p2_a_0029"
+    ],
+    "fam_pilot_par_meghna_appt": [
+      "syn_p2_a_0016",
+      "syn_p2_a_0032"
+    ],
+    "fam_pilot_par_nodipay_otp": [
+      "syn_p2_a_0002",
+      "syn_p2_a_0011",
+      "syn_p2_a_0020",
+      "syn_p2_a_0027"
+    ]
+  },
+  "target_pilot_quotas": {
+    "Normal|Bengali": 10,
+    "Normal|Banglish": 8,
+    "Normal|English": 7,
+    "Normal|CodeMix": 14,
+    "Promotional|Bengali": 65,
+    "Promotional|Banglish": 115,
+    "Promotional|English": 21,
+    "Promotional|CodeMix": 60
+  },
+  "quota_gaps": {},
+  "quotas_exact_match": true,
+  "rejection_reason_counts": {
+    "independent_review:unnatural_phrasing": 12,
+    "independent_review:lexical_error": 3,
+    "independent_review:grammar_error": 2,
+    "independent_review:typo": 1
+  },
+  "surface_diagnostics_before_pilot": {
+    "n_rows": 3999,
+    "surface_only_5fold_acc_pct": 71.37,
+    "surface_only_5fold_macro_f1_pct": 60.71,
+    "length_only_smishing_roc_auc": 0.7693,
+    "length_only_promo_vs_normal_roc_auc": 0.7414,
+    "per_class_surface": {
+      "Normal": {
+        "count": 1509,
+        "median_char_len": 47.0,
+        "mean_char_len": 61.5,
+        "pct_has_url": 0.73,
+        "pct_has_phone": 0.73
+      },
+      "Promotional": {
+        "count": 942,
+        "median_char_len": 74.0,
+        "mean_char_len": 89.2,
+        "pct_has_url": 27.28,
+        "pct_has_phone": 7.22
+      },
+      "Smishing": {
+        "count": 1548,
+        "median_char_len": 99.0,
+        "mean_char_len": 118.6,
+        "pct_has_url": 45.48,
+        "pct_has_phone": 26.68
+      }
+    }
+  },
+  "surface_diagnostics_after_pilot": {
+    "n_rows": 4299,
+    "surface_only_5fold_acc_pct": 67.53,
+    "surface_only_5fold_macro_f1_pct": 61.42,
+    "length_only_smishing_roc_auc": 0.7341,
+    "length_only_promo_vs_normal_roc_auc": 0.7422,
+    "per_class_surface": {
+      "Normal": {
+        "count": 1548,
+        "median_char_len": 49.0,
+        "mean_char_len": 63.1,
+        "pct_has_url": 1.81,
+        "pct_has_phone": 1.03
+      },
+      "Promotional": {
+        "count": 1203,
+        "median_char_len": 80.0,
+        "mean_char_len": 93.0,
+        "pct_has_url": 26.27,
+        "pct_has_phone": 6.48
+      },
+      "Smishing": {
+        "count": 1548,
+        "median_char_len": 99.0,
+        "mean_char_len": 118.6,
+        "pct_has_url": 45.48,
+        "pct_has_phone": 26.68
+      }
+    }
+  },
+  "eligible_counts_before_pilot": {
+    "Normal": 1509,
+    "Promotional": 942,
+    "Smishing": 1548
+  },
+  "eligible_counts_after_pilot": {
+    "Normal": 1548,
+    "Promotional": 1203,
+    "Smishing": 1548
+  },
+  "stage_b_target_T": 1548,
+  "remaining_stage_b_deficits": {
+    "Normal": 0,
+    "Promotional": 345,
+    "Smishing": 0
+  },
+  "artifacts": {
+    "candidates": "/home/bs01415/Documents/Programming/ExploringAIs/data/generated/curation_v2/candidates.jsonl",
+    "accepted": "/home/bs01415/Documents/Programming/ExploringAIs/data/generated/curation_v2/accepted.jsonl",
+    "rejected": "/home/bs01415/Documents/Programming/ExploringAIs/data/generated/curation_v2/rejected.jsonl",
+    "summary": "/home/bs01415/Documents/Programming/ExploringAIs/data/generated/curation_v2/pilot_validation_summary.json"
+  }
+}

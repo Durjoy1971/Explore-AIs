@@ -1,0 +1,214 @@
+{
+  "source_inventory": [
+    {
+      "dataset": "legacy_2024",
+      "license": "UNDOCUMENTED",
+      "synthetic_status": "unknown",
+      "notes": "Binary ham/spam CSV without header; kept reference-only unless corroborated.",
+      "files": [
+        {
+          "path": "DataSet.csv",
+          "bytes": 502514,
+          "sha256": "5df79924b5966513760ad6ec38911cb12a1233a569b1a645b83b5b0936eabf27"
+        }
+      ]
+    },
+    {
+      "dataset": "bangalabarta_2025",
+      "license": "CC BY-NC-SA 4.0",
+      "synthetic_status": "curated_real_mixed",
+      "notes": "Mendeley 10.17632/jfkfbw3gzh.3; .zip archive contains identical CSV (counted once).",
+      "files": [
+        {
+          "path": "data/raw/bangalabarta/BangalaBarta bangla_spam_sms smishing.csv",
+          "bytes": 514339,
+          "sha256": "260c2e3bd12c6f35d47eb9be255ec42e5d14f0b3df4c594c40776e99586897e9"
+        }
+      ]
+    },
+    {
+      "dataset": "smishdetect_2026",
+      "license": "MIT",
+      "synthetic_status": "augmented_multilingual",
+      "notes": "HuggingFace shariul-islam/bengali-sms-smishing-dataset; train/validation/test parquets.",
+      "files": [
+        {
+          "path": "data/raw/smishdetect_hf/data/train-00000-of-00001.parquet",
+          "bytes": 403979,
+          "sha256": "9fb92ea7e185297f4dd66442a7ed5f11ffc82d501c1ca2ea38385f430b9fe18e"
+        },
+        {
+          "path": "data/raw/smishdetect_hf/data/validation-00000-of-00001.parquet",
+          "bytes": 60552,
+          "sha256": "a6a652087bbc328618cc39720a3ec66be53e106d9184dcf83791bc4da705a1fc"
+        },
+        {
+          "path": "data/raw/smishdetect_hf/data/test-00000-of-00001.parquet",
+          "bytes": 117557,
+          "sha256": "2719d61aaf82b4b38e256e7e0d5ecee4a19588a7f522b863c713a435d0dffa31"
+        }
+      ]
+    },
+    {
+      "dataset": "banglaphish_2026",
+      "license": "CC BY-NC 4.0",
+      "synthetic_status": "synthetic",
+      "notes": "MASTER.csv canonical; .jsonl/.xlsx and data/splits/* are identical exports (counted once); OOD benchmark.",
+      "files": [
+        {
+          "path": "data/raw/banglaphish2026/data/BanglaPhish-2026_v1.0_MASTER.csv",
+          "bytes": 5383142,
+          "sha256": "4d8dd5d2c3423ebb1c2db6dd16db8e0bcc1bf489a5caa99288dcb7cf08fe979c"
+        }
+      ]
+    }
+  ],
+  "raw_row_counts_by_dataset": {
+    "smishdetect_2026": 7005,
+    "banglaphish_2026": 6000,
+    "bangalabarta_2025": 2772,
+    "legacy_2024": 2580
+  },
+  "raw_total_rows": 18357,
+  "disposition_counts_raw": {
+    "canonical_kept": 11947,
+    "exact_dup_merged": 4906,
+    "quarantined": 1050,
+    "near_dup_variant_collapsed": 454
+  },
+  "quarantined_groups_total": 968,
+  "quarantined_groups_by_reason": {
+    "legacy_binary_spam_reference_only": 507,
+    "legacy_binary_ham_undocumented_license_reference_only": 449,
+    "cross_source_conflict_legacy_spam_vs_normal": 10,
+    "conflicting_3class_labels": 1,
+    "legacy_internal_binary_conflict": 1
+  },
+  "quarantined_raw_rows_by_reason": {
+    "legacy_binary_spam_reference_only": 534,
+    "legacy_binary_ham_undocumented_license_reference_only": 466,
+    "cross_source_conflict_legacy_spam_vs_normal": 42,
+    "conflicting_3class_labels": 6,
+    "legacy_internal_binary_conflict": 2
+  },
+  "exact_unique_clean_before_collapse": 12401,
+  "near_dup_collapsed_variants": {
+    "total": 454,
+    "by_reason": {
+      "numeric_or_shortcut_slot_clone": 410,
+      "cosmetic_punctuation_spacing_or_markdown_variant": 44
+    }
+  },
+  "near_dup_review_families": {
+    "total_multi_member_families": 1363,
+    "by_category": {
+      "ood_benchmark_kept_with_family_id": 811,
+      "distinct_variants_kept_only": 316,
+      "cosmetic_or_slot_collapse_only": 124,
+      "mixed_collapse_and_distinct_kept": 112
+    }
+  },
+  "existing_unique_total": 11947,
+  "existing_unique_families": 10163,
+  "existing_unique_by_class": {
+    "Normal": 4728,
+    "Promotional": 1651,
+    "Smishing": 5568
+  },
+  "existing_unique_by_dataset": {
+    "smishdetect_2026": 6531,
+    "banglaphish_2026": 5416
+  },
+  "existing_unique_by_eval_group": {
+    "banglaphish_ood": 5416,
+    "train_pool": 4125,
+    "smishdetect_test": 1698,
+    "smishdetect_validation": 708
+  },
+  "existing_unique_by_benchmark_membership": {
+    "primary_train_eligible": 4125,
+    "banglaphish_2026_ood_other": 3878,
+    "banglaphish_2026_ood_sms": 1538,
+    "smishdetect_test_direct": 1376,
+    "smishdetect_validation_direct": 610,
+    "smishdetect_test_family_overlap": 322,
+    "smishdetect_validation_family_overlap": 98
+  },
+  "existing_unique_by_language": {
+    "Bengali": 7039,
+    "Banglish": 1741,
+    "English": 1645,
+    "CodeMix": 1522
+  },
+  "existing_unique_lang_by_class": {
+    "Banglish": {
+      "Normal": 637,
+      "Promotional": 425,
+      "Smishing": 679
+    },
+    "Bengali": {
+      "Normal": 2947,
+      "Promotional": 467,
+      "Smishing": 3625
+    },
+    "CodeMix": {
+      "Normal": 558,
+      "Promotional": 348,
+      "Smishing": 616
+    },
+    "English": {
+      "Normal": 586,
+      "Promotional": 411,
+      "Smishing": 648
+    }
+  },
+  "eligible_train_total": 4125,
+  "eligible_train_families": 3918,
+  "eligible_train_by_class": {
+    "Normal": 1546,
+    "Promotional": 1009,
+    "Smishing": 1570
+  },
+  "eligible_train_by_language": {
+    "Banglish": 1145,
+    "English": 1061,
+    "Bengali": 1019,
+    "CodeMix": 900
+  },
+  "eligible_train_lang_by_class": {
+    "Banglish": {
+      "Normal": 428,
+      "Promotional": 281,
+      "Smishing": 436
+    },
+    "Bengali": {
+      "Normal": 393,
+      "Promotional": 245,
+      "Smishing": 381
+    },
+    "CodeMix": {
+      "Normal": 336,
+      "Promotional": 209,
+      "Smishing": 355
+    },
+    "English": {
+      "Normal": 389,
+      "Promotional": 274,
+      "Smishing": 398
+    }
+  },
+  "stage_b_target_T": 1570,
+  "stage_b_deficits": {
+    "Normal": 24,
+    "Promotional": 561,
+    "Smishing": 0
+  },
+  "artifacts": {
+    "existing_unique": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v1/existing_unique.parquet",
+    "provenance": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v1/provenance.parquet",
+    "quarantined": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v1/quarantined.parquet",
+    "eligible_train": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v1/eligible_train.parquet",
+    "near_duplicate_review": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v1/near_duplicate_review.jsonl",
+    "summary": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v1/curation_summary.json"
+  }
+}

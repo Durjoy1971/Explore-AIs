@@ -9,7 +9,7 @@ import re
 import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 import numpy as np
 import pandas as pd
@@ -338,9 +338,9 @@ def _resolve_language(row: pd.Series) -> str:
     return str(row["script_bucket"])
 
 
-def _select_canonical_row(grp: pd.DataFrame) -> pd.Series:
-    """Pick the deterministic canonical representative row within a clean exact-duplicate group."""
-    work = grp[grp["dataset"] != "legacy_2024"].copy()
+def _add_canonical_priority_cols(df: pd.DataFrame) -> pd.DataFrame:
+    """Precompute vectorized canonical-selection priority keys once on the full DataFrame."""
+    work = df.copy()
     work["_sp"] = work["orig_split"].map(SPLIT_PRIORITY).fillna(9).astype(int)
     work["_dp"] = work["dataset"].map(DATASET_PRIORITY).fillna(9).astype(int)
     work["_lang_mismatch"] = (
@@ -349,8 +349,7 @@ def _select_canonical_row(grp: pd.DataFrame) -> pd.Series:
     ).astype(int)
     work["_non_nfc"] = (work["text"] != work["text"].map(lambda t: unicodedata.normalize("NFC", t))).astype(int)
     work["_has_md_esc"] = work["text"].str.contains(r"\]\(https?://|\\_", regex=True).astype(int)
-    work = work.sort_values(["_sp", "_dp", "_lang_mismatch", "_non_nfc", "_has_md_esc", "orig_id"])
-    return work.iloc[0]
+    return work
 
 
 def _pick_representative_order(df: pd.DataFrame) -> pd.DataFrame:
@@ -363,40 +362,47 @@ def _pick_representative_order(df: pd.DataFrame) -> pd.DataFrame:
     return work.sort_values(["_sp", "_dp", "_non_nfc", "_has_md_esc", "primary_orig_id"])
 
 
-def _build_union_families(df: pd.DataFrame, threshold: float = 0.85) -> np.ndarray:
-    """Cluster exact-unique records using union of raw-strict and slot-template char-ngram cosine >= threshold."""
-    n = len(df)
-    if n == 0:
-        return np.array([], dtype=int)
+class _UnionFind:
+    """Disjoint-set structure for merging equivalence keys and cluster arrays."""
 
-    c_raw, _ = compute_near_dup_clusters(df["text_norm_strict"].tolist(), threshold=threshold)
-    c_tmpl, _ = compute_near_dup_clusters(df["text"].map(slot_template_text).tolist(), threshold=threshold)
+    def __init__(self, n: int) -> None:
+        self.parent = list(range(n))
 
-    parent = list(range(n))
-
-    def find(x: int) -> int:
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
+    def find(self, x: int) -> int:
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
         return x
 
-    def union(a: int, b: int) -> None:
-        ra, rb = find(a), find(b)
+    def union(self, a: int, b: int) -> None:
+        ra, rb = self.find(a), self.find(b)
         if ra != rb:
-            parent[rb] = ra
+            self.parent[rb] = ra
 
-    for cluster_arr in (c_raw, c_tmpl):
-        first_seen: dict[int, int] = {}
-        for idx, cid in enumerate(cluster_arr):
-            cid_int = int(cid)
-            if cid_int in first_seen:
-                union(first_seen[cid_int], idx)
+    def merge_groups(self, indices: list[int], keys: Iterable[Any]) -> None:
+        first_seen: dict[Any, int] = {}
+        for idx, k in zip(indices, keys):
+            if k in first_seen:
+                self.union(first_seen[k], idx)
             else:
-                first_seen[cid_int] = idx
+                first_seen[k] = idx
 
-    roots = np.array([find(i) for i in range(n)], dtype=int)
-    _, normalized = np.unique(roots, return_inverse=True)
-    return normalized
+    def normalized_labels(self) -> np.ndarray:
+        if not self.parent:
+            return np.array([], dtype=int)
+        roots = np.array([self.find(i) for i in range(len(self.parent))], dtype=int)
+        _, normalized = np.unique(roots, return_inverse=True)
+        return normalized
+
+
+def _cluster_into_uf(uf: _UnionFind, df: pd.DataFrame, row_indices: list[int], threshold: float) -> None:
+    """Run raw-strict and slot-template clustering on df and union into uf over global row_indices."""
+    if len(df) <= 1:
+        return
+    c_raw, _ = compute_near_dup_clusters(df["text_norm_strict"].tolist(), threshold=threshold)
+    c_tmpl, _ = compute_near_dup_clusters(df["text"].map(slot_template_text).tolist(), threshold=threshold)
+    uf.merge_groups(row_indices, c_raw.tolist())
+    uf.merge_groups(row_indices, c_tmpl.tolist())
 
 
 def _load_phase2_3_fold_map(root: Path) -> dict[str, int]:
@@ -450,12 +456,54 @@ def curate_from_raw_dataframe(
     clean_canon_rows: list[dict[str, Any]] = []
     group_status: dict[str, tuple[str, str, str]] = {}
 
-    for thash, grp in raw_df.groupby("text_hash_strict", sort=True):
-        q_reason = classify_quarantine_reason(grp)
+    sorted_raw = _add_canonical_priority_cols(raw_df).sort_values(
+        ["text_hash_strict", "_sp", "_dp", "_lang_mismatch", "_non_nfc", "_has_md_esc", "orig_id"]
+    )
+    valid_3c_set = set(CANONICAL_LABELS)
+
+    # Group row dicts in a single O(N) pass to avoid 13k+ pandas SubDataFrame allocations
+    groups_by_hash: dict[str, list[dict[str, Any]]] = {}
+    for rec in sorted_raw.to_dict("records"):
+        groups_by_hash.setdefault(rec["text_hash_strict"], []).append(rec)
+
+    for thash, grp_recs in groups_by_hash.items():
+        has_unusable = any(r["is_unusable"] for r in grp_recs)
+        nl_recs = [r for r in grp_recs if r["dataset"] != "legacy_2024"]
+        leg_recs = [r for r in grp_recs if r["dataset"] == "legacy_2024"]
+
+        q_reason: str | None = None
+        if has_unusable:
+            q_reason = "empty_or_corrupted_text"
+        elif not nl_recs:
+            leg_labels = {str(r["orig_label"]).lower() for r in leg_recs}
+            if len(leg_labels) > 1:
+                q_reason = "legacy_internal_binary_conflict"
+            else:
+                lbl = next(iter(leg_labels))
+                if lbl == "spam":
+                    q_reason = "legacy_binary_spam_reference_only"
+                elif lbl == "ham":
+                    q_reason = "legacy_binary_ham_undocumented_license_reference_only"
+                else:
+                    q_reason = "legacy_ambiguous_label"
+        else:
+            nl_labels = {r["mapped_label_3class"] for r in nl_recs}
+            if not nl_labels.issubset(valid_3c_set):
+                q_reason = "ambiguous_3class_label"
+            elif len(nl_labels) > 1:
+                q_reason = "conflicting_3class_labels"
+            elif leg_recs:
+                canon_lbl = next(iter(nl_labels))
+                leg_labels = {str(r["orig_label"]).lower() for r in leg_recs}
+                if "spam" in leg_labels and canon_lbl == "Normal":
+                    q_reason = "cross_source_conflict_legacy_spam_vs_normal"
+                elif "ham" in leg_labels and canon_lbl in ("Promotional", "Smishing"):
+                    q_reason = "cross_source_conflict_legacy_ham_vs_non_normal"
+
         if q_reason is not None:
             qid = f"quar_{thash[:12]}"
             group_status[thash] = ("quarantined", qid, q_reason)
-            rep_row = grp.sort_values(["dataset", "orig_id"]).iloc[0]
+            rep_row = sorted(grp_recs, key=lambda r: (r["dataset"], r["orig_id"]))[0]
             quarantine_rows.append(
                 {
                     "quarantine_id": qid,
@@ -464,28 +512,34 @@ def curate_from_raw_dataframe(
                     "text_norm_strict": rep_row["text_norm_strict"],
                     "text_hash_strict": thash,
                     "quarantine_reason": q_reason,
-                    "observed_orig_labels": "|".join(sorted(grp["orig_label"].astype(str).unique())),
-                    "observed_mapped_labels": "|".join(sorted(grp["mapped_label_3class"].astype(str).unique())),
-                    "contributing_datasets": ",".join(sorted(grp["dataset"].unique())),
-                    "contributing_orig_ids": ",".join(grp["provenance_row_id"].tolist()),
-                    "contributing_splits": ",".join(sorted(grp["orig_split"].unique())),
-                    "raw_row_count": int(len(grp)),
+                    "observed_orig_labels": "|".join(sorted({str(r["orig_label"]) for r in grp_recs})),
+                    "observed_mapped_labels": "|".join(sorted({str(r["mapped_label_3class"]) for r in grp_recs})),
+                    "contributing_datasets": ",".join(sorted({r["dataset"] for r in grp_recs})),
+                    "contributing_orig_ids": ",".join(r["provenance_row_id"] for r in grp_recs),
+                    "contributing_splits": ",".join(sorted({r["orig_split"] for r in grp_recs})),
+                    "raw_row_count": len(grp_recs),
                     "eligible_for_training": False,
                 }
             )
             continue
 
-        rep = _select_canonical_row(grp)
+        # sorted_raw is already ordered by canonical selection priority; nl_recs[0] is canonical
+        rep = nl_recs[0]
         cid = f"cur_{thash[:12]}"
         group_status[thash] = ("clean", cid, "exact_strict_match")
 
-        nl_grp = grp[grp["dataset"] != "legacy_2024"]
-        best_split = min(nl_grp["orig_split"].unique(), key=lambda s: SPLIT_PRIORITY.get(s, 9))
-        contrib_ds = sorted(grp["dataset"].unique())
+        best_split = min((r["orig_split"] for r in nl_recs), key=lambda s: SPLIT_PRIORITY.get(s, 9))
+        contrib_ds = sorted({r["dataset"] for r in grp_recs})
         lodo_grp = (
             "banglaphish_ood"
             if rep["dataset"] == "banglaphish_2026"
             else ("bangalabarta_2025" if "bangalabarta_2025" in contrib_ds else "smishdetect_only")
+        )
+        src_lang = str(rep["source_language_raw"])
+        resolved_lang = (
+            ("Bengali" if src_lang == "Bangla" else src_lang)
+            if rep["dataset"] == "banglaphish_2026"
+            else (src_lang if src_lang in ("Bengali", "Banglish", "English", "CodeMix") else str(rep["script_bucket"]))
         )
         clean_canon_rows.append(
             {
@@ -496,7 +550,7 @@ def curate_from_raw_dataframe(
                 "text_hash_strict": thash,
                 "label_3class": rep["mapped_label_3class"],
                 "label_binary_risk": 1 if rep["mapped_label_3class"] == "Smishing" else 0,
-                "language": _resolve_language(rep),
+                "language": resolved_lang,
                 "source_language_raw": rep["source_language_raw"],
                 "script_bucket": rep["script_bucket"],
                 "is_synthetic": False,
@@ -505,7 +559,7 @@ def curate_from_raw_dataframe(
                 "primary_orig_id": rep["orig_id"],
                 "primary_provenance_row_id": rep["provenance_row_id"],
                 "contributing_datasets": ",".join(contrib_ds),
-                "contributing_count": int(len(grp)),
+                "contributing_count": len(grp_recs),
                 "license": rep["license"],
                 "original_split": best_split,
                 "lodo_group": lodo_grp,
@@ -535,45 +589,77 @@ def curate_from_raw_dataframe(
         pd.DataFrame(quarantine_rows, columns=quarantine_cols).sort_values("quarantine_id").reset_index(drop=True)
     )
     exact_unique_df = pd.DataFrame(clean_canon_rows).sort_values("canonical_id").reset_index(drop=True)
-
-    # Cluster exact-unique records into near-duplicate / template families BEFORE collapsing variants
-    exact_unique_df["_cluster_num"] = _build_union_families(exact_unique_df, threshold=sim_threshold)
-    cluster_to_fam_id: dict[int, str] = {}
-    for cnum, grp in exact_unique_df.groupby("_cluster_num"):
-        joined = "|".join(sorted(grp["canonical_id"].tolist()))
-        cluster_to_fam_id[int(cnum)] = f"fam_{sha256_text(joined)[:10]}"
-    exact_unique_df["family_id"] = exact_unique_df["_cluster_num"].map(cluster_to_fam_id)
-
-    vec_raw = TfidfVectorizer(analyzer="char_wb", ngram_range=(3, 5), min_df=1)
-    X_raw = vec_raw.fit_transform(exact_unique_df["text_norm_strict"]) if len(exact_unique_df) else None
+    exact_idx_by_cid = {cid: idx for idx, cid in enumerate(exact_unique_df["canonical_id"])}
 
     exact_unique_df["_cosmetic_key"] = exact_unique_df["text"].map(cosmetic_key)
     exact_unique_df["_slot_key"] = exact_unique_df["text"].map(slot_template_key)
 
+    # Step 2a: Pre-collapse clustering + cosmetic/slot equivalence union
+    uf = _UnionFind(len(exact_unique_df))
+    _cluster_into_uf(uf, exact_unique_df, list(range(len(exact_unique_df))), sim_threshold)
+
+    non_bp_exact = exact_unique_df[exact_unique_df["primary_dataset"] != "banglaphish_2026"]
+    non_bp_exact_idxs = [exact_idx_by_cid[c] for c in non_bp_exact["canonical_id"]]
+    uf.merge_groups(
+        non_bp_exact_idxs,
+        list(zip(non_bp_exact["_cosmetic_key"], non_bp_exact["label_3class"])),
+    )
+    uf.merge_groups(
+        non_bp_exact_idxs,
+        list(zip(non_bp_exact["_slot_key"], non_bp_exact["label_3class"])),
+    )
+
+    # Step 2b: Review & collapse cosmetic/slot-swap variants in BB+SD
     ordered_df = _pick_representative_order(exact_unique_df)
     collapsed_map: dict[str, tuple[str, str]] = {}
 
     non_bp = ordered_df[ordered_df["primary_dataset"] != "banglaphish_2026"]
     seen_cosmetic: dict[tuple[str, str], str] = {}
-    for row in non_bp.itertuples(index=False):
-        key = (row._cosmetic_key, row.label_3class)
+    for cid_val, lbl_val, cos_k in zip(non_bp["canonical_id"], non_bp["label_3class"], non_bp["_cosmetic_key"]):
+        key = (cos_k, lbl_val)
         if key in seen_cosmetic:
-            collapsed_map[row.canonical_id] = (seen_cosmetic[key], "cosmetic_punctuation_spacing_or_markdown_variant")
+            collapsed_map[cid_val] = (seen_cosmetic[key], "cosmetic_punctuation_spacing_or_markdown_variant")
         else:
-            seen_cosmetic[key] = row.canonical_id
+            seen_cosmetic[key] = cid_val
 
     seen_slot: dict[tuple[str, str], str] = {}
-    for row in non_bp.itertuples(index=False):
-        if row.canonical_id in collapsed_map:
+    for cid_val, lbl_val, slot_k in zip(non_bp["canonical_id"], non_bp["label_3class"], non_bp["_slot_key"]):
+        if cid_val in collapsed_map:
             continue
-        key = (row._slot_key, row.label_3class)
+        key = (slot_k, lbl_val)
         if key in seen_slot:
-            collapsed_map[row.canonical_id] = (seen_slot[key], "numeric_or_shortcut_slot_clone")
+            collapsed_map[cid_val] = (seen_slot[key], "numeric_or_shortcut_slot_clone")
         else:
-            seen_slot[key] = row.canonical_id
+            seen_slot[key] = cid_val
+
+    # Resolve multi-hop collapse chains (e.g. cosmetic -> slot-swap -> surviving canonical)
+    for rem_cid, (target_cid, reason) in list(collapsed_map.items()):
+        while target_cid in collapsed_map:
+            target_cid = collapsed_map[target_cid][0]
+        collapsed_map[rem_cid] = (target_cid, reason)
 
     retained_mask = ~exact_unique_df["canonical_id"].isin(collapsed_map)
     existing_unique = exact_unique_df[retained_mask].copy().reset_index(drop=True)
+
+    # Step 2c: Post-collapse clustering (full surviving & BB+SD-only) unioned into uf so IDF shifts never leak >=0.85 across families
+    surviving_idxs = [exact_idx_by_cid[c] for c in existing_unique["canonical_id"]]
+    _cluster_into_uf(uf, existing_unique, surviving_idxs, sim_threshold)
+    surv_non_bp = existing_unique[existing_unique["primary_dataset"] != "banglaphish_2026"]
+    surv_non_bp_idxs = [exact_idx_by_cid[c] for c in surv_non_bp["canonical_id"]]
+    _cluster_into_uf(uf, surv_non_bp, surv_non_bp_idxs, sim_threshold)
+
+    # Step 2d: Assign final unified deterministic family_id across exact_unique_df and existing_unique
+    exact_unique_df["_cluster_num"] = uf.normalized_labels()
+    cluster_to_fam_id: dict[int, str] = {}
+    for cnum, grp in exact_unique_df.groupby("_cluster_num"):
+        joined = "|".join(sorted(grp["canonical_id"].tolist()))
+        cluster_to_fam_id[int(cnum)] = f"fam_{sha256_text(joined)[:10]}"
+    exact_unique_df["family_id"] = exact_unique_df["_cluster_num"].map(cluster_to_fam_id)
+    fam_by_exact_cid = exact_unique_df.set_index("canonical_id")["family_id"].to_dict()
+    existing_unique["family_id"] = existing_unique["canonical_id"].map(fam_by_exact_cid)
+
+    vec_raw = TfidfVectorizer(analyzer="char_wb", ngram_range=(3, 5), min_df=1)
+    X_raw = vec_raw.fit_transform(exact_unique_df["text_norm_strict"]) if len(exact_unique_df) else None
 
     extra_counts: dict[str, int] = {}
     extra_datasets: dict[str, set[str]] = {}
@@ -596,11 +682,9 @@ def curate_from_raw_dataframe(
             if "bangalabarta_2025" in ds_set and existing_unique.at[idx, "lodo_group"] == "smishdetect_only":
                 existing_unique.at[idx, "lodo_group"] = "bangalabarta_2025"
 
-    exact_idx_by_cid = {cid: idx for idx, cid in enumerate(exact_unique_df["canonical_id"])}
     review_records: list[dict[str, Any]] = []
-    for fam_id, fgrp in exact_unique_df.groupby("family_id", sort=True):
-        if len(fgrp) <= 1:
-            continue
+    multi_fam_df = exact_unique_df[exact_unique_df["family_id"].duplicated(keep=False)]
+    for fam_id, fgrp in multi_fam_df.groupby("family_id", sort=True):
         idxs = [exact_idx_by_cid[c] for c in fgrp["canonical_id"]]
         sim_mat = cosine_similarity(X_raw[idxs])
         triu = np.triu_indices(len(idxs), k=1)

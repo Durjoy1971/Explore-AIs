@@ -1,0 +1,219 @@
+{
+  "base_version": "curation_v1",
+  "version": "curation_v2",
+  "raw_total_rows": 18357,
+  "disposition_counts_raw": {
+    "canonical_kept": 11821,
+    "exact_dup_merged": 4850,
+    "quarantined": 1250,
+    "near_dup_variant_collapsed": 436
+  },
+  "existing_unique_total": 11821,
+  "existing_unique_families": 10048,
+  "existing_unique_by_class": {
+    "Normal": 4691,
+    "Promotional": 1584,
+    "Smishing": 5546
+  },
+  "existing_unique_by_eval_group": {
+    "banglaphish_ood": 5416,
+    "train_pool": 3999,
+    "smishdetect_test": 1698,
+    "smishdetect_validation": 708
+  },
+  "quarantined_groups_total": 1094,
+  "quarantined_groups_by_reason": {
+    "legacy_binary_spam_reference_only": 507,
+    "legacy_binary_ham_undocumented_license_reference_only": 449,
+    "audit_v2_bare_number_money_or_call_demand": 72,
+    "audit_v2_unverified_interview_or_unbranded_discount": 19,
+    "audit_v2_unattributed_payment_or_bill_demand": 17,
+    "cross_source_conflict_legacy_spam_vs_normal": 10,
+    "audit_v2_unattributed_account_deduction_alert": 5,
+    "audit_v2_unattributed_mfs_account_check": 3,
+    "audit_v2_unverified_servicing_callback": 3,
+    "audit_v2_unverified_delivery_callback": 3,
+    "audit_v2_unverified_advance_fee_or_recruitment_url": 2,
+    "audit_v2_unverified_utility_disconnect_threat": 2,
+    "conflicting_3class_labels": 1,
+    "legacy_internal_binary_conflict": 1
+  },
+  "audit_counts": {
+    "total_audit_decision_rows": 398,
+    "label_reclassifications": 82,
+    "newly_quarantined_groups": 126,
+    "language_reclassifications_total": 178,
+    "language_reclassifications_retained_in_eligible": 178,
+    "kept_with_note_exemplars": 14
+  },
+  "coverage_profile": {
+    "eligible_train_total": 3999,
+    "eligible_train_families": 3803,
+    "eligible_train_by_class": {
+      "Normal": 1509,
+      "Promotional": 942,
+      "Smishing": 1548
+    },
+    "stage_b_target_T": 1548,
+    "stage_b_deficits": {
+      "Normal": 39,
+      "Promotional": 606,
+      "Smishing": 0
+    },
+    "stage_b_total_deficit": 645,
+    "class_by_language": {
+      "Normal": {
+        "Banglish": 417,
+        "Bengali": 396,
+        "CodeMix": 312,
+        "English": 384
+      },
+      "Promotional": {
+        "Banglish": 141,
+        "Bengali": 229,
+        "CodeMix": 234,
+        "English": 338
+      },
+      "Smishing": {
+        "Banglish": 404,
+        "Bengali": 371,
+        "CodeMix": 357,
+        "English": 416
+      }
+    },
+    "class_by_length_band": {
+      "Normal": {
+        "long(>120)": 163,
+        "medium(50-120)": 561,
+        "short(<50)": 785
+      },
+      "Promotional": {
+        "long(>120)": 143,
+        "medium(50-120)": 779,
+        "short(<50)": 20
+      },
+      "Smishing": {
+        "long(>120)": 477,
+        "medium(50-120)": 1059,
+        "short(<50)": 12
+      }
+    },
+    "class_by_domain_bucket": {
+      "Normal": {
+        "banking_mfs": 14,
+        "civic_utility_health": 27,
+        "delivery_parcel": 0,
+        "education": 91,
+        "employment": 28,
+        "personal_or_general": 1322,
+        "shopping_ecommerce": 6,
+        "telecom": 21
+      },
+      "Promotional": {
+        "banking_mfs": 89,
+        "civic_utility_health": 15,
+        "delivery_parcel": 66,
+        "education": 4,
+        "employment": 7,
+        "personal_or_general": 210,
+        "shopping_ecommerce": 270,
+        "telecom": 281
+      },
+      "Smishing": {
+        "banking_mfs": 589,
+        "civic_utility_health": 24,
+        "delivery_parcel": 16,
+        "education": 26,
+        "employment": 182,
+        "personal_or_general": 574,
+        "shopping_ecommerce": 54,
+        "telecom": 83
+      }
+    },
+    "class_by_has_url": {
+      "Normal": {
+        "False": 1498,
+        "True": 11
+      },
+      "Promotional": {
+        "False": 685,
+        "True": 257
+      },
+      "Smishing": {
+        "False": 844,
+        "True": 704
+      }
+    },
+    "class_by_has_contact": {
+      "Normal": {
+        "False": 1487,
+        "True": 22
+      },
+      "Promotional": {
+        "False": 552,
+        "True": 390
+      },
+      "Smishing": {
+        "False": 489,
+        "True": 1059
+      }
+    },
+    "class_by_has_urgency": {
+      "Normal": {
+        "False": 1475,
+        "True": 34
+      },
+      "Promotional": {
+        "False": 872,
+        "True": 70
+      },
+      "Smishing": {
+        "False": 1277,
+        "True": 271
+      }
+    },
+    "class_by_has_otp_cue": {
+      "Normal": {
+        "False": 1503,
+        "True": 6
+      },
+      "Promotional": {
+        "False": 942,
+        "True": 0
+      },
+      "Smishing": {
+        "False": 1357,
+        "True": 191
+      }
+    }
+  },
+  "pilot_plan": {
+    "max_pilot_rows": 300,
+    "pilot_total_rows": 300,
+    "pilot_by_class": {
+      "Normal": 39,
+      "Promotional": 261,
+      "Smishing": 0
+    },
+    "normal_by_language": {
+      "CodeMix": 14,
+      "Bengali": 10,
+      "Banglish": 8,
+      "English": 7
+    },
+    "promotional_by_language": {
+      "Banglish": 115,
+      "Bengali": 65,
+      "CodeMix": 60,
+      "English": 21
+    }
+  },
+  "artifacts": {
+    "existing_unique": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v2/existing_unique.parquet",
+    "eligible_train": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v2/eligible_train.parquet",
+    "quarantined": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v2/quarantined.parquet",
+    "provenance": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v2/provenance.parquet",
+    "audit_decisions": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v2/audit_decisions.parquet",
+    "summary": "/home/bs01415/Documents/Programming/ExploringAIs/data/processed/curation_v2/curation_summary.json"
+  }
+}

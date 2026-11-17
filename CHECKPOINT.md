@@ -1,7 +1,7 @@
 # Research Checkpoint — Bangla & Code-Mixed Smishing Detection
 
-**Saved:** 2026-11-16  
-**Status:** Paused after completing **Phase 1 (Dataset Verification)** and **Phase 2–3 (CPU Baselines & Shortcut Audit)**; `Google.colab` VS Code extension is installed and ready for GPU execution.
+**Saved:** 2026-11-17 (19:45 +06:00)  
+**Status:** Paused after completing **Stage A (`curation_v1` & `curation_v2`)**, **Stage B 300-row Pilot + Independent Review**, and **Pipeline Hardening (Dynamic Brand Masking, Currency-vs-Shortcode Fix, CodeMix/Entity Diversity Gates, Class-Matched & Stratum-Controlled Synthetic-Origin Diagnostics, Read-Only Dry-Run)**. **Stopped before generating the remaining `345` `Promotional` samples**, awaiting explicit user approval.
 
 ---
 
@@ -10,49 +10,57 @@
 ### Environment & Workspace
 * Python 3.12 virtual environment `.venv/` configured via `uv` (`pyproject.toml`).
 * VS Code (`Google.colab` + `ms-toolsai.jupyter`) installed by user; **200 Google Colab compute units** available for Phases 2–5 GPU runs.
-* Unit tests in `tests/test_pipeline.py` passed (`All tests passed!`).
+* Unit & regression suite (`.venv/bin/python -m unittest discover -s tests -v`): **26/26 passed** (`67.641s`); `.venv/bin/python tests/test_pipeline.py`: **All tests passed!**.
 
-### Phase 1 — Dataset Verification (`reports/phase1_dataset_audit.md`, `reports/phase1_audit.json`)
-Fetched and audited 3 public 2025–2026 corpora alongside the repository's legacy 2024 `DataSet.csv`:
-1. **`legacy_2024` (`DataSet.csv`, UNDOCUMENTED license):** 2,580 rows (2,083 unique), 19.26% exact duplicates, 1 conflicting label, 89.15% surface-only 5-fold accuracy (`Length-Only Risk AUC = 0.8738`). Retained as legacy reference only; excluded from primary training.
-2. **`bangalabarta_2025` (Mendeley `10.17632/jfkfbw3gzh.3`, CC BY-NC-SA 4.0):** 2,772 rows (only **1,205 unique** — **56.53% exact duplicates**, 1 label conflict), 78.09% surface-only accuracy (`Length-Only AUC = 0.8453`).
-3. **`smishdetect_2026` (HF `shariul-islam/bengali-sms-smishing-dataset`, MIT):** 7,005 rows (6,998 unique), 3-class (`Normal`, `Promotional`, `Smishing`) across `Bengali`, `Banglish`, `English`, `CodeMix`. **Contains 100.0% (1,205/1,205) of `bangalabarta_2025`'s unique texts.**
-4. **`banglaphish_2026` (GitHub/Zenodo `10.5281/zenodo.20501760`, CC BY-NC 4.0):** 6,000 synthetic rows (5,416 unique, 20.81% near-dup reduction at `cos >= 0.85`), 95.44% surface-only accuracy (`Length-Only AUC = 0.9375`; Normal median 100 chars vs. Smishing median 216 chars; `[REDACTED_*]` tag shortcut).
+### Phase 1 & Phase 2–3 (CPU) — Baseline Audit
+* **Phase 1 (`reports/phase1_dataset_audit.md`, `reports/phase1_audit.json`):** Audited `legacy_2024` (`DataSet.csv`), `bangalabarta_2025` (1,205 unique; 100% overlap in `smishdetect_2026`), `smishdetect_2026` (6,998 unique), and `banglaphish_2026` (5,416 unique).
+* **Phase 2–3 CPU Baselines (`reports/phase2_3_cpu_baselines.md`, `reports/phase2_3_cpu_baselines.json`):** `StratifiedGroupKFold` (`cos >= 0.85`), shortcut masking/ZWJ drops, cross-script LODO collapse, and zero-shot OOD collapse (`BanglaPhish-2026`).
 
-### Phase 2–3 (CPU) — Fair Evaluation & Shortcut-Stress (`reports/phase2_3_cpu_baselines.md`, `reports/phase2_3_cpu_baselines.json`)
-Built leakage-free `StratifiedGroupKFold` (`dup_cluster_id`, `cos >= 0.85`) datasets:
-* `data/processed/unified_3class_dedup.parquet` (**6,997** unique non-conflicting rows, 6,493 clusters)
-* `data/processed/banglaphish2026_dedup.parquet`
+### Stage A — Consolidated Curated Corpora (`curation_v1` & `curation_v2`, Untouched)
+* **`data/processed/curation_v1/` (`reports/dataset_consolidation_v1.md`):** Initial Stage A consolidation (`existing_unique=11,947`, `eligible_train=4,125`, `quarantined=968`, `provenance=18,357`).
+* **`data/processed/curation_v2/` (`reports/stage_a_focused_audit_v2.md`, `reports/stage_b_coverage_and_pilot_plan.md`):** Focused audit reclassified mislabeled `Banglish`/`English`/`CodeMix` rows and quarantined ambiguous items (`existing_unique=11,821`, `quarantined=1,094`, `provenance=18,357`, `audit_decisions=398`).
+  * **`eligible_train.parquet` (`N = 3,999`, `3,803` families):** `Normal = 1,509`, `Promotional = 942`, `Smishing = 1,548` (strictly isolated from `smishdetect_validation=708`, `smishdetect_test=1,698`, `banglaphish_ood=5,416`).
+  * **Stage B Quotas (`T = 1,548`):** `Normal = +39`, `Promotional = +606`, `Smishing = 0` (`Total = 645`).
 
-Key TF-IDF (word 1–2 + char_wb 3–5) + LogisticRegression results:
-* **In-distribution is saturated:** `smishdetect_original_test_split` = **98.77% Macro-F1**; deduplicated 5-fold CV = **98.65% Macro-F1** [98.38, 98.92].
-* **Shortcut masking & adversarial evasion hurt significantly:** `<URL>/<PHONE>/<USSD>` masking drops Macro-F1 to **98.03%** (`McNemar p = 0.0`); ZWJ/homoglyph perturbations drop Macro-F1 to **97.67%** (`McNemar p = 0.0`, Smishing Recall 98.75% → 96.79%).
-* **Cross-script LODO collapse:** Train `BangalaBarta` (Bangla) → Test non-overlapping `SmishDetect` (multilingual/Banglish, `N=5,793`): Macro-F1 = **76.32%** (raw) / **67.61%** (masked), Recall @ ≤1% FPR = **63.34%** / **45.49%**.
-* **Zero-shot OOD collapse:** Train unified 3-class → Test `BanglaPhish-2026` SMS (`N=1,540`): Macro-F1 = **53.12%**, Normal→Smish FPR = **24.36%**, Recall @ ≤1% FPR = **6.0%**.
+### Stage B — 300-Row Pilot & Pipeline Hardening (`curation_v2`)
+* **300-Row Pilot Artifacts (`data/generated/curation_v2/`, `reports/stage_b_pilot_v2.md` — Preserved Untouched):**
+  * `candidates.jsonl` (`312` rows) → **`accepted.jsonl` (`300` rows, `96.15%`, all independently reviewed)** + `rejected.jsonl` (`12` rows flagged for naturalness/grammar/typo/lexical issues across `review_shard_1.jsonl`, `review_shard_2.jsonl`, `review_replacements.jsonl`).
+  * Exact pilot counts: `Normal = 39` (`Bengali 10, Banglish 8, English 7, CodeMix 14`), `Promotional = 261` (`Bengali 65, Banglish 115, English 21, CodeMix 60`), `Smishing = 0`.
+  * **Remaining deficit:** `Promotional = 345` (`Normal = 0`, `Smishing = 0`) — **NOT generated yet**.
+* **Pipeline Hardening Implemented & Verified (`--dry-run` on existing 300 accepted rows):**
+  1. **Regex & Currency Fixes (`src/bangla_smish/schema.py`, `src/bangla_smish/stage_b_pilot.py`):** `_URL_RE` catches bare/subdomains (`t.me`, `wa.me`); `_PHONE_RE` catches hyphenated `01700-0000XX`, spaced/hyphenated `+880`/`+৮৮০`, Bengali digits, and `16xxx`/`১৬xxx` shortcodes while excluding prefix/suffix currency amounts (`BDT 16000`, `16000 taka`, `১৬০০০ টাকা`, `16000/-`).
+  2. **Dynamic Brand Masking (`codemix_diversity.py`, `schema.py`, `stage_b_pilot.py`, `validate_stage_b_pilot.py`):** `collect_brand_aliases` + metadata extraction (`brand`, `entity_name`, `brand_names`, `brand_aliases`, `entities`) + `--brand-registry <json>` + dynamic fallback (`extract_dynamic_brands`) + inflection/spacing matching across `raw`, `canon_masked`, `brand_masked` (`<BRAND>`), and `brand_stripped` (`""`).
+  3. **CodeMix & Entity Diversity Gates (`src/bangla_smish/codemix_diversity.py`):** `mode="audit"` vs `mode="new_batch"` (`hook_plus_pure_en == 0.0`, `bn_script_en >= 0.80`, `intra_sentential_mix >= 0.60`, `sent1_excl_rate <= 0.35`, `sent1_quest_rate <= 0.05`, `max_brand_count <= 5`, `brandless_rate >= 0.30`, `ussd_1234_share <= 0.25`).
+  4. **Extended Diagnostics (`stage_b_pilot.py`, `validate_stage_b_pilot.py`):** 4-view 3-class TF-IDF+LR probes, counterfactual URL/phone/brand swap probes (`-10.40 pp` / `-12.82 pp` raw flip → `0.00 pp` masked), and class-matched + stratum-controlled `(language, domain, length_band)` `is_synthetic` probes (`Normal vs Normal` & `Promotional vs Promotional`).
 
 ---
 
 ## 2. Current File Inventory
 
-* **Core package (`src/bangla_smish/`):** `schema.py`, `audit.py`, `splits.py`, `metrics.py`, `__init__.py`
-* **Scripts (`scripts/`):** `phase1_fetch_and_audit.py`, `phase2_cpu_baselines.py`, `generate_colab_notebook.py`
+* **Core package (`src/bangla_smish/`):** `__init__.py`, `schema.py`, `audit.py`, `splits.py`, `metrics.py`, `curation.py`, `curation_v2.py`, `stage_b_pilot.py`, `codemix_diversity.py`
+* **Scripts (`scripts/`):** `phase1_fetch_and_audit.py`, `phase2_cpu_baselines.py`, `generate_colab_notebook.py`, `curate_stage_a.py`, `curate_stage_a_v2.py`, `validate_stage_b_pilot.py`
+* **Tests (`tests/`):** `test_pipeline.py`, `test_curation.py`, `test_curation_v2.py`, `test_codemix_diversity.py`, `test_schema_masking.py`, `test_stage_b_pilot.py`
+* **Data (`data/`):**
+  * `data/raw/` (`bangalabarta/`, `smishdetect_hf/`, `banglaphish2026/`, gitignored) + `DataSet.csv`
+  * `data/processed/` (`unified_3class_dedup.parquet`, `banglaphish2026_dedup.parquet`, `curation_v1/`, `curation_v2/`)
+  * `data/generated/curation_v2/` (`raw_batch_a.jsonl`, `raw_batch_b.jsonl`, `raw_batch_c_replacements.jsonl`, `candidates.jsonl`, `accepted.jsonl`, `rejected.jsonl`, `review_shard_1.jsonl`, `review_shard_2.jsonl`, `review_replacements.jsonl`, `pilot_validation_summary.json`)
+* **Reports (`reports/`):** `phase1_*`, `phase2_3_*`, `dataset_consolidation_v1.md`, `stage_a_focused_audit_v2.md`, `stage_b_coverage_and_pilot_plan.md`, `stage_b_pilot_v2.md`
 * **Notebooks (`notebooks/`):** `colab_phase2_5_gpu_pipeline.ipynb`
-* **Processed data (`data/processed/`):** `unified_3class_dedup.parquet`, `banglaphish2026_dedup.parquet`
-* **Raw data (`data/raw/`, gitignored):** `bangalabarta/`, `smishdetect_hf/`, `banglaphish2026/`
-* **Reports (`reports/`):** `phase1_dataset_audit.md`, `phase1_audit.json`, `phase2_3_cpu_baselines.md`, `phase2_3_cpu_baselines.json`
-* **Tests:** `tests/test_pipeline.py`
 
 ---
 
-## 3. Exact Resume Plan (Next Session)
+## 3. Exact Resume Plan (From Any Laptop)
 
-1. **Choose Colab sync mode** (tell the assistant at start of next session):
-   * **Option A:** Google Drive only (`MyDrive/ExploringAIs`)
-   * **Option B:** GitHub repo (code) + Google Drive (outputs/checkpoints)
-2. **Automate Colab runner (optional upgrade before running):**
-   * Package Phases 2–5 GPU code into a resumable `scripts/run_colab_suite.py` and shrink `notebooks/colab_phase2_5_gpu_pipeline.ipynb` to a 3-cell launcher (Mount/Sync → Run `--resume` → Save outputs).
-3. **Run Colab GPU Pipeline (~35–50 / 200 compute units):**
-   * Connect VS Code notebook kernel via **Select Kernel → Colab → Auto Connect** (T4 or L4 GPU).
-   * Run Fold-0 pilot first (~5–10 min), then full 5-fold CV (`BanglaBERT`, `MuRIL`, `XLM-R`, `Distil-mBERT`, `MobileBERT`) + LODO OOD on `BanglaPhish-2026` SMS + ONNX INT8 latency/RAM benchmark (Phase 4) + 4-bit selective SLM explanation samples (Phase 5).
-4. **Local Post-Processing & Paper Writing (Phase 5):**
-   * Sync `reports_gpu/` back to workspace → run McNemar & bootstrap CIs, ablations, error analysis, Android profiling, and draft the paper.
+1. **Sync & Verify Environment:**
+   * Pull repo (`git pull`) and verify `.venv` (`uv sync` if needed; check `data/raw/` is present if re-running Stage A).
+   * Run test suite: `.venv/bin/python -m unittest discover -s tests -v && .venv/bin/python tests/test_pipeline.py`.
+   * Optional read-only dry-run check on current 300-row pilot (writes only to a non-production `--out-dir`):
+     `.venv/bin/python scripts/validate_stage_b_pilot.py --dry-run --out-dir /tmp/stage_b_dry_run`
+2. **Next Authorized Task — Generate Remaining `345` `Promotional` Rows (ONLY after explicit user approval):**
+   * Derive strictly from `data/processed/curation_v2/eligible_train.parquet` (`0` held-out/OOD content inspected).
+   * Target language mix for the `345` Promotional rows (check `reports/stage_b_coverage_and_pilot_plan.md` & `codemix_diversity.py` targets: `Banglish +131`, `Bengali +93`, `CodeMix +93`, `English +28` for equal `387/lang`, or confirm allocation with user).
+   * Enforce `--diversity-mode new_batch`: `0%` `[hook !/?] + [pure EN]` on CodeMix, `>=80%` Bengali-script CodeMix, `>=60%` intra-sentential lexical mixing, `>=30%` brandless promos, `max_brand_count <= 5` with brand/alias metadata (`brand_names`/`brand_aliases`) + JSON registry, non-`*1234#` USSD codes, `sent1!` `<=35%`, `sent1?` `<=5%`.
+   * Run mandatory row-by-row independent review + replacement of flagged rows, then run full validation (`validate_stage_b_pilot.py`) and compare class-matched `is_synthetic` AUC reductions (`raw`, `canon_masked`, `brand_masked`, `brand_stripped`).
+3. **Post-Stage B — Baseline vs. Balanced Evaluation & Colab GPU Pipeline (Phases 2–5):**
+   * Run fold-safe 5-fold CV + `smishdetect_test` + `BanglaPhish-2026` OOD comparisons (`unchanged baseline` vs `balanced original-only` vs `original + Stage B synthetic`) across raw, canonical-masked, brand-masked, and brand-stripped views.
+   * Proceed to Colab GPU suite (`notebooks/colab_phase2_5_gpu_pipeline.ipynb`: `BanglaBERT`, `MuRIL`, `XLM-R`, `Distil-mBERT`, `MobileBERT`) and paper writeup.
