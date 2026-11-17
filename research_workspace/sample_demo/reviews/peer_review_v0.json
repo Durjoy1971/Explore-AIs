@@ -1,0 +1,18 @@
+{
+  "Summary": "Baseline synthetic draft evaluating SMC.",
+  "Strengths": ["Clear formulation", "Grounded table values"],
+  "Weaknesses": ["Needs clearer ablation note"],
+  "Originality": 3,
+  "Quality": 3,
+  "Clarity": 3,
+  "Significance": 2,
+  "Questions": ["What seed and batch size were used?"],
+  "Limitations": ["Synthetic evaluation only"],
+  "Ethical Concerns": false,
+  "Soundness": 3,
+  "Presentation": 3,
+  "Contribution": 3,
+  "Overall": 6,
+  "Confidence": 4,
+  "Decision": "Accept"
+}

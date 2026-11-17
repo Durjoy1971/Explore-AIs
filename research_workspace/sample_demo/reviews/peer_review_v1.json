@@ -1,0 +1,18 @@
+{
+  "Summary": "Revised synthetic draft clarifying reproducibility settings.",
+  "Strengths": ["Clear formulation", "Grounded table values", "Explicit seed and batch size"],
+  "Weaknesses": [],
+  "Originality": 3,
+  "Quality": 4,
+  "Clarity": 4,
+  "Significance": 2,
+  "Questions": [],
+  "Limitations": ["Synthetic evaluation only"],
+  "Ethical Concerns": false,
+  "Soundness": 3,
+  "Presentation": 4,
+  "Contribution": 3,
+  "Overall": 7,
+  "Confidence": 4,
+  "Decision": "Accept"
+}

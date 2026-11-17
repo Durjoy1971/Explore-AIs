@@ -1,0 +1,11 @@
+[
+  {
+    "candidate": {
+      "title": "Future Post-Cutoff Paper Example",
+      "year": 2026,
+      "section": "Introduction",
+      "reason": "Should be rejected by 2025-12 cutoff filter."
+    },
+    "reason": "Unverified or exceeds cutoff_date"
+  }
+]

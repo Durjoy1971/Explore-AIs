@@ -1,0 +1,149 @@
+{
+  "plotting_plan": [
+    {
+      "figure_id": "fig_accuracy_bar",
+      "title": "Macro-F1 Comparison Across Methods",
+      "plot_type": "plot",
+      "data_source": "experimental_log.md",
+      "objective": "Bar chart comparing Macro-F1 (%) across TF-IDF + LR, Unmasked Encoder, and SMC.",
+      "aspect_ratio": "16:9"
+    }
+  ],
+  "intro_related_work_plan": {
+    "introduction_strategy": {
+      "hook_hypothesis": "On-device SMS filtering requires calibrated predictions under domain shift.",
+      "problem_gap_hypothesis": "Surface token masking reduces shortcut reliance but degrades uncalibrated probabilities in our synthetic benchmark.",
+      "search_directions": [
+        "Calibration of neural network classifiers via temperature scaling",
+        "Shortcut learning in natural language classification"
+      ],
+      "citation_candidates": []
+    },
+    "related_work_strategy": {
+      "overview": "Contrast calibration and shortcut-mitigation literature.",
+      "subsections": [
+        {
+          "subsection_title": "2.1 Model Calibration",
+          "methodology_cluster": "Post-Hoc Calibration",
+          "sota_investigation_mission": "Review post-hoc temperature scaling methods before 2025-12.",
+          "limitation_hypothesis": "Standard calibration assumes i.i.d. surface distributions.",
+          "limitation_search_queries": [
+            "temperature scaling calibration shift"
+          ],
+          "bridge_to_our_method": "SMC calibrates after shortcut token masking.",
+          "citation_candidates": [
+            "Guo2017CalibrationModern"
+          ]
+        },
+        {
+          "subsection_title": "2.2 Shortcut Mitigation",
+          "methodology_cluster": "Input Masking & Spurious Correlation Removal",
+          "sota_investigation_mission": "Review surface-feature masking approaches before 2025-12.",
+          "limitation_hypothesis": "Masking alone leaves confidence miscalibrated.",
+          "limitation_search_queries": [
+            "shortcut learning text classification masking"
+          ],
+          "bridge_to_our_method": "SMC pairs masking with post-hoc calibration.",
+          "citation_candidates": [
+            "Geirhos2020ShortcutLearning"
+          ]
+        }
+      ]
+    }
+  },
+  "section_plan": [
+    {
+      "section_title": "Abstract",
+      "subsections": [
+        {
+          "subsection_title": "Abstract Content",
+          "content_bullets": [
+            "Summarize shortcut masking and temperature calibration.",
+            "Report Macro-F1 (91.4%) and ECE (0.032) from experimental_log.md."
+          ],
+          "citation_hints": [],
+          "evidence_sources": [
+            "idea.md",
+            "experimental_log.md"
+          ],
+          "citation_candidates": []
+        }
+      ]
+    },
+    {
+      "section_title": "3. Methodology",
+      "subsections": [
+        {
+          "subsection_title": "3.1 Surface Token Masking",
+          "content_bullets": [
+            "Mask URL and phone tokens as described in idea.md."
+          ],
+          "citation_hints": [],
+          "evidence_sources": [
+            "idea.md"
+          ],
+          "citation_candidates": []
+        },
+        {
+          "subsection_title": "3.2 Post-Hoc Temperature Scaling",
+          "content_bullets": [
+            "Apply softmax(z(x)/tau) calibration from idea.md."
+          ],
+          "citation_hints": [
+            "Guo et al. (On Calibration of Modern Neural Networks)"
+          ],
+          "evidence_sources": [
+            "idea.md"
+          ],
+          "citation_candidates": []
+        }
+      ]
+    },
+    {
+      "section_title": "4. Experiments",
+      "subsections": [
+        {
+          "subsection_title": "4.1 Experimental Setup",
+          "content_bullets": [
+            "5-fold split, seed 42, Macro-F1 and ECE metrics."
+          ],
+          "citation_hints": [],
+          "evidence_sources": [
+            "experimental_log.md"
+          ],
+          "citation_candidates": []
+        },
+        {
+          "subsection_title": "4.2 Main Results",
+          "content_bullets": [
+            "Compare TF-IDF + LR, Unmasked Encoder, and SMC."
+          ],
+          "citation_hints": [
+            "Geirhos et al. (Shortcut Learning in Deep Neural Networks)"
+          ],
+          "evidence_sources": [
+            "experimental_log.md"
+          ],
+          "citation_candidates": []
+        }
+      ]
+    },
+    {
+      "section_title": "5. Limitations and Conclusion",
+      "subsections": [
+        {
+          "subsection_title": "Limitations and Conclusion Content",
+          "content_bullets": [
+            "Note synthetic sample evaluation scope from experimental_log.md.",
+            "Summarize verified gains."
+          ],
+          "citation_hints": [],
+          "evidence_sources": [
+            "experimental_log.md"
+          ],
+          "citation_candidates": []
+        }
+      ]
+    }
+  ]
+}

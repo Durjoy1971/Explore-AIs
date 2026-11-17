@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+data/raw/
+data/processed/*.parquet
+reports/*.json
+*.egg-info/
+.ipynb_checkpoints/

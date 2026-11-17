@@ -1,0 +1,13 @@
+{
+  "project_slug": "sample_demo",
+  "venue": "iclr_single",
+  "cutoff_date": "2025-12",
+  "double_blind": true,
+  "model_policy": {
+    "provider": "gemini_only",
+    "reasoning_writer_model": "gemini-3.1-pro-preview",
+    "fast_search_model": "gemini-3-flash-preview",
+    "review_model": "gemini-3.1-pro-preview"
+  },
+  "created_at": "2026-11-17T06:40:08.147842+00:00"
+}

@@ -1,0 +1,51 @@
+{
+  "Guo2017CalibrationModern": {
+    "citation_key": "Guo2017CalibrationModern",
+    "verified": true,
+    "found_in_section": "Related Work: 2.1 Model Calibration",
+    "reason": "Foundational paper for temperature scaling.",
+    "verification_source": "offline_fixture",
+    "paper_id": "s2_guo2017",
+    "doi": "10.5555/3305381.3305518",
+    "arxiv_id": null,
+    "title": "On Calibration of Modern Neural Networks",
+    "authors": [
+      "Chuan Guo",
+      "Geoff Pleiss",
+      "Yu Sun",
+      "Kilian Q. Weinberger"
+    ],
+    "venue": "ICML",
+    "year": 2017,
+    "abstract": "Confidence calibration is essential for reliable neural network predictions; temperature scaling provides an effective post-hoc calibration method.",
+    "citation_count": 0,
+    "journal": null,
+    "volume": null,
+    "pages": null,
+    "publication_date": "2017-08-06"
+  },
+  "Geirhos2020ShortcutLearning": {
+    "citation_key": "Geirhos2020ShortcutLearning",
+    "verified": true,
+    "found_in_section": "Related Work: 2.2 Shortcut Mitigation",
+    "reason": "Defines shortcut learning framework.",
+    "verification_source": "offline_fixture",
+    "paper_id": "s2_geirhos2020",
+    "doi": "10.1038/s42256-020-00257-z",
+    "arxiv_id": null,
+    "title": "Shortcut Learning in Deep Neural Networks",
+    "authors": [
+      "Robert Geirhos",
+      "J\u00f6rn-Henrik Jacobsen",
+      "Claudio Michaelis"
+    ],
+    "venue": "Nature Machine Intelligence",
+    "year": 2020,
+    "abstract": "Deep neural networks often rely on unintended shortcut decision rules that fail under distribution shifts.",
+    "citation_count": 0,
+    "journal": null,
+    "volume": null,
+    "pages": null,
+    "publication_date": "2020-11-10"
+  }
+}

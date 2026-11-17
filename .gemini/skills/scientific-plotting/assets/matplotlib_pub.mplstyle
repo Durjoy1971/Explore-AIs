@@ -1,0 +1,28 @@
+# Publication-ready Matplotlib style for scientific papers
+figure.dpi: 300
+savefig.dpi: 300
+savefig.bbox: tight
+savefig.pad_inches: 0.05
+figure.facecolor: white
+axes.facecolor: white
+axes.edgecolor: #333333
+axes.linewidth: 0.8
+axes.spines.top: False
+axes.spines.right: False
+axes.grid: True
+axes.axisbelow: True
+grid.color: #CCCCCC
+grid.linestyle: --
+grid.linewidth: 0.6
+grid.alpha: 0.5
+axes.prop_cycle: cycler('color', ['0072B2', 'D55E00', '009E73', 'CC79A7', 'E69F00', '56B4E9', '4D4D4D'])
+font.size: 10
+axes.titlesize: 11
+axes.labelsize: 10
+xtick.labelsize: 9
+ytick.labelsize: 9
+legend.fontsize: 9
+legend.frameon: False
+lines.linewidth: 1.8
+lines.markersize: 5
+errorbar.capsize: 3

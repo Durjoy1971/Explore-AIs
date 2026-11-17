@@ -1,0 +1,20 @@
+[
+  {
+    "title": "On Calibration of Modern Neural Networks",
+    "year": 2017,
+    "section": "Related Work: 2.1 Model Calibration",
+    "reason": "Foundational paper for temperature scaling."
+  },
+  {
+    "title": "Shortcut Learning in Deep Neural Networks",
+    "year": 2020,
+    "section": "Related Work: 2.2 Shortcut Mitigation",
+    "reason": "Defines shortcut learning framework."
+  },
+  {
+    "title": "Future Post-Cutoff Paper Example",
+    "year": 2026,
+    "section": "Introduction",
+    "reason": "Should be rejected by 2025-12 cutoff filter."
+  }
+]

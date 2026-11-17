@@ -1,0 +1,34 @@
+[
+  {
+    "verification_source": "offline_fixture",
+    "paper_id": "s2_guo2017",
+    "doi": "10.5555/3305381.3305518",
+    "title": "On Calibration of Modern Neural Networks",
+    "authors": ["Chuan Guo", "Geoff Pleiss", "Yu Sun", "Kilian Q. Weinberger"],
+    "venue": "ICML",
+    "year": 2017,
+    "publication_date": "2017-08-06",
+    "abstract": "Confidence calibration is essential for reliable neural network predictions; temperature scaling provides an effective post-hoc calibration method."
+  },
+  {
+    "verification_source": "offline_fixture",
+    "paper_id": "s2_geirhos2020",
+    "doi": "10.1038/s42256-020-00257-z",
+    "title": "Shortcut Learning in Deep Neural Networks",
+    "authors": ["Robert Geirhos", "Jörn-Henrik Jacobsen", "Claudio Michaelis"],
+    "venue": "Nature Machine Intelligence",
+    "year": 2020,
+    "publication_date": "2020-11-10",
+    "abstract": "Deep neural networks often rely on unintended shortcut decision rules that fail under distribution shifts."
+  },
+  {
+    "verification_source": "offline_fixture",
+    "paper_id": "s2_future2026",
+    "title": "Future Post-Cutoff Paper Example",
+    "authors": ["Future Author"],
+    "venue": "ICLR",
+    "year": 2026,
+    "publication_date": "2026-05-01",
+    "abstract": "Published after cutoff."
+  }
+]

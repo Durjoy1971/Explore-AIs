@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="270" viewBox="0 0 600 270">
+  <rect width="600" height="270" fill="#ffffff"/>
+  <line x1="65" y1="30" x2="65" y2="220" stroke="#333333" stroke-width="1.2"/>
+  <line x1="65" y1="220" x2="570" y2="220" stroke="#333333" stroke-width="1.2"/>
+  <text x="22" y="130" transform="rotate(-90 22,130)" text-anchor="middle" font-size="12" font-family="sans-serif">Macro-F1 (%)</text>
+  <rect x="90" y="128.0" width="90" height="92.0" fill="#4D4D4D" rx="3"/><text x="135" y="120.0" text-anchor="middle" font-size="12" font-family="sans-serif">84.2%</text><text x="135" y="242" text-anchor="middle" font-size="11" font-family="sans-serif">TF-IDF + LR</text><rect x="260" y="85.0" width="90" height="135.0" fill="#0072B2" rx="3"/><text x="305" y="77.0" text-anchor="middle" font-size="12" font-family="sans-serif">88.5%</text><text x="305" y="242" text-anchor="middle" font-size="11" font-family="sans-serif">Encoder (Unmasked)</text><rect x="430" y="56.0" width="90" height="164.0" fill="#009E73" rx="3"/><text x="475" y="48.0" text-anchor="middle" font-size="12" font-family="sans-serif">91.4%</text><text x="475" y="242" text-anchor="middle" font-size="11" font-family="sans-serif">Encoder + SMC (Ours)</text>
+</svg>

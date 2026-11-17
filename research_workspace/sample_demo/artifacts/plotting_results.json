@@ -1,0 +1,9 @@
+[
+  {
+    "figure_id": "fig_accuracy_bar",
+    "image_path": "figures/fig_accuracy_bar.svg",
+    "script_path": "research_workspace/sample_demo/manuscript/scripts/fig_accuracy_bar.py",
+    "caption": "Macro-F1 comparison across TF-IDF + LR, Unmasked Encoder, and SMC on the synthetic sample benchmark.",
+    "size_bytes": 1266
+  }
+]

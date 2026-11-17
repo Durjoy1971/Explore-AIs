@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "checked_citations": 2,
+  "checked_figures": 1,
+  "checked_table_numbers": 6,
+  "compile_status": "unavailable_no_pdflatex",
+  "errors": [],
+  "warnings": [
+    "pdflatex/bibtex not found on PATH; skipped PDF compilation."
+  ]
+}

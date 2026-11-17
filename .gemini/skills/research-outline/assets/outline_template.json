@@ -1,0 +1,113 @@
+{
+  "plotting_plan": [
+    {
+      "figure_id": "fig_method_overview",
+      "title": "System Architecture Overview",
+      "plot_type": "diagram",
+      "data_source": "idea.md",
+      "objective": "Block diagram illustrating core modules and data flow.",
+      "aspect_ratio": "16:9"
+    }
+  ],
+  "intro_related_work_plan": {
+    "introduction_strategy": {
+      "hook_hypothesis": "Broad context motivating why the task matters.",
+      "problem_gap_hypothesis": "Specific bottleneck verified in experimental_log.md.",
+      "search_directions": [
+        "Papers establishing real-world impact of the problem gap",
+        "Comprehensive survey papers on the research area",
+        "Foundational papers establishing the problem formulation"
+      ]
+    },
+    "related_work_strategy": {
+      "overview": "Group prior work into distinct technical clusters contrasting with our approach.",
+      "subsections": [
+        {
+          "subsection_title": "2.1 Paradigm A",
+          "methodology_cluster": "Technical Category A",
+          "sota_investigation_mission": "Identify representative prior methods published before cutoff_date.",
+          "limitation_hypothesis": "Known limitation grounded in idea.md.",
+          "limitation_search_queries": [
+            "specific failure mode query for Paradigm A"
+          ],
+          "bridge_to_our_method": "How our approach addresses this limitation."
+        },
+        {
+          "subsection_title": "2.2 Paradigm B",
+          "methodology_cluster": "Technical Category B",
+          "sota_investigation_mission": "Identify representative baselines and benchmarks before cutoff_date.",
+          "limitation_hypothesis": "Tradeoff or constraint grounded in idea.md.",
+          "limitation_search_queries": [
+            "specific tradeoff query for Paradigm B"
+          ],
+          "bridge_to_our_method": "How our design complements or resolves Paradigm B's limitation."
+        }
+      ]
+    }
+  },
+  "section_plan": [
+    {
+      "section_title": "Abstract",
+      "subsections": [
+        {
+          "subsection_title": "Abstract Content",
+          "content_bullets": [
+            "State the problem and motivation concisely.",
+            "Summarize the proposed methodology.",
+            "Report verified quantitative gains from experimental_log.md."
+          ],
+          "citation_hints": [],
+          "evidence_sources": ["idea.md", "experimental_log.md"]
+        }
+      ]
+    },
+    {
+      "section_title": "3. Methodology",
+      "subsections": [
+        {
+          "subsection_title": "3.1 Problem Formulation",
+          "content_bullets": ["Formalize inputs, outputs, and notation from idea.md."],
+          "citation_hints": [],
+          "evidence_sources": ["idea.md"]
+        },
+        {
+          "subsection_title": "3.2 Core Architecture and Objective",
+          "content_bullets": ["Detail equations and training/inference procedure from idea.md."],
+          "citation_hints": [],
+          "evidence_sources": ["idea.md"]
+        }
+      ]
+    },
+    {
+      "section_title": "4. Experiments",
+      "subsections": [
+        {
+          "subsection_title": "4.1 Experimental Setup",
+          "content_bullets": ["Datasets, baselines, metrics, and hyperparameters from experimental_log.md."],
+          "citation_hints": [],
+          "evidence_sources": ["experimental_log.md"]
+        },
+        {
+          "subsection_title": "4.2 Main Results and Ablations",
+          "content_bullets": ["Quantitative comparisons and ablation findings from experimental_log.md."],
+          "citation_hints": [],
+          "evidence_sources": ["experimental_log.md"]
+        }
+      ]
+    },
+    {
+      "section_title": "5. Limitations and Conclusion",
+      "subsections": [
+        {
+          "subsection_title": "Limitations and Conclusion Content",
+          "content_bullets": [
+            "State scope boundaries, failure modes, and compute constraints honestly.",
+            "Summarize key verified takeaways."
+          ],
+          "citation_hints": [],
+          "evidence_sources": ["idea.md", "experimental_log.md"]
+        }
+      ]
+    }
+  ]
+}
