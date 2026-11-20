@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
+from decimal import Decimal
+from enum import Enum
 from typing import Any
 
 import numpy as np
 from scipy.stats import binomtest
-from sklearn.metrics import accuracy_score, classification_report, f1_score
+from sklearn.metrics import classification_report
+
+
+class _ThresholdSelection(Enum):
+    EMPIRICAL = "empirical"
 
 
 def smishing_recall_at_fpr(
@@ -15,31 +21,62 @@ def smishing_recall_at_fpr(
     smish_idx: int,
     normal_idx: int,
     max_fpr: float = 0.01,
-) -> dict[str, float]:
-    """Compute Smishing Recall at threshold keeping Normal-as-Smishing FPR <= max_fpr."""
+    *,
+    operating_threshold: float | None | _ThresholdSelection = _ThresholdSelection.EMPIRICAL,
+) -> dict[str, Any]:
+    """Use float64 score >= threshold and report rates in percent without rounding.
+
+    With empirical selection, exclude the first Normal score outside the integer
+    FP budget and its ties using the next representable float64 threshold.
+    A supplied threshold is scored unchanged, even when its FPR exceeds the cap.
+    """
+    if not 0 <= max_fpr <= 1:
+        raise ValueError("max_fpr must be in [0, 1]")
+    y_true = np.asarray(y_true)
+    probs = np.asarray(probs)
+    if probs.ndim != 2 or y_true.shape != (len(probs),):
+        raise ValueError("Expected aligned labels and probabilities")
+    scores = probs[:, smish_idx].astype(np.float64, copy=False)
+    if not np.isfinite(scores).all() or ((scores < 0) | (scores > 1)).any():
+        raise ValueError("Expected finite Smishing probabilities in [0, 1]")
     is_smish = y_true == smish_idx
     is_normal = y_true == normal_idx
-    smish_scores = probs[:, smish_idx]
+    n_normal = int(is_normal.sum())
+    n_smish = int(is_smish.sum())
+    allowed_fp = int(Decimal(str(max_fpr)) * n_normal)
 
-    normal_scores = np.sort(smish_scores[is_normal])[::-1]
-    if len(normal_scores) == 0 or is_smish.sum() == 0:
-        return {"recall_at_fpr": 0.0, "actual_fpr": 0.0, "threshold": 1.0}
-
-    allowed_fp = int(np.floor(max_fpr * len(normal_scores)))
-    if allowed_fp == 0:
-        threshold = float(normal_scores[0] + 1e-9)
+    if operating_threshold is _ThresholdSelection.EMPIRICAL:
+        threshold = None
+        if n_normal:
+            if allowed_fp == n_normal:
+                threshold = float(scores.min())
+            else:
+                descending = np.sort(scores[is_normal])[::-1]
+                threshold = float(np.nextafter(descending[allowed_fp], np.inf))
+        source = "empirical_same_sample"
     else:
-        threshold = float(normal_scores[allowed_fp - 1])
-
-    preds_smish = smish_scores >= threshold
-    tp = int((preds_smish & is_smish).sum())
-    fp = int((preds_smish & is_normal).sum())
-    recall = tp / float(is_smish.sum())
-    actual_fpr = fp / float(is_normal.sum())
+        threshold = operating_threshold
+        source = "fixed_validation"
+    if threshold is not None and not np.isfinite(threshold):
+        raise ValueError("Expected a finite threshold")
+    fp = recall = fpr = constraint_met = None
+    if threshold is not None:
+        predicted = scores >= threshold
+        fp = int((predicted & is_normal).sum())
+        recall = 100.0 * int((predicted & is_smish).sum()) / n_smish if n_smish else None
+        fpr = 100.0 * fp / n_normal if n_normal else None
+        constraint_met = fp <= allowed_fp if n_normal else None
     return {
-        "recall_at_fpr": round(recall * 100.0, 2),
-        "actual_fpr": round(actual_fpr * 100.0, 2),
-        "threshold": round(threshold, 4),
+        "recall_at_fpr": recall,
+        "actual_fpr": fpr,
+        "threshold": threshold,
+        "false_positives": fp,
+        "n_normal": n_normal,
+        "n_smishing": n_smish,
+        "constraint_met": constraint_met,
+        "max_fpr": max_fpr,
+        "comparison": "float64_score >= float64_threshold",
+        "threshold_source": source,
     }
 
 
@@ -57,48 +94,55 @@ def expected_calibration_error(y_true: np.ndarray, probs: np.ndarray, n_bins: in
     return round(float(ece), 4)
 
 
-def _fast_acc_and_macro_f1_boot(
+def _cluster_indices(length: int, family_ids: np.ndarray | None) -> tuple[np.ndarray, int]:
+    if family_ids is None:
+        return np.arange(length), length
+    families = np.asarray(family_ids, dtype=str)
+    if families.shape != (length,) or np.isin(families, ["", "None", "nan", "<NA>"]).any():
+        raise ValueError("Expected one nonempty family ID per prediction row")
+    unique, indices = np.unique(families, return_inverse=True)
+    return indices, len(unique)
+
+
+def _confusion_intervals(
     y_true: np.ndarray,
     y_pred: np.ndarray,
     n_classes: int,
-    n_resamples: int = 1000,
+    smish_idx: int,
+    n_resamples: int,
+    family_ids: np.ndarray | None,
     seed: int = 42,
-) -> tuple[tuple[float, float, float], tuple[float, float, float]]:
-    """Fast vectorized bootstrap CIs for accuracy and macro-F1 via confusion-matrix bincount."""
-    n = len(y_true)
-    if n == 0:
-        return (0.0, 0.0, 0.0), (0.0, 0.0, 0.0)
+) -> tuple[dict[str, float | None], dict[str, list[float] | None]]:
+    """Percentile intervals resampling complete families or individual rows."""
+    cluster_indices, n_clusters = _cluster_indices(len(y_true), family_ids)
+    keys = ("accuracy", "macro_f1", "smishing_recall_argmax")
+    if not n_clusters:
+        return dict.fromkeys(keys), dict.fromkeys(keys)
+    if n_resamples < 1:
+        raise ValueError("n_resamples must be positive")
+    cells = np.zeros((n_clusters, n_classes, n_classes), dtype=np.int64)
+    np.add.at(cells, (cluster_indices, y_true, y_pred), 1)
 
-    def _stats(yt: np.ndarray, yp: np.ndarray) -> tuple[float, float]:
-        cm = np.bincount(yt * n_classes + yp, minlength=n_classes * n_classes).reshape(n_classes, n_classes)
-        tp = np.diag(cm).astype(float)
-        fp = cm.sum(axis=0).astype(float) - tp
-        fn = cm.sum(axis=1).astype(float) - tp
-        denom = 2.0 * tp + fp + fn
-        f1s = np.where(denom > 0, (2.0 * tp) / np.where(denom > 0, denom, 1.0), 0.0)
-        return float(tp.sum() / n), float(f1s.mean())
+    def stats(cm: np.ndarray) -> tuple[float, float, float]:
+        tp = cm.diagonal()
+        support = cm.sum(axis=1)
+        denom = support + cm.sum(axis=0)
+        class_f1 = np.divide(2 * tp, denom, out=np.zeros(n_classes), where=denom > 0)
+        return tp.sum() / cm.sum(), class_f1.mean(), tp[smish_idx] / support[smish_idx] if support[smish_idx] else np.nan
 
-    pt_acc, pt_f1 = _stats(y_true, y_pred)
+    point = stats(cells.sum(axis=0))
     rng = np.random.default_rng(seed)
-    accs = np.empty(n_resamples, dtype=float)
-    f1s = np.empty(n_resamples, dtype=float)
-    pair_codes = y_true * n_classes + y_pred
+    values = np.empty((n_resamples, len(keys)))
     for i in range(n_resamples):
-        idx = rng.integers(0, n, size=n)
-        cm = np.bincount(pair_codes[idx], minlength=n_classes * n_classes).reshape(n_classes, n_classes)
-        tp = np.diag(cm).astype(float)
-        fp = cm.sum(axis=0).astype(float) - tp
-        fn = cm.sum(axis=1).astype(float) - tp
-        denom = 2.0 * tp + fp + fn
-        accs[i] = float(tp.sum() / n)
-        f1s[i] = float(np.where(denom > 0, (2.0 * tp) / np.where(denom > 0, denom, 1.0), 0.0).mean())
-
-    acc_lo, acc_hi = np.percentile(accs, [2.5, 97.5])
-    f1_lo, f1_hi = np.percentile(f1s, [2.5, 97.5])
-    return (
-        (round(pt_acc * 100.0, 2), round(float(acc_lo) * 100.0, 2), round(float(acc_hi) * 100.0, 2)),
-        (round(pt_f1 * 100.0, 2), round(float(f1_lo) * 100.0, 2), round(float(f1_hi) * 100.0, 2)),
-    )
+        sample = rng.integers(n_clusters, size=n_clusters)
+        values[i] = stats(cells[sample].sum(axis=0))
+    estimates = {}
+    intervals = {}
+    for idx, key in enumerate(keys):
+        valid = values[np.isfinite(values[:, idx]), idx]
+        estimates[key] = round(float(point[idx]) * 100.0, 2) if np.isfinite(point[idx]) else None
+        intervals[key] = np.round(np.percentile(valid, [2.5, 97.5]) * 100.0, 2).tolist() if len(valid) else None
+    return estimates, intervals
 
 
 def bootstrap_ci(
@@ -122,13 +166,51 @@ def bootstrap_ci(
 
 def mcnemar_pvalue(y_true: np.ndarray, pred_a: np.ndarray, pred_b: np.ndarray) -> dict[str, Any]:
     """Exact binomial McNemar test comparing two classifiers on identical test instances."""
+    if y_true.ndim != 1 or pred_a.shape != y_true.shape or pred_b.shape != y_true.shape:
+        raise ValueError("McNemar requires aligned one-dimensional predictions")
     correct_a = pred_a == y_true
     correct_b = pred_b == y_true
     n01 = int((~correct_a & correct_b).sum())
     n10 = int((correct_a & ~correct_b).sum())
     n_disc = n01 + n10
     pval = 1.0 if n_disc == 0 else float(binomtest(min(n01, n10), n_disc, 0.5).pvalue)
-    return {"n_a_only": n10, "n_b_only": n01, "p_value": round(pval, 6)}
+    return {"n_a_only": n10, "n_b_only": n01, "p_value": pval}
+
+
+def holm_adjust_pvalues(pvalues: dict[str, float]) -> dict[str, float]:
+    """Holm familywise-error adjusted p-values for the supplied comparison family."""
+    adjusted = {}
+    running_max = 0.0
+    for rank, (key, pvalue) in enumerate(sorted(pvalues.items(), key=lambda item: item[1])):
+        running_max = max(running_max, min(1.0, (len(pvalues) - rank) * pvalue))
+        adjusted[key] = running_max
+    return adjusted
+
+
+def paired_family_accuracy_delta(
+    y_true: np.ndarray,
+    pred_a: np.ndarray,
+    pred_b: np.ndarray,
+    family_ids: np.ndarray,
+    *,
+    n_resamples: int = 1000,
+) -> dict[str, Any]:
+    """Bootstrap paired (B minus A) accuracy deltas over complete families."""
+    if y_true.ndim != 1 or pred_a.shape != y_true.shape or pred_b.shape != y_true.shape:
+        raise ValueError("Paired bootstrap requires aligned one-dimensional predictions")
+    indices, n_clusters = _cluster_indices(len(y_true), family_ids)
+    delta = (pred_b == y_true).astype(int) - (pred_a == y_true)
+    group_delta = np.bincount(indices, weights=delta, minlength=n_clusters)
+    group_sizes = np.bincount(indices, minlength=n_clusters)
+    rng = np.random.default_rng(42)
+    values = np.empty(n_resamples)
+    for i in range(n_resamples):
+        draw = rng.integers(n_clusters, size=n_clusters)
+        values[i] = group_delta[draw].sum() / group_sizes[draw].sum()
+    return {
+        "accuracy_delta_pp": round(float(delta.mean()) * 100, 2),
+        "accuracy_delta_ci95_pp": np.round(np.percentile(values, [2.5, 97.5]) * 100, 2).tolist(),
+    }
 
 
 def evaluate_predictions(
@@ -136,19 +218,26 @@ def evaluate_predictions(
     probs: np.ndarray,
     label_names: tuple[str, ...] = ("Normal", "Promotional", "Smishing"),
     n_boot: int = 1000,
+    *,
+    family_ids: np.ndarray | None = None,
+    operating_threshold: float | None | _ThresholdSelection = _ThresholdSelection.EMPIRICAL,
 ) -> dict[str, Any]:
-    """Full evaluation bundle matching the research proposal metrics."""
+    """Evaluate predictions and optionally apply a threshold learned on validation."""
     y_pred = probs.argmax(axis=1)
-    (acc, acc_lo, acc_hi), (mf1, mf1_lo, mf1_hi) = _fast_acc_and_macro_f1_boot(
-        y_true, y_pred, n_classes=len(label_names), n_resamples=n_boot
-    )
     normal_idx = label_names.index("Normal")
+    promo_idx = label_names.index("Promotional")
     smish_idx = label_names.index("Smishing")
-    fpr_stats = smishing_recall_at_fpr(y_true, probs, smish_idx=smish_idx, normal_idx=normal_idx, max_fpr=0.01)
+    points, intervals = _confusion_intervals(
+        y_true, y_pred, len(label_names), smish_idx, n_boot, family_ids
+    )
+    fpr_stats = smishing_recall_at_fpr(
+        y_true, probs, smish_idx, normal_idx, operating_threshold=operating_threshold
+    )
 
-    # Also compute Smishing FPR at argmax prediction
-    normal_mask = y_true == normal_idx
-    argmax_fpr = float(((y_pred == smish_idx) & normal_mask).sum() / max(1, int(normal_mask.sum())) * 100.0)
+    def argmax_false_positive_pct(label_idx: int) -> float | None:
+        mask = y_true == label_idx
+        return round(float((y_pred[mask] == smish_idx).mean()) * 100.0, 2) if mask.any() else None
+
     report = classification_report(
         y_true,
         y_pred,
@@ -160,14 +249,14 @@ def evaluate_predictions(
 
     return {
         "n_samples": int(len(y_true)),
-        "accuracy": acc,
-        "accuracy_ci95": [acc_lo, acc_hi],
-        "macro_f1": mf1,
-        "macro_f1_ci95": [mf1_lo, mf1_hi],
-        "smishing_recall_argmax": round(float(report["Smishing"]["recall"] * 100.0), 2),
+        **points,
+        **{f"{key}_ci95": interval for key, interval in intervals.items()},
+        "bootstrap_unit": "family" if family_ids is not None else "row",
         "smishing_f1": round(float(report["Smishing"]["f1-score"] * 100.0), 2),
-        "normal_as_smishing_fpr_argmax": round(argmax_fpr, 2),
-        "smishing_recall_at_1pct_fpr": fpr_stats["recall_at_fpr"],
+        "normal_as_smishing_fpr_argmax": argmax_false_positive_pct(normal_idx),
+        "promotional_as_smishing_fpr_argmax": argmax_false_positive_pct(promo_idx),
+        "smishing_recall_at_1pct_fpr": fpr_stats["recall_at_fpr"] if fpr_stats["constraint_met"] else None,
+        "smishing_low_fpr": fpr_stats,
         "ece": expected_calibration_error(y_true, probs),
         "per_class": {
             lbl: {

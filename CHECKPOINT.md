@@ -1,5 +1,38 @@
 # Research Checkpoint — Bangla & Code-Mixed Smishing Detection
 
+## Post-Stage B readiness checkpoint · 2026-11-20
+
+**Full grid decision: NO-GO.** Source row and family memberships are intact. Exact model-input duplicates in `brand_masked` and `brand_stripped` cross CV, counterfactual, and held-out SmishDetect boundaries. Full mode now stops before the trainer is called. The grid has not run, Stage B generation remains stopped, and Google Drive was untouched.
+
+- Preflight confirmed this repository on `main` at `282ef63b374d9bafa786bf7aabc6a987a73d3777` with empty `git status --short`. All 267 preflight protected files under `data/`, `reports/`, and `DataSet.csv` matched their original SHA256. The original v1 bundle remains at `data/processed/post_stage_b_bundle/`.
+- Corrected derived bundle at `data/processed/post_stage_b_bundle_v2/` keeps the frozen memberships, original text, and all clean and counterfactual views. It corrects 79 stored synthetic normalization values and adds the corresponding masked adversarial columns. V2 manifest SHA256 is `308d1c889840c1ec04e1cd6f6751cccfca0e559f2e12c61e18ff2e54d6fa2922`.
+- The 4,644-row full pool has 1,548 rows per class and 387 per Promotional language. The real-only eligible pool has 3,999 rows, Pilot 300, and Batches 1–7 345. Fifteen main cohort pairs had zero exact, strong-normalized, row-ID, or family-ID overlaps. All five folds use identical ordered real validation rows across A–D. Counterfactual ownership is unique across 1,279 rows. The separate transformed-input audit found 128 repeated comparison hits from three distinct Smishing row pairs.
+- B now uses class-weighted training loss on the same ordered rows as A. The other cohort configurations, smoke caps, equal-epoch schedule, and seed remain fixed. Low-FPR thresholding is tie-safe and full-precision. Held-out and OOD metrics use the clean CV-derived threshold. Counterfactual selection and adversarial preprocessing use the valid fold and view. Resume requires strict run identity and checked attempts, ordered archives, metrics, and checkpoints.
+- Full local suite passed 63/63. The standalone pipeline check, eight-cell notebook schema, and both live bundle verifications passed. Real CPU tensor evaluation confirmed Experiment B’s weighted training loss and unweighted validation loss.
+- Historical A/D DistilBERT smoke was reconstructed from the frozen folds and configuration at 64 training and 32 validation rows per unit. Historical predictions and logs were unavailable locally. Corrected GPU and Drive execution, confirmatory statistics, resource measurements, and the brand-view collision policy remain open.
+- See the [final matrix](reports/post_stage_b_final_readiness_report.md), [audit](reports/post_stage_b_comprehensive_audit.md), [implementation](reports/post_stage_b_implementation_report.md), [integrity audit](reports/post_stage_b_integrity_and_leakage_report.md), [test log summary](reports/post_stage_b_test_report.md), and [Colab assessment](reports/post_stage_b_colab_readiness_report.md).
+
+### Resume verification locally
+
+```bash
+git status --short
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python tests/test_pipeline.py
+.venv/bin/python scripts/prepare_post_stage_b_bundle.py --verify-only
+.venv/bin/python scripts/prepare_post_stage_b_bundle.py --verify-only --bundle-dir data/processed/post_stage_b_bundle_v2
+.venv/bin/python scripts/audit_post_stage_b_model_views.py --bundle-dir data/processed/post_stage_b_bundle_v2
+```
+
+The last command currently exits 1 and lists the affected comparisons. Review the collision and confirmatory analysis policies before authorizing any full execution. If a corrected Colab smoke is authorized, stage only a fresh local kit, then use the smoke notebook settings and a fresh run ID.
+
+```bash
+.venv/bin/python scripts/prepare_post_stage_b_bundle.py --verify-only \
+  --bundle-dir data/processed/post_stage_b_bundle_v2 \
+  --export-drive-kit /tmp/exploringais-post-stage-b-v2-owner-kit
+```
+
+---
+
 **Saved:** 2026-11-20 (16:12 +06:00)  
 **Status:** Completed **Stage A (`curation_v1` & `curation_v2`)**, **Stage B 300-row Pilot + Independent Review**, **Pipeline Hardening + Unified Brand Detection**, **Stage B Batches 1–6 (`300` Promotional rows)**, and **Final Stage B Batch 7 (`45` Promotional rows in isolated `data/generated/curation_v2/batch7_45/`) + Full 5-Cohort, 10-Seed/Bootstrap & Surface-AUC Orientation Diagnostics + Final Stage B Completion Report**. **All Stage B class and language deficits are now `0` (`Normal = 1,548`, `Promotional = 1,548` [`387/lang`], `Smishing = 1,548`, total `4,644`). ALL SYNTHETIC GENERATION IS STOPPED**, awaiting user review before Post-Stage B evaluation or further changes.
 
@@ -103,7 +136,7 @@
 
 ---
 
-## 3. Exact Resume Plan (From Any Laptop)
+## 3. Historical Resume Plan (Superseded by the Post-Stage B Checkpoint Above)
 
 1. **Sync & Verify Environment:**
    * Pull repo (`git pull`) and verify `.venv` (`uv sync` if needed; check `data/raw/` is present if re-running Stage A).

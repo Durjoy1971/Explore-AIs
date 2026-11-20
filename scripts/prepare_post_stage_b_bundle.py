@@ -13,6 +13,8 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from bangla_smish.post_stage_b_data import (
     assemble_post_stage_b_bundle,
+    audit_post_stage_b_bundle,
+    sha256_file,
     verify_manifest,
     verify_protected_inputs,
 )
@@ -20,9 +22,7 @@ from bangla_smish.post_stage_b_data import (
 
 def export_drive_kit(project_root: Path, bundle_dir: Path, kit_dir: Path) -> Path:
     """Create a self-contained folder ready to upload to Google Drive (no credentials or raw data)."""
-    if kit_dir.exists():
-        shutil.rmtree(kit_dir)
-    kit_dir.mkdir(parents=True, exist_ok=True)
+    kit_dir.mkdir(parents=True)
 
     shutil.copytree(
         project_root / "src" / "bangla_smish",
@@ -34,7 +34,7 @@ def export_drive_kit(project_root: Path, bundle_dir: Path, kit_dir: Path) -> Pat
         kit_dir / "experiments" / "colab" / "configs",
     )
     shutil.copy2(project_root / "pyproject.toml", kit_dir / "pyproject.toml")
-    shutil.copytree(bundle_dir, kit_dir / "data" / "processed" / "post_stage_b_bundle")
+    shutil.copytree(bundle_dir, kit_dir / "data" / "processed" / bundle_dir.name)
     return kit_dir
 
 
@@ -43,8 +43,8 @@ def main() -> None:
     parser.add_argument(
         "--bundle-dir",
         type=Path,
-        default=ROOT / "data" / "processed" / "post_stage_b_bundle",
-        help="Destination directory for assembled parquet bundle and dataset_manifest.json.",
+        default=None,
+        help="Existing bundle to verify or new directory for assembly. Verification defaults to the frozen v1 bundle.",
     )
     parser.add_argument(
         "--verify-only",
@@ -58,25 +58,30 @@ def main() -> None:
         help="Optional directory to stage a lightweight upload-ready Google Drive folder.",
     )
     args = parser.parse_args()
+    if args.bundle_dir is None:
+        if not args.verify_only:
+            parser.error("--bundle-dir must name a new directory when assembling a bundle")
+        args.bundle_dir = ROOT / "data" / "processed" / "post_stage_b_bundle"
 
     print("1) Verifying 13 protected inputs (SHA256)...")
     protected = verify_protected_inputs(ROOT, strict_digests=True)
     print(f"   Verified {len(protected)} protected inputs untouched.")
 
-    if args.verify_only:
-        manifest = verify_manifest(args.bundle_dir, verify_checksums=True)
-    else:
+    if not args.verify_only:
         print(f"2) Auditing and assembling bundle into {args.bundle_dir}...")
-        manifest = assemble_post_stage_b_bundle(ROOT, args.bundle_dir, strict_digests=True)
-        manifest = verify_manifest(args.bundle_dir, verify_checksums=True)
+        assemble_post_stage_b_bundle(ROOT, args.bundle_dir, strict_digests=True)
+    manifest = verify_manifest(args.bundle_dir, verify_checksums=True)
+    audit = audit_post_stage_b_bundle(ROOT, args.bundle_dir, manifest)
 
     print("3) Bundle & manifest verification summary:")
     print(json.dumps(
         {
             "manifest_version": manifest["manifest_version"],
+            "manifest_sha256": sha256_file(args.bundle_dir / "dataset_manifest.json"),
             "brand_vocabulary_count": manifest["brand_vocabulary_count"],
             "integrity_checks": manifest["integrity_checks"],
             "cohort_counts": {k: v.get("by_class", v) for k, v in manifest["cohort_counts"].items()},
+            "recomputed_audit": audit,
         },
         indent=2,
         ensure_ascii=False,

@@ -7,13 +7,16 @@ import json
 import subprocess
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from itertools import combinations
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pandas as pd
+from pyarrow.parquet import ParquetFile
 
 from .codemix_diversity import collect_brand_aliases
+from .curation import strong_normalize_text
 from .schema import (
     CANONICAL_LABELS,
     _PHONE_RE as _SCHEMA_PHONE_RE,
@@ -26,6 +29,8 @@ from .schema import (
 from .splits import perturb_zwj_homoglyph
 
 LABEL_TO_IDX: dict[str, int] = {lbl: idx for idx, lbl in enumerate(CANONICAL_LABELS)}
+CV_FOLDS = (0, 1, 2, 3, 4)
+BALANCE_MODES = ("none", "downsample", "class_weight")
 TEXT_VIEW_COLUMNS: dict[str, str] = {
     "raw": "text_raw",
     "canon_masked": "text_canon_masked",
@@ -70,6 +75,22 @@ BUNDLE_FILENAMES: tuple[str, ...] = (
     "counterfactual_smish_probe.parquet",
 )
 
+EXPECTED_COHORT_COUNTS = {
+    "real_train_pool.parquet": (1509, 942, 1548),
+    "synthetic_pilot_300.parquet": (39, 261, 0),
+    "synthetic_batches_b1_b7.parquet": (0, 345, 0),
+    "eval_smishdetect_validation.parquet": (265, 178, 265),
+    "eval_smishdetect_test.parquet": (581, 384, 733),
+    "eval_banglaphish_ood.parquet": (2336, 80, 3000),
+}
+V1_INTEGRITY_CHECKS = {
+    "zero_cross_eval_family_overlap",
+    "zero_synthetic_eval_family_overlap",
+    "zero_synthetic_real_exact_overlap",
+    "fold_family_leakage_max_eq_1",
+    "exact_stage_b_parity_1548_per_class",
+}
+
 
 @dataclass(frozen=True)
 class ExperimentSpec:
@@ -95,10 +116,10 @@ EXPERIMENT_SPECS: dict[str, ExperimentSpec] = {
     "B": ExperimentSpec(
         experiment_id="B",
         name="exp_b_original_only_balanced",
-        description="Original-Only Balanced (eligible_train downsampled to minority class per fold; 942/class full-pool).",
+        description="Class-Weighted Real Baseline (full eligible_train pool N=3,999).",
         include_pilot=False,
         include_b1_b7=False,
-        default_balance_mode="downsample",
+        default_balance_mode="class_weight",
     ),
     "C": ExperimentSpec(
         experiment_id="C",
@@ -188,21 +209,20 @@ def collect_post_stage_b_brand_vocabulary(
     merged_registry: dict[str, list[str]] = {}
     for batch_name in SYNTHETIC_BATCH_DIRS:
         reg_path = root / "data" / "generated" / "curation_v2" / batch_name / "brand_registry.json"
-        if reg_path.exists():
-            payload = json.loads(reg_path.read_text(encoding="utf-8"))
-            brands_map = payload.get("brands", payload) if isinstance(payload, dict) else {}
-            if isinstance(brands_map, dict):
-                for key, aliases in brands_map.items():
-                    merged_registry.setdefault(str(key), [])
-                    if isinstance(aliases, list):
-                        merged_registry[str(key)].extend(str(a) for a in aliases)
+        brands_map = json.loads(reg_path.read_text(encoding="utf-8"))["brands"]
+        if not isinstance(brands_map, dict) or not brands_map:
+            raise ValueError(f"Invalid brand registry: {reg_path}")
+        for key, aliases in brands_map.items():
+            if not isinstance(aliases, list) or not all(isinstance(alias, str) and alias.strip() for alias in aliases):
+                raise ValueError(f"Invalid aliases for {key!r} in {reg_path}")
+            merged_registry.setdefault(key, []).extend(aliases)
     alias_dict = collect_brand_aliases(
         synthetic_records or [],
         brand_registry=merged_registry,
     )
     meta_brands = set(extract_metadata_brands(synthetic_records or []))
     all_tokens = {alias for aliases in alias_dict.values() for alias in aliases} | meta_brands
-    return sorted(all_tokens, key=len, reverse=True)
+    return sorted(all_tokens, key=lambda token: (-len(token), token))
 
 
 def _compute_view_columns(
@@ -219,7 +239,8 @@ def _compute_view_columns(
         "text_brand_stripped": [],
     }
     if include_adv:
-        out["text_adv"] = []
+        for view in TEXT_VIEW_COLUMNS:
+            out[f"text_adv_{view}"] = []
     for t in texts:
         views = mask_text_views(t, brands=brands, brand_pattern=brand_pattern)
         out["text_raw"].append(views["raw"])
@@ -227,7 +248,10 @@ def _compute_view_columns(
         out["text_brand_masked"].append(views["brand_masked"])
         out["text_brand_stripped"].append(views["brand_stripped"])
         if include_adv:
-            out["text_adv"].append(perturb_zwj_homoglyph(views["raw"], seed=42))
+            adv_text = perturb_zwj_homoglyph(views["raw"], seed=42)
+            adv_views = mask_text_views(adv_text, brands=brands, brand_pattern=brand_pattern)
+            for view, value in adv_views.items():
+                out[f"text_adv_{view}"].append(value)
     return out
 
 
@@ -284,7 +308,7 @@ def _standardize_synthetic_records(
         {
             "row_id": [str(r["id"]) for r in records],
             "text": texts,
-            "text_norm_strict": [str(r.get("text_norm_strict") or r["text"]).strip().lower() for r in records],
+            "text_norm_strict": [strong_normalize_text(text) for text in texts],
             "label_3class": labels,
             "label_idx": [LABEL_TO_IDX[lbl] for lbl in labels],
             "language": [str(r["language"]) for r in records],
@@ -357,6 +381,129 @@ def _summarize_df_counts(df: pd.DataFrame) -> dict[str, Any]:
     }
 
 
+def select_counterfactual_fold(
+    probe: pd.DataFrame,
+    train_df: pd.DataFrame,
+    val_df: pd.DataFrame,
+    fold: int,
+) -> pd.DataFrame:
+    """Select the probe for the full pre-cap validation fold and check its parent rows."""
+    if not probe["row_id"].is_unique or not probe["curation_cv_fold"].isin(CV_FOLDS).all():
+        raise RuntimeError("Counterfactual probe has duplicate IDs or invalid fold assignments.")
+    if not val_df["curation_cv_fold"].eq(fold).all():
+        raise RuntimeError("Counterfactual validation frame has an unexpected fold assignment.")
+    selected = probe.loc[probe["curation_cv_fold"].eq(fold)].reset_index(drop=True)
+    for column in ("row_id", "family_id"):
+        if not set(selected[column]).isdisjoint(train_df[column]):
+            raise RuntimeError(f"Counterfactual {column} overlaps training in fold {fold}.")
+
+    texts = val_df["text"]
+    contact = texts.str.contains(_SCHEMA_URL_RE, regex=True) | texts.str.contains(_SCHEMA_PHONE_RE, regex=True)
+    eligible = val_df.loc[val_df["label_3class"].eq("Smishing") & contact]
+    columns = ["row_id", "family_id", "curation_cv_fold", "language", "label_idx"]
+    if not selected[columns].sort_values("row_id").reset_index(drop=True).equals(
+        eligible[columns].sort_values("row_id").reset_index(drop=True)
+    ):
+        raise RuntimeError(f"Counterfactual rows do not match eligible validation parents in fold {fold}.")
+    return selected
+
+
+def _require_equal_rows(actual: pd.DataFrame, expected: pd.DataFrame, table_name: str) -> None:
+    columns = expected.columns.tolist()
+    if not actual[columns].reset_index(drop=True).equals(expected.reset_index(drop=True)):
+        raise RuntimeError(f"Bundle source rows, labels, or order differ for {table_name}.")
+
+
+def _audit_bundle_tables(tables: dict[str, pd.DataFrame], *, require_normalization: bool) -> dict[str, Any]:
+    """Independently measure cohort membership, duplicate keys, and validation ownership."""
+    fingerprints = {}
+    normalization_mismatches = {}
+    for name, expected_counts in EXPECTED_COHORT_COUNTS.items():
+        table = tables[name]
+        actual_counts = _summarize_df_counts(table)["by_class"]
+        if tuple(actual_counts.values()) != expected_counts or len(table) != sum(expected_counts):
+            raise RuntimeError(f"Unexpected cohort size or class counts in {name}: {actual_counts}.")
+        expected_labels = table["label_3class"].map(LABEL_TO_IDX)
+        expected_folds = CV_FOLDS if name == "real_train_pool.parquet" else (-1,)
+        expected_synthetic = name.startswith("synthetic_")
+        if (
+            not table["label_idx"].eq(expected_labels).all()
+            or not table["curation_cv_fold"].isin(expected_folds).all()
+            or not table["is_synthetic"].eq(expected_synthetic).all()
+        ):
+            raise RuntimeError(f"Unexpected label, fold, or Stage B cohort marker in {name}.")
+        strict = table["text"].map(strong_normalize_text)
+        normalization_mismatches[name] = int(strict.ne(table["text_norm_strict"]).sum())
+        fingerprints[name] = {
+            "row_id": set(table["row_id"]),
+            "family_id": set(table["family_id"]),
+            "text": set(table["text"]),
+            "strong_normalized_text": set(strict),
+        }
+        for column in ("row_id", "family_id", "text"):
+            if table[column].isna().any() or "" in fingerprints[name][column]:
+                raise RuntimeError(f"Missing {column} in {name}.")
+        for column in ("row_id", "text", "strong_normalized_text"):
+            values = fingerprints[name][column]
+            if "" in values or len(values) != len(table):
+                raise RuntimeError(f"Empty or duplicate {column} in {name}.")
+    if require_normalization and any(normalization_mismatches.values()):
+        raise RuntimeError(f"Inconsistent strong normalization: {normalization_mismatches}.")
+
+    pairs_checked = 0
+    for left, right in combinations(fingerprints, 2):
+        pairs_checked += 1
+        for key, left_values in fingerprints[left].items():
+            if left_values & fingerprints[right][key]:
+                raise RuntimeError(f"Cross-cohort {key} overlap between {left} and {right}.")
+
+    real = tables["real_train_pool.parquet"]
+    cf = tables["counterfactual_smish_probe.parquet"]
+    if real.groupby("family_id")["curation_cv_fold"].nunique().max() != 1:
+        raise RuntimeError("A real family is assigned to multiple folds.")
+    per_fold = {}
+    scored_probe_ids = []
+    for fold in CV_FOLDS:
+        train = real.loc[real["curation_cv_fold"].ne(fold)]
+        val = real.loc[real["curation_cv_fold"].eq(fold)]
+        if val.empty:
+            raise RuntimeError(f"Missing real validation fold {fold}.")
+        probe = select_counterfactual_fold(cf, train, val, fold)
+        scored_probe_ids.extend(probe["row_id"])
+        per_fold[fold] = {
+            "n_real_train": len(train),
+            "n_real_val": len(val),
+            "n_counterfactual": len(probe),
+            "val_by_class": _summarize_df_counts(val)["by_class"],
+        }
+    if set(scored_probe_ids) != set(cf["row_id"]) or len(scored_probe_ids) != len(cf):
+        raise RuntimeError("The counterfactual probe must be covered exactly once by the five folds.")
+
+    full_train = pd.concat([tables[name] for name in list(EXPECTED_COHORT_COUNTS)[:3]], ignore_index=True)
+    promotional_languages = full_train.loc[full_train["label_3class"].eq("Promotional"), "language"].value_counts()
+    if promotional_languages.to_dict() != dict.fromkeys(("Bengali", "Banglish", "English", "CodeMix"), 387):
+        raise RuntimeError(f"Unexpected full-pool Promotional language counts: {promotional_languages.to_dict()}.")
+    return {
+        "cohort_pairs_checked": pairs_checked,
+        "normalization_metadata_mismatches": normalization_mismatches,
+        "promotional_languages_full_pool": promotional_languages.to_dict(),
+        "folds": per_fold,
+    }
+
+
+def _brand_input_hashes(project_root: Path) -> dict[str, str]:
+    paths = [
+        Path("data/generated/curation_v2") / batch / "brand_registry.json"
+        for batch in SYNTHETIC_BATCH_DIRS
+    ]
+    return {path.as_posix(): sha256_file(project_root / path) for path in paths}
+
+
+def _vocabulary_sha256(vocabulary: list[str]) -> str:
+    payload = json.dumps(vocabulary, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
 def assemble_post_stage_b_bundle(
     project_root: str | Path,
     output_dir: str | Path,
@@ -366,7 +513,8 @@ def assemble_post_stage_b_bundle(
     """Audit protected corpora + Stage B cohorts and export the Colab-ready verified dataset bundle."""
     root = Path(project_root)
     out_dir = Path(output_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
+    if out_dir.exists() or out_dir.is_symlink():
+        raise FileExistsError(f"Bundle output must be a new directory: {out_dir}")
 
     protected_inventory = verify_protected_inputs(root, strict_digests=strict_digests)
 
@@ -412,44 +560,7 @@ def assemble_post_stage_b_bundle(
     )
     cf_probe = _build_counterfactual_probe_df(real_train, brands=brands, brand_pattern=brand_pattern)
 
-    # Leakage and count integrity assertions
-    train_fams = set(real_train["family_id"])
-    val_fams = set(sd_val["family_id"])
-    test_fams = set(sd_test["family_id"])
-    ood_fams = set(bp_ood["family_id"])
-    pilot_fams = set(syn_pilot["family_id"])
-    b1_b7_fams = set(syn_b1_b7["family_id"])
-
-    zero_cross_eval_family_overlap = (
-        train_fams.isdisjoint(val_fams)
-        and train_fams.isdisjoint(test_fams)
-        and train_fams.isdisjoint(ood_fams)
-        and val_fams.isdisjoint(test_fams)
-    )
-    zero_synthetic_eval_family_overlap = (
-        (pilot_fams | b1_b7_fams).isdisjoint(train_fams | val_fams | test_fams | ood_fams)
-        and pilot_fams.isdisjoint(b1_b7_fams)
-    )
-    fold_family_leakage_max = int(real_train.groupby("family_id")["curation_cv_fold"].nunique().max())
-
-    all_real_texts = set(existing_df["text_norm_strict"].astype(str))
-    all_syn_texts = set(syn_pilot["text_norm_strict"]) | set(syn_b1_b7["text_norm_strict"])
-    zero_synthetic_real_exact_overlap = len(all_real_texts & all_syn_texts) == 0
-
     full_balanced = pd.concat([real_train, syn_pilot, syn_b1_b7], ignore_index=True)
-    balanced_class_counts = {lbl: int((full_balanced["label_3class"] == lbl).sum()) for lbl in CANONICAL_LABELS}
-    exact_stage_b_parity = balanced_class_counts == {"Normal": 1548, "Promotional": 1548, "Smishing": 1548}
-
-    integrity_checks = {
-        "zero_cross_eval_family_overlap": bool(zero_cross_eval_family_overlap),
-        "zero_synthetic_eval_family_overlap": bool(zero_synthetic_eval_family_overlap),
-        "zero_synthetic_real_exact_overlap": bool(zero_synthetic_real_exact_overlap),
-        "fold_family_leakage_max_eq_1": fold_family_leakage_max == 1,
-        "exact_stage_b_parity_1548_per_class": bool(exact_stage_b_parity),
-    }
-    if not all(integrity_checks.values()):
-        raise RuntimeError(f"Dataset integrity check failed: {integrity_checks}")
-
     tables = {
         "real_train_pool.parquet": real_train,
         "synthetic_pilot_300.parquet": syn_pilot,
@@ -459,7 +570,12 @@ def assemble_post_stage_b_bundle(
         "eval_banglaphish_ood.parquet": bp_ood,
         "counterfactual_smish_probe.parquet": cf_probe,
     }
+    content_audit = _audit_bundle_tables(tables, require_normalization=True)
+    integrity_checks = dict.fromkeys(sorted(V1_INTEGRITY_CHECKS), True)
+    integrity_checks["zero_all_pairwise_row_family_and_text_overlap"] = True
+    integrity_checks["exact_counterfactual_validation_parent_coverage"] = True
 
+    out_dir.mkdir(parents=True)
     bundle_files_meta: dict[str, dict[str, Any]] = {}
     for fname, table in tables.items():
         fpath = out_dir / fname
@@ -472,14 +588,17 @@ def assemble_post_stage_b_bundle(
         }
 
     manifest = {
-        "manifest_version": "post_stage_b_v1",
+        "manifest_version": "post_stage_b_v2",
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "git_head": _git_head_sha(root),
         "synthetic_generation_status": "PERMANENTLY_STOPPED",
         "brand_vocabulary_count": len(brands),
+        "brand_vocabulary_sha256": _vocabulary_sha256(brands),
+        "brand_registry_sha256": _brand_input_hashes(root),
         "protected_inputs": protected_inventory,
         "bundle_files": bundle_files_meta,
         "integrity_checks": integrity_checks,
+        "content_audit": content_audit,
         "cohort_counts": {
             "real_train_pool": _summarize_df_counts(real_train),
             "synthetic_pilot_300": _summarize_df_counts(syn_pilot),
@@ -514,27 +633,134 @@ def verify_manifest(bundle_dir: str | Path, *, verify_checksums: bool = True) ->
     if not manifest_path.exists():
         raise FileNotFoundError(f"dataset_manifest.json not found in {bdir}")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if manifest.get("manifest_version") != "post_stage_b_v1":
+    version = manifest.get("manifest_version")
+    if version not in ("post_stage_b_v1", "post_stage_b_v2"):
         raise ValueError(f"Unsupported manifest_version: {manifest.get('manifest_version')}")
     checks = manifest.get("integrity_checks", {})
-    if not checks or not all(bool(v) for v in checks.values()):
+    required_checks = V1_INTEGRITY_CHECKS
+    if version == "post_stage_b_v2":
+        required_checks = required_checks | {
+            "zero_all_pairwise_row_family_and_text_overlap",
+            "exact_counterfactual_validation_parent_coverage",
+        }
+    if not isinstance(checks, dict) or not required_checks <= checks.keys() or not all(v is True for v in checks.values()):
         raise RuntimeError(f"Manifest failed integrity checks: {checks}")
 
     bundle_files = manifest.get("bundle_files", {})
+    if set(bundle_files) != set(BUNDLE_FILENAMES):
+        raise RuntimeError("Manifest bundle files do not match the required inventory.")
     for fname in BUNDLE_FILENAMES:
         fpath = bdir / fname
         if not fpath.exists():
             raise FileNotFoundError(f"Missing bundle file: {fpath}")
-        if fname not in bundle_files:
-            raise KeyError(f"Manifest missing metadata for {fname}")
+        metadata = bundle_files[fname]
         if verify_checksums:
             actual_sha = sha256_file(fpath)
-            expected_sha = bundle_files[fname]["sha256"]
+            expected_sha = metadata["sha256"]
             if actual_sha != expected_sha:
                 raise RuntimeError(
                     f"Checksum mismatch for {fname}: expected {expected_sha}, got {actual_sha}"
                 )
+        with ParquetFile(fpath) as parquet:
+            if (
+                parquet.metadata.num_rows != metadata["n_rows"]
+                or parquet.schema_arrow.names != metadata["columns"]
+                or fpath.stat().st_size != metadata["bytes"]
+            ):
+                raise RuntimeError(f"Manifest physical metadata mismatch for {fname}.")
     return manifest
+
+
+def audit_post_stage_b_bundle(
+    project_root: str | Path, bundle_dir: str | Path, manifest: dict[str, Any],
+) -> dict[str, Any]:
+    """Compare decoded bundle rows against protected source tables and recompute checks."""
+    root = Path(project_root)
+    bdir = Path(bundle_dir)
+    if manifest["protected_inputs"] != verify_protected_inputs(root):
+        raise RuntimeError("Manifest protected source fingerprints differ from local files.")
+    tables = {name: pd.read_parquet(bdir / name) for name in BUNDLE_FILENAMES}
+    audit = _audit_bundle_tables(tables, require_normalization=manifest["manifest_version"] == "post_stage_b_v2")
+    cohort_counts = {Path(name).stem: _summarize_df_counts(tables[name]) for name in EXPECTED_COHORT_COUNTS}
+    full_train = pd.concat([tables[name] for name in list(EXPECTED_COHORT_COUNTS)[:3]], ignore_index=True)
+    cohort_counts["full_stage_b_balanced_pool"] = _summarize_df_counts(full_train)
+    cohort_counts["counterfactual_smish_probe"] = {"n_rows": len(tables["counterfactual_smish_probe.parquet"])}
+    if manifest["cohort_counts"] != cohort_counts:
+        raise RuntimeError("Manifest cohort counts differ from decoded tables.")
+
+    real_cols = ["canonical_id", "text", "label_3class", "language", "family_id"]
+    eligible = pd.read_parquet(root / "data/processed/curation_v2/eligible_train.parquet")
+    existing = pd.read_parquet(root / "data/processed/curation_v2/existing_unique.parquet")
+    for name, cohort, source in (
+        ("real_train_pool.parquet", "real_train", eligible),
+        ("eval_smishdetect_validation.parquet", "smishdetect_validation", existing),
+        ("eval_smishdetect_test.parquet", "smishdetect_test", existing),
+        ("eval_banglaphish_ood.parquet", "banglaphish_ood", existing),
+    ):
+        if cohort == "real_train":
+            expected = source[real_cols + ["curation_cv_fold"]].copy()
+        else:
+            expected = source.loc[source["eval_group"].eq(cohort), real_cols].assign(curation_cv_fold=-1)
+        expected = expected.rename(columns={"canonical_id": "row_id"}).assign(cohort=cohort)
+        _require_equal_rows(tables[name], expected, name)
+
+    provenance = pd.read_parquet(root / "data/processed/curation_v2/provenance.parquet")
+    joined = provenance.merge(
+        existing[["canonical_id", "family_id", "eval_group"]],
+        on="canonical_id", how="inner", validate="many_to_one", suffixes=("_source", "_curated"),
+    )
+    if not joined["family_id_source"].eq(joined["family_id_curated"]).all():
+        raise RuntimeError("Curated source provenance has an inconsistent family ID.")
+    smishdetect = joined.loc[joined["dataset"].eq("smishdetect_2026")]
+    train_links = smishdetect.loc[smishdetect["eval_group"].eq("train_pool")]
+    if set(train_links["canonical_id"]) != set(eligible["canonical_id"]) or set(train_links["orig_split"]) != {"train"}:
+        raise RuntimeError("Curated training rows have missing or held-out SmishDetect source links.")
+    audit["smishdetect_train_source_links"] = len(train_links)
+
+    ood = pd.read_parquet(root / "data/processed/banglaphish2026_dedup.parquet")
+    ood_columns = ["text", "label_3class"]
+    _require_equal_rows(
+        tables["eval_banglaphish_ood.parquet"].sort_values("text"),
+        ood[ood_columns].sort_values("text"),
+        "BanglaPhish reference",
+    )
+
+    generated = root / "data/generated/curation_v2"
+    accepted_groups = {
+        "synthetic_pilot_300.parquet": [_load_jsonl(generated / "accepted.jsonl")],
+        "synthetic_batches_b1_b7.parquet": [_load_jsonl(generated / batch / "accepted.jsonl") for batch in SYNTHETIC_BATCH_DIRS],
+    }
+    duplicate_reference = set(existing["text"].map(strong_normalize_text))
+    quarantine = pd.read_parquet(root / "data/processed/curation_v2/quarantined.parquet", columns=["text"])
+    duplicate_reference.update(quarantine["text"].map(strong_normalize_text))
+    for file_name, record_groups in accepted_groups.items():
+        counts = [len(group) for group in record_groups]
+        expected_counts = [300] if file_name == "synthetic_pilot_300.parquet" else [50] * 6 + [45]
+        if counts != expected_counts:
+            raise RuntimeError(f"Unexpected accepted source membership sizes for {file_name}: {counts}")
+        accepted = pd.DataFrame([record for group in record_groups for record in group])
+        if not accepted["review_status"].eq("accepted").all() or accepted["source_row_ids"].map(bool).any():
+            raise RuntimeError(f"Unaccepted rows or source-linked augmentation found in {file_name}.")
+        source_cols = ["id", "text", "label_3class", "language", "family_id", "generation_batch"]
+        expected = accepted[source_cols].rename(columns={"id": "row_id", "generation_batch": "cohort"})
+        _require_equal_rows(tables[file_name], expected, file_name)
+        if duplicate_reference.intersection(accepted["text"].map(strong_normalize_text)):
+            raise RuntimeError(f"Strong normalized text overlap with the curation inventory in {file_name}.")
+    all_accepted = [row for groups in accepted_groups.values() for group in groups for row in group]
+    brands = collect_post_stage_b_brand_vocabulary(root, synthetic_records=all_accepted)
+    if len(brands) != manifest["brand_vocabulary_count"]:
+        raise RuntimeError("Manifest brand vocabulary count differs from local source metadata.")
+    if manifest["manifest_version"] == "post_stage_b_v2":
+        if (
+            manifest["brand_vocabulary_sha256"] != _vocabulary_sha256(brands)
+            or manifest["brand_registry_sha256"] != _brand_input_hashes(root)
+        ):
+            raise RuntimeError("Manifest brand inputs differ from frozen source metadata.")
+    cf = tables["counterfactual_smish_probe.parquet"]
+    real = tables["real_train_pool.parquet"].set_index("row_id")
+    if not cf["orig_text_raw"].eq(cf["row_id"].map(real["text"])).all():
+        raise RuntimeError("Counterfactual original text differs from its frozen parent.")
+    return audit
 
 
 def _downsample_balanced_df(df: pd.DataFrame, seed: int) -> pd.DataFrame:
@@ -548,6 +774,14 @@ def _downsample_balanced_df(df: pd.DataFrame, seed: int) -> pd.DataFrame:
     return pd.concat(parts, ignore_index=True).sample(frac=1.0, random_state=seed).reset_index(drop=True)
 
 
+def training_class_weights(label_indices: pd.Series) -> list[float]:
+    """Return inverse frequency weights N / (K × n_c) for a training split."""
+    counts = label_indices.value_counts().reindex(range(len(CANONICAL_LABELS)), fill_value=0)
+    if not label_indices.isin(counts.index).all() or counts.eq(0).any():
+        raise ValueError("Class weighting requires valid labels and at least one training row per class.")
+    return (len(label_indices) / (len(CANONICAL_LABELS) * counts)).tolist()
+
+
 def build_experiment_fold_data(
     bundle_dir: str | Path,
     experiment_id: str,
@@ -559,12 +793,14 @@ def build_experiment_fold_data(
     """Construct leakage-free train and validation DataFrames for one experiment and CV fold."""
     if experiment_id not in EXPERIMENT_SPECS:
         raise ValueError(f"Unknown experiment_id={experiment_id!r}; expected one of {tuple(EXPERIMENT_SPECS)}")
-    if fold not in (0, 1, 2, 3, 4):
+    if fold not in CV_FOLDS:
         raise ValueError(f"Invalid fold={fold}; expected 0..4")
 
     bdir = Path(bundle_dir)
     spec = EXPERIMENT_SPECS[experiment_id]
-    balance_mode = balance_mode_override or spec.default_balance_mode
+    balance_mode = spec.default_balance_mode if balance_mode_override is None else balance_mode_override
+    if balance_mode not in BALANCE_MODES:
+        raise ValueError(f"Unsupported balance mode: {balance_mode!r}; expected one of {BALANCE_MODES}")
 
     real_df = pd.read_parquet(bdir / "real_train_pool.parquet")
     tr_real = real_df[real_df["curation_cv_fold"] != fold].reset_index(drop=True)
@@ -584,15 +820,16 @@ def build_experiment_fold_data(
     # Strict anti-leakage assertions
     if bool(va_real["is_synthetic"].any()):
         raise RuntimeError("Validation fold must contain real rows only.")
+    if not train_df["row_id"].is_unique or not va_real["row_id"].is_unique:
+        raise RuntimeError("Duplicate row IDs within a training or validation fold.")
+    if not set(train_df["row_id"]).isdisjoint(va_real["row_id"]):
+        raise RuntimeError("Row ID leakage detected between train and validation folds.")
     if not set(train_df["family_id"]).isdisjoint(set(va_real["family_id"])):
         raise RuntimeError("Family ID leakage detected between train and validation folds.")
 
     class_weights = None
     if balance_mode == "class_weight":
-        counts = train_df["label_idx"].value_counts().to_dict()
-        total = float(len(train_df))
-        n_cls = float(len(CANONICAL_LABELS))
-        class_weights = [total / (n_cls * float(counts.get(i, 1))) for i in range(len(CANONICAL_LABELS))]
+        class_weights = training_class_weights(train_df["label_idx"])
 
     meta = {
         "experiment_id": experiment_id,
