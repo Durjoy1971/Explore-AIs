@@ -256,6 +256,46 @@ class TestEvaluateCodeMixAndEntityDiversity(unittest.TestCase):
         self.assertEqual(res["ussd_1234_share"], 1.0)
         self.assertFalse(res["all_gates_passed"])
 
+    def test_unified_brand_detection_bengali_banglish_inflections_and_bn_ussd(self) -> None:
+        from bangla_smish.schema import mask_text_views
+
+        records = [
+            {
+                "label_3class": "Promotional",
+                "language": "Bengali",
+                "text": "শাপলাসেবায় ১৫০ টাকা রিচার্জে ৫ জিবি বোনাস! ডায়াল *১২১*৪২০৫#।",
+            },
+            {
+                "label_3class": "Promotional",
+                "language": "Banglish",
+                "text": "ShaplaSebay ajke 200 taka recharge-e bonus, ar ShaplaSeba-r pack-e char.",
+            },
+            {
+                "label_3class": "Promotional",
+                "language": "Bengali",
+                "text": "শুক্রবার থেকে রবিবার পর্যন্ত সব আইটেমে ২০% ছাড়, ডায়াল *১২৩৪#।",
+            },
+            {
+                "label_3class": "Promotional",
+                "language": "Bengali",
+                "text": "তাজা আম ও লিচুতে ১৫% ছাড়, দেখতে ভিজিট করুন https://example.com/shaplaseba",
+            },
+        ]
+        res = evaluate_codemix_and_entity_diversity(records, mode="audit")
+        top = dict(res["top_brands"])
+        # Rows 1 & 2 -> shaplaseba; Row 3 (রবিবার) & Row 4 (URL-only path) -> brandless
+        self.assertEqual(top.get("shaplaseba"), 2)
+        self.assertEqual(res["unique_brands_count"], 1)
+        self.assertEqual(res["brandless_rate"], 0.5)
+        self.assertEqual(res["total_ussd_mentions"], 2)
+        self.assertEqual(res["ussd_1234_count"], 1)
+        self.assertEqual(res["ussd_1234_share"], 0.5)
+        for rec in records:
+            views = mask_text_views(rec["text"])
+            is_branded_mask = "<BRAND>" in views["brand_masked"]
+            is_branded_strip = views["brand_stripped"] != views["canon_masked"]
+            self.assertEqual(is_branded_mask, is_branded_strip, msg=rec["text"])
+
     def test_dynamic_metadata_brand_aliases_and_known_brands_preserve_defaults(self) -> None:
         records = [
             {

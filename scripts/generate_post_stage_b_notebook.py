@@ -1,0 +1,231 @@
+"""Generate the Google Colab notebook at experiments/colab/post_stage_b_experiments.ipynb."""
+
+from __future__ import annotations
+
+from pathlib import Path
+import nbformat as nbf
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def build_notebook() -> nbf.NotebookNode:
+    nb = nbf.v4.new_notebook()
+    nb.metadata["colab"] = {
+        "provenance": [],
+        "gpuType": "T4",
+    }
+    nb.metadata["accelerator"] = "GPU"
+
+    cells = []
+
+    cells.append(
+        nbf.v4.new_markdown_cell(
+            "# Post-Stage B Experiments — Google Colab GPU Runner\n\n"
+            "Thin orchestration notebook calling reusable modules in `src/bangla_smish/`.\n\n"
+            "### Execution Policy\n"
+            "- **Stage B synthetic generation is permanently stopped.**\n"
+            "- **Default mode is `RUN_MODE = \"gpu_smoke_test\"`** so running the notebook first validates CUDA, dependencies, Drive mounting, manifest verification, checkpointing, and safe resume on a tiny subset before consuming significant compute units.\n"
+            "- Only switch `RUN_MODE = \"experiments_abcd\"` after the GPU verification test succeeds and you explicitly approve starting **Experiments A, B, C, and D**:\n"
+            "  - **Experiment A**: Unbalanced Real Baseline (`eligible_train`, `N = 3,999`)\n"
+            "  - **Experiment B**: Original-Only Balanced (`eligible_train` downsampled to minority class per fold, `942/class` full-pool)\n"
+            "  - **Experiment C**: Clean Stage B Promotional Augmentation (`eligible_train + Batches 1–7`, `N = 4,344`, synthetic train-only)\n"
+            "  - **Experiment D**: Full Stage B Balanced Pool (`eligible_train + Pilot 300 + Batches 1–7`, `N = 4,644`, synthetic train-only)\n"
+            "- **Security**: Never place tokens, service account keys, or credentials in this notebook or Git. Google Drive is mounted interactively via `google.colab.drive.mount` only after your authorization."
+        )
+    )
+
+    cells.append(
+        nbf.v4.new_code_cell(
+            "#@title 1. Runtime Configuration & Safety Mode\n"
+            "RUN_MODE = 'gpu_smoke_test'  #@param ['gpu_smoke_test', 'experiments_abcd']\n"
+            "REQUIRE_GPU = True  #@param {type:'boolean'}\n"
+            "USE_GOOGLE_DRIVE = True  #@param {type:'boolean'}\n"
+            "DRIVE_WORKSPACE_REL = 'bangla_smish_post_stage_b'  #@param {type:'string'}\n"
+            "RESUME = True  #@param {type:'boolean'}\n"
+            "RUN_INTERRUPTION_RESUME_CHECK = True  #@param {type:'boolean'}\n"
+            "\n"
+            "print(f'Configured RUN_MODE={RUN_MODE!r}, USE_GOOGLE_DRIVE={USE_GOOGLE_DRIVE}, RESUME={RESUME}')\n"
+            "if RUN_MODE == 'experiments_abcd':\n"
+            "    print('NOTE: Full Experiments A, B, C, D mode selected. Ensure GPU smoke test has already passed and been approved.')"
+        )
+    )
+
+    cells.append(
+        nbf.v4.new_code_cell(
+            "#@title 2. Verify Runtime Environment & GPU Availability\n"
+            "import os, platform, shutil, subprocess, sys\n"
+            "from pathlib import Path\n"
+            "\n"
+            "IN_COLAB = 'google.colab' in sys.modules or Path('/content').exists()\n"
+            "print('Python:', sys.version.split()[0], '| Platform:', platform.platform(), '| IN_COLAB:', IN_COLAB)\n"
+            "\n"
+            "if shutil.which('nvidia-smi'):\n"
+            "    print(subprocess.check_output(['nvidia-smi', '--query-gpu=name,memory.total,driver_version', '--format=csv,noheader'], text=True).strip())\n"
+            "else:\n"
+            "    print('nvidia-smi not found in PATH.')\n"
+            "\n"
+            "import torch\n"
+            "cuda_ok = torch.cuda.is_available()\n"
+            "print('PyTorch:', torch.__version__, '| CUDA available:', cuda_ok)\n"
+            "if cuda_ok:\n"
+            "    props = torch.cuda.get_device_properties(0)\n"
+            "    print('GPU:', torch.cuda.get_device_name(0), f'| VRAM: {props.total_memory / (1024**3):.2f} GB')\n"
+            "elif REQUIRE_GPU:\n"
+            "    raise RuntimeError('CUDA GPU is required. In Colab: Runtime -> Change runtime type -> T4 / L4 / A100 GPU.')\n"
+            "\n"
+            "disk = shutil.disk_usage('/content' if Path('/content').exists() else '.')\n"
+            "print(f'Free local disk: {disk.free / (1024**3):.2f} GB')"
+        )
+    )
+
+    cells.append(
+        nbf.v4.new_code_cell(
+            "#@title 3. Authorize Google Drive Mount & Locate Project Workspace\n"
+            "from pathlib import Path\n"
+            "import sys\n"
+            "\n"
+            "if USE_GOOGLE_DRIVE:\n"
+            "    from google.colab import drive\n"
+            "    # Explicit interactive OAuth authorization by the user; no credentials stored in code.\n"
+            "    drive.mount('/content/drive', force_remount=False)\n"
+            "    WORKSPACE_ROOT = Path('/content/drive/MyDrive') / DRIVE_WORKSPACE_REL\n"
+            "else:\n"
+            "    WORKSPACE_ROOT = Path('/content/bangla_smish_post_stage_b')\n"
+            "\n"
+            "SRC_DIR = WORKSPACE_ROOT / 'src'\n"
+            "BUNDLE_DIR = WORKSPACE_ROOT / 'data' / 'processed' / 'post_stage_b_bundle'\n"
+            "CONFIG_DIR = WORKSPACE_ROOT / 'experiments' / 'colab' / 'configs'\n"
+            "ARTIFACTS_DIR = WORKSPACE_ROOT / 'artifacts' / RUN_MODE\n"
+            "ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)\n"
+            "\n"
+            "print('WORKSPACE_ROOT:', WORKSPACE_ROOT)\n"
+            "print('BUNDLE_DIR exists:', BUNDLE_DIR.exists(), '| ARTIFACTS_DIR:', ARTIFACTS_DIR)\n"
+            "if not SRC_DIR.exists() or not BUNDLE_DIR.exists():\n"
+            "    raise FileNotFoundError(\n"
+            "        f'Missing src or dataset bundle under {WORKSPACE_ROOT}. '\n"
+            "        'Run scripts/prepare_post_stage_b_bundle.py --export-drive-kit locally and upload it to Google Drive.'\n"
+            "    )\n"
+            "\n"
+            "if str(SRC_DIR) not in sys.path:\n"
+            "    sys.path.insert(0, str(SRC_DIR))"
+        )
+    )
+
+    cells.append(
+        nbf.v4.new_code_cell(
+            "#@title 4. Install Compatible Dependencies (Preserving Colab CUDA PyTorch)\n"
+            "import importlib, subprocess, sys\n"
+            "\n"
+            "REQUIRED_PACKAGES = [\n"
+            "    ('transformers', 'transformers>=4.44,<5.0'),\n"
+            "    ('datasets', 'datasets>=2.20'),\n"
+            "    ('accelerate', 'accelerate>=0.33'),\n"
+            "    ('safetensors', 'safetensors>=0.4'),\n"
+            "    ('sklearn', 'scikit-learn>=1.4'),\n"
+            "    ('pyarrow', 'pyarrow>=15.0'),\n"
+            "]\n"
+            "to_install = []\n"
+            "for mod_name, spec in REQUIRED_PACKAGES:\n"
+            "    try:\n"
+            "        mod = importlib.import_module(mod_name)\n"
+            "        print(f'{mod_name}: {getattr(mod, \"__version__\", \"ok\")}')\n"
+            "    except ImportError:\n"
+            "        to_install.append(spec)\n"
+            "\n"
+            "if to_install:\n"
+            "    print('Installing missing packages:', to_install)\n"
+            "    subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-q', *to_install])\n"
+            "else:\n"
+            "    print('All required packages are already available.')"
+        )
+    )
+
+    cells.append(
+        nbf.v4.new_code_cell(
+            "#@title 5. Load & Verify Dataset Manifest + Experiment Config\n"
+            "import json\n"
+            "from bangla_smish.post_stage_b_data import verify_manifest\n"
+            "from bangla_smish.post_stage_b_runner import collect_environment_info, load_config, seed_everything\n"
+            "\n"
+            "manifest = verify_manifest(BUNDLE_DIR, verify_checksums=True)\n"
+            "print('Verified manifest_version:', manifest['manifest_version'])\n"
+            "print('Integrity checks:', json.dumps(manifest['integrity_checks'], indent=2))\n"
+            "print('Cohort counts:', json.dumps({k: v.get('by_class', v) for k, v in manifest['cohort_counts'].items()}, indent=2))\n"
+            "\n"
+            "cfg_filename = 'gpu_smoke_test_config.json' if RUN_MODE == 'gpu_smoke_test' else 'post_stage_b_abcd_config.json'\n"
+            "cfg = load_config(CONFIG_DIR / cfg_filename)\n"
+            "seed_everything(cfg.seed)\n"
+            "env_info = collect_environment_info()\n"
+            "print('Loaded config:', cfg.run_name, '| config_hash:', cfg.config_hash())\n"
+            "print('Environment snapshot:', json.dumps(env_info, indent=2))"
+        )
+    )
+
+    cells.append(
+        nbf.v4.new_code_cell(
+            "#@title 6. Execute Pipeline (GPU Smoke Test OR Experiments A, B, C, D with Safe Resume)\n"
+            "import json\n"
+            "from bangla_smish.post_stage_b_runner import run_post_stage_b_pipeline\n"
+            "\n"
+            "if RUN_MODE == 'gpu_smoke_test' and RUN_INTERRUPTION_RESUME_CHECK:\n"
+            "    print('--- Step 6a: Running 1 unit and simulating runtime interruption ---')\n"
+            "    partial = run_post_stage_b_pipeline(\n"
+            "        bundle_dir=BUNDLE_DIR,\n"
+            "        artifacts_dir=ARTIFACTS_DIR,\n"
+            "        cfg=cfg,\n"
+            "        resume=RESUME,\n"
+            "        verify_checksums=True,\n"
+            "        stop_after_units=1,\n"
+            "    )\n"
+            "    print('Completed after partial pass:', partial['completed_unit_count'])\n"
+            "    print('--- Step 6b: Resuming from persistent Drive checkpoint/state ---')\n"
+            "\n"
+            "summary = run_post_stage_b_pipeline(\n"
+            "    bundle_dir=BUNDLE_DIR,\n"
+            "    artifacts_dir=ARTIFACTS_DIR,\n"
+            "    cfg=cfg,\n"
+            "    resume=RESUME,\n"
+            "    verify_checksums=True,\n"
+            ")\n"
+            "print('Completed units total:', summary['completed_unit_count'])"
+        )
+    )
+
+    cells.append(
+        nbf.v4.new_code_cell(
+            "#@title 7. Inspect Exported Results, Logs & Persistent Storage Artifacts\n"
+            "import pandas as pd\n"
+            "from pathlib import Path\n"
+            "\n"
+            "exports_dir = ARTIFACTS_DIR / 'exports'\n"
+            "logs_path = ARTIFACTS_DIR / 'logs' / 'runner.log'\n"
+            "print('Exported files:', [p.name for p in sorted(exports_dir.glob('*'))])\n"
+            "print('Run state:', (ARTIFACTS_DIR / 'run_state.json').read_text(encoding='utf-8'))\n"
+            "\n"
+            "csv_path = exports_dir / 'aggregated_results.csv'\n"
+            "if csv_path.exists() and csv_path.stat().st_size > 0:\n"
+            "    display_df = pd.read_csv(csv_path)\n"
+            "    print(display_df.to_string(index=False))\n"
+            "\n"
+            "print('\\nLast 15 log lines:')\n"
+            "if logs_path.exists():\n"
+            "    print('\\n'.join(logs_path.read_text(encoding='utf-8').splitlines()[-15:]))"
+        )
+    )
+
+    nb["cells"] = cells
+    return nb
+
+
+def main() -> None:
+    out_path = ROOT / "experiments" / "colab" / "post_stage_b_experiments.ipynb"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    nb = build_notebook()
+    nbf.validate(nb)
+    with open(out_path, "w", encoding="utf-8") as f:
+        nbf.write(nb, f)
+    print(f"Generated and validated {out_path}")
+
+
+if __name__ == "__main__":
+    main()

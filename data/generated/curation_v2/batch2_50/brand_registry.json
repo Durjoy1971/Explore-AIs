@@ -1,0 +1,37 @@
+{
+  "brands": {
+    "deshnet": [
+      "DeshNet",
+      "দেশনেট"
+    ],
+    "polashpay": [
+      "PolashPay",
+      "পলাশপে"
+    ],
+    "turagbank": [
+      "TuragBank",
+      "তুরাগব্যাংক"
+    ],
+    "chaitimart": [
+      "ChaitiMart",
+      "চৈতীমার্ট"
+    ],
+    "probashicourier": [
+      "ProbashiCourier",
+      "প্রবাসী কুরিয়ার",
+      "প্রবাসীকুরিয়ার"
+    ],
+    "nandanbazar": [
+      "NandanBazar",
+      "নন্দনবাজার"
+    ],
+    "utshobfashion": [
+      "UtshobFashion",
+      "উৎসবফ্যাশন"
+    ],
+    "ekusheytech": [
+      "EkusheyTech",
+      "একুশেটেক"
+    ]
+  }
+}

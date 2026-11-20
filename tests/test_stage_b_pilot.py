@@ -375,13 +375,13 @@ class TestStageBPilotScreening(unittest.TestCase):
             self.assertTrue((scratch_out / "pilot_validation_summary.json").exists())
             self.assertTrue((scratch_out / "stage_b_pilot_dry_run_report.md").exists())
 
-            # Bug fixes (1) & (3): canonical brand aliases merge (BornoTelecom+বর্ণটেলিকম=25) & Section 3e actuals render non-empty
+            # Unified brand detector merges canonical aliases (BornoTelecom+বর্ণটেলিকম=25, NeerHaat+নীড়হাট=1 -> 5/261=0.0192)
             cm_div = dry_summary["codemix_and_entity_diversity"]
             self.assertEqual(cm_div["max_brand_count"], 25)
-            self.assertEqual(cm_div["brandless_rate"], 0.023)
+            self.assertEqual(cm_div["brandless_rate"], 0.0192)
             report_md = (scratch_out / "stage_b_pilot_dry_run_report.md").read_text(encoding="utf-8")
             self.assertIn("| `max_brand_count` | `25` | `<= 5` | `False` |", report_md)
-            self.assertIn("| `brandless_rate` | `0.023` | `>= 0.3` | `False` |", report_md)
+            self.assertIn("| `brandless_rate` | `0.0192` | `>= 0.3` | `False` |", report_md)
 
         # Bug fix (4): _check_domain_and_phone catches bare t.me & multi-label non-reserved evil.edu.bd,
         # and allows currency BDT 16000 / 16000/- while rejecting 16216 shortcodes.

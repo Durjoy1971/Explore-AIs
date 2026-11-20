@@ -1,0 +1,587 @@
+{
+  "overlaps": {
+    "matches_validation_run": true,
+    "unique_ids": 50,
+    "unique_families": 50,
+    "family_overlap_existing": 0,
+    "family_overlap_pilot": 0,
+    "intra_batch_exact_dups": 0,
+    "intra_batch_slot_key_dups": 0,
+    "corpora": {
+      "existing_unique": {
+        "n_ref": 11821,
+        "exact_norm_hits": 0,
+        "near_dup_raw_cos_ge_085": 0,
+        "max_cos_raw": 0.3726,
+        "near_dup_slot_cos_ge_085": 0,
+        "max_cos_slot": 0.5704
+      },
+      "quarantined": {
+        "n_ref": 1094,
+        "exact_norm_hits": 0,
+        "near_dup_raw_cos_ge_085": 0,
+        "max_cos_raw": 0.2868,
+        "near_dup_slot_cos_ge_085": 0,
+        "max_cos_slot": 0.3438
+      },
+      "banglaphish2026_dedup": {
+        "n_ref": 5416,
+        "exact_norm_hits": 0,
+        "near_dup_raw_cos_ge_085": 0,
+        "max_cos_raw": 0.1949,
+        "near_dup_slot_cos_ge_085": 0,
+        "max_cos_slot": 0.2613
+      },
+      "pilot_300_accepted": {
+        "n_ref": 300,
+        "exact_norm_hits": 0,
+        "near_dup_raw_cos_ge_085": 0,
+        "max_cos_raw": 0.521,
+        "near_dup_slot_cos_ge_085": 0,
+        "max_cos_slot": 0.5965
+      }
+    },
+    "intra_batch_max_cos_raw": 0.457,
+    "intra_batch_max_cos_slot": 0.4864
+  },
+  "promo_distributions": {
+    "eligible_train_promo": {
+      "n": 942,
+      "language_counts": {
+        "CodeMix": 234,
+        "Bengali": 229,
+        "English": 338,
+        "Banglish": 141
+      },
+      "domain_counts": {
+        "shopping_ecommerce": 270,
+        "telecom": 281,
+        "banking_mfs": 89,
+        "personal_or_general": 210,
+        "delivery_parcel": 66,
+        "civic_utility_health": 15,
+        "education": 4,
+        "employment": 7
+      },
+      "length_band_counts": {
+        "medium(50-120)": 779,
+        "long(>120)": 143,
+        "short(<50)": 20
+      },
+      "median_char_len": 74.0,
+      "mean_char_len": 89.2,
+      "pct_has_url": 29.83,
+      "pct_has_phone": 8.92,
+      "pct_has_ussd": 12.95,
+      "has_urgency_count": null,
+      "pct_has_urgency": null,
+      "pct_brandless_detected": 66.45
+    },
+    "pilot_261_promo": {
+      "n": 261,
+      "language_counts": {
+        "Bengali": 65,
+        "English": 21,
+        "Banglish": 115,
+        "CodeMix": 60
+      },
+      "domain_counts": {
+        "shopping_ecommerce": 58,
+        "banking_mfs": 43,
+        "telecom": 47,
+        "delivery_parcel": 32,
+        "education": 29,
+        "employment": 25,
+        "civic_utility_health": 14,
+        "personal_or_general": 13
+      },
+      "length_band_counts": {
+        "short(<50)": 36,
+        "medium(50-120)": 120,
+        "long(>120)": 105
+      },
+      "median_char_len": 116.0,
+      "mean_char_len": 106.66,
+      "pct_has_url": 22.61,
+      "pct_has_phone": 8.81,
+      "pct_has_ussd": 5.75,
+      "has_urgency_count": 61,
+      "pct_has_urgency": 23.37,
+      "pct_brandless_detected": 1.92
+    },
+    "batch1_50_promo": {
+      "n": 50,
+      "language_counts": {
+        "Banglish": 19,
+        "CodeMix": 14,
+        "Bengali": 13,
+        "English": 4
+      },
+      "domain_counts": {
+        "telecom": 15,
+        "shopping_ecommerce": 14,
+        "personal_or_general": 11,
+        "banking_mfs": 5,
+        "delivery_parcel": 3,
+        "civic_utility_health": 1,
+        "education": 1
+      },
+      "length_band_counts": {
+        "short(<50)": 1,
+        "medium(50-120)": 41,
+        "long(>120)": 8
+      },
+      "median_char_len": 72.5,
+      "mean_char_len": 85.92,
+      "pct_has_url": 28.0,
+      "pct_has_phone": 8.0,
+      "pct_has_ussd": 14.0,
+      "has_urgency_count": 4,
+      "pct_has_urgency": 8.0,
+      "pct_brandless_detected": 36.0
+    },
+    "combined_311_promo": {
+      "n": 311,
+      "language_counts": {
+        "Bengali": 78,
+        "English": 25,
+        "Banglish": 134,
+        "CodeMix": 74
+      },
+      "domain_counts": {
+        "shopping_ecommerce": 72,
+        "banking_mfs": 48,
+        "telecom": 62,
+        "delivery_parcel": 35,
+        "education": 30,
+        "employment": 25,
+        "civic_utility_health": 15,
+        "personal_or_general": 24
+      },
+      "length_band_counts": {
+        "short(<50)": 37,
+        "medium(50-120)": 161,
+        "long(>120)": 113
+      },
+      "median_char_len": 110.0,
+      "mean_char_len": 103.33,
+      "pct_has_url": 23.47,
+      "pct_has_phone": 8.68,
+      "pct_has_ussd": 7.07,
+      "has_urgency_count": 65,
+      "pct_has_urgency": 20.9,
+      "pct_brandless_detected": 7.4
+    }
+  },
+  "diversity_batch1_new_batch": {
+    "mode": "new_batch",
+    "total_rows": 50,
+    "promotional_rows": 50,
+    "codemix_rows": 14,
+    "promotional_codemix_rows": 14,
+    "codemix_script_counts": {
+      "bn_script_en": 14
+    },
+    "codemix_script_rates": {
+      "bn_script_en": 1.0
+    },
+    "codemix_discourse_counts": {
+      "intra_sentential_mix": 14
+    },
+    "codemix_discourse_rates": {
+      "intra_sentential_mix": 1.0
+    },
+    "promotional_codemix_script_counts": {
+      "bn_script_en": 14
+    },
+    "promotional_codemix_script_rates": {
+      "bn_script_en": 1.0
+    },
+    "promotional_codemix_discourse_counts": {
+      "intra_sentential_mix": 14
+    },
+    "promotional_codemix_discourse_rates": {
+      "intra_sentential_mix": 1.0
+    },
+    "bn_script_en_rate": 1.0,
+    "hook_plus_pure_en_rate": 0.0,
+    "intra_sentential_mix_rate": 1.0,
+    "sent1_punct_counts": {
+      ".": 18,
+      "!": 5,
+      "none": 9,
+      "।": 17,
+      "?": 1
+    },
+    "sent1_excl_rate": 0.1,
+    "sent1_quest_rate": 0.02,
+    "max_opener_3gram_count": 1,
+    "max_opener_3gram_rate": 0.02,
+    "top_opener_3grams": [
+      [
+        "matro 68 takay",
+        1
+      ],
+      [
+        "meghdoot 18gb pack",
+        1
+      ],
+      [
+        "shaplaseba app e",
+        1
+      ],
+      [
+        "raat 12ta 8ta",
+        1
+      ],
+      [
+        "meghdoot e 75",
+        1
+      ],
+      [
+        "shaplaseba postpaid grahokder",
+        1
+      ],
+      [
+        "nilachalstore e winter",
+        1
+      ],
+      [
+        "lalbaghmart e 1500",
+        1
+      ],
+      [
+        "kitchen blender ar",
+        1
+      ],
+      [
+        "bhorerbazar e taja",
+        1
+      ]
+    ],
+    "brand_mention_rate": 0.64,
+    "brandless_rate": 0.36,
+    "max_brand_count": 4,
+    "unique_brands_count": 13,
+    "top_brands": [
+      [
+        "shaplaseba",
+        4
+      ],
+      [
+        "meghdoot",
+        3
+      ],
+      [
+        "nilachalstore",
+        3
+      ],
+      [
+        "lalbaghmart",
+        3
+      ],
+      [
+        "bhorerbazar",
+        3
+      ],
+      [
+        "moniharfashion",
+        3
+      ],
+      [
+        "rupkothacard",
+        3
+      ],
+      [
+        "aronyokbooks",
+        2
+      ],
+      [
+        "shitolcafe",
+        2
+      ],
+      [
+        "kashfulpay",
+        2
+      ]
+    ],
+    "total_ussd_mentions": 7,
+    "ussd_1234_count": 0,
+    "ussd_1234_share": 0.0,
+    "gate_checks": {
+      "codemix_bn_script_en": {
+        "passed": true,
+        "actual": 1.0,
+        "threshold": 0.8,
+        "op": ">=",
+        "detail": "Bengali-script+English share on Promotional CodeMix: 1.0000 (n=14)."
+      },
+      "codemix_hook_plus_pure_en": {
+        "passed": true,
+        "actual": 0.0,
+        "threshold": 0.0,
+        "op": "==",
+        "detail": "[hook !/?] + [pure English] share: 0.0000 (0/14)."
+      },
+      "codemix_intra_sentential_mix": {
+        "passed": true,
+        "actual": 1.0,
+        "threshold": 0.6,
+        "op": ">=",
+        "detail": "Intra-sentential lexical mixing share: 1.0000 (n=14)."
+      },
+      "promo_sent1_excl_rate": {
+        "passed": true,
+        "actual": 0.1,
+        "threshold": 0.35,
+        "op": "<=",
+        "detail": "Sentence-1 '!' rate on Promotional rows: 0.1000 (n=50)."
+      },
+      "promo_sent1_quest_rate": {
+        "passed": true,
+        "actual": 0.02,
+        "threshold": 0.05,
+        "op": "<=",
+        "detail": "Sentence-1 '?' rate on Promotional rows: 0.0200 (n=50)."
+      },
+      "max_brand_count": {
+        "passed": true,
+        "actual": 4,
+        "threshold": 5,
+        "op": "<=",
+        "detail": "Max mentions for any single fictional brand: 4."
+      },
+      "brandless_rate": {
+        "passed": true,
+        "actual": 0.36,
+        "threshold": 0.3,
+        "op": ">=",
+        "detail": "Brandless Promotional SMS rate: 0.3600 (n=50)."
+      },
+      "ussd_1234_share": {
+        "passed": true,
+        "actual": 0.0,
+        "threshold": 0.25,
+        "op": "<=",
+        "detail": "*1234 USSD share: 0.0000 (0/7)."
+      }
+    },
+    "all_gates_passed": true
+  },
+  "diversity_combined_350_audit": {
+    "mode": "audit",
+    "total_rows": 350,
+    "promotional_rows": 311,
+    "codemix_rows": 88,
+    "promotional_codemix_rows": 74,
+    "codemix_script_counts": {
+      "bn_script_en": 62,
+      "banglish_latin_en": 26
+    },
+    "codemix_script_rates": {
+      "bn_script_en": 0.7045,
+      "banglish_latin_en": 0.2955
+    },
+    "codemix_discourse_counts": {
+      "intra_sentential_mix": 30,
+      "en_lead_bn_body": 1,
+      "stmt_colon_lead_en": 5,
+      "multi_sent_alternating": 1,
+      "hook_excl_pure_en": 38,
+      "hook_quest_pure_en": 13
+    },
+    "codemix_discourse_rates": {
+      "intra_sentential_mix": 0.3409,
+      "en_lead_bn_body": 0.0114,
+      "stmt_colon_lead_en": 0.0568,
+      "multi_sent_alternating": 0.0114,
+      "hook_excl_pure_en": 0.4318,
+      "hook_quest_pure_en": 0.1477
+    },
+    "promotional_codemix_script_counts": {
+      "bn_script_en": 49,
+      "banglish_latin_en": 25
+    },
+    "promotional_codemix_script_rates": {
+      "bn_script_en": 0.6622,
+      "banglish_latin_en": 0.3378
+    },
+    "promotional_codemix_discourse_counts": {
+      "intra_sentential_mix": 22,
+      "hook_excl_pure_en": 38,
+      "hook_quest_pure_en": 13,
+      "stmt_colon_lead_en": 1
+    },
+    "promotional_codemix_discourse_rates": {
+      "intra_sentential_mix": 0.2973,
+      "hook_excl_pure_en": 0.5135,
+      "hook_quest_pure_en": 0.1757,
+      "stmt_colon_lead_en": 0.0135
+    },
+    "bn_script_en_rate": 0.6622,
+    "hook_plus_pure_en_rate": 0.6892,
+    "intra_sentential_mix_rate": 0.2973,
+    "sent1_punct_counts": {
+      "!": 152,
+      "।": 39,
+      ":": 4,
+      "none": 15,
+      "?": 25,
+      ".": 76
+    },
+    "sent1_excl_rate": 0.4887,
+    "sent1_quest_rate": 0.0804,
+    "max_opener_3gram_count": 3,
+    "max_opener_3gram_rate": 0.0096,
+    "top_opener_3grams": [
+      [
+        "সৃজন ক্যারিয়ার হাব",
+        3
+      ],
+      [
+        "chhatro chhatrider jonno",
+        2
+      ],
+      [
+        "bornotelecom e customer",
+        2
+      ],
+      [
+        "সুরভীমার্টের তাজা ফলে",
+        1
+      ],
+      [
+        "আলোকস্টোরে সব হেডফোনে",
+        1
+      ],
+      [
+        "বৈশাখী ফেব্রিক্সের তাঁতের",
+        1
+      ],
+      [
+        "আনন্দ বুকসে আজ",
+        1
+      ],
+      [
+        "আলোকস্টোর ল্যাপটপ মেলা",
+        1
+      ],
+      [
+        "বৈশাখী ফেব্রিক্সের শীত",
+        1
+      ],
+      [
+        "আনন্দ বুকস উৎসব",
+        1
+      ]
+    ],
+    "brand_mention_rate": 0.9228,
+    "brandless_rate": 0.0772,
+    "max_brand_count": 25,
+    "unique_brands_count": 52,
+    "top_brands": [
+      [
+        "bornotelecom",
+        25
+      ],
+      [
+        "nodipay",
+        23
+      ],
+      [
+        "purbachalbank",
+        23
+      ],
+      [
+        "taranganet",
+        21
+      ],
+      [
+        "surovimart",
+        20
+      ],
+      [
+        "kothaedu",
+        17
+      ],
+      [
+        "shikorparcel",
+        15
+      ],
+      [
+        "aalokstore",
+        12
+      ],
+      [
+        "dighaexpress",
+        12
+      ],
+      [
+        "meghnahealth",
+        12
+      ]
+    ],
+    "total_ussd_mentions": 22,
+    "ussd_1234_count": 15,
+    "ussd_1234_share": 0.6818,
+    "gate_checks": {
+      "codemix_bn_script_en": {
+        "passed": false,
+        "actual": 0.6622,
+        "threshold": 0.8,
+        "op": ">=",
+        "detail": "Bengali-script+English share on Promotional CodeMix: 0.6622 (n=74)."
+      },
+      "codemix_hook_plus_pure_en": {
+        "passed": false,
+        "actual": 0.6892,
+        "threshold": 0.15,
+        "op": "<=",
+        "detail": "[hook !/?] + [pure English] share: 0.6892 (51/74)."
+      },
+      "codemix_intra_sentential_mix": {
+        "passed": false,
+        "actual": 0.2973,
+        "threshold": 0.6,
+        "op": ">=",
+        "detail": "Intra-sentential lexical mixing share: 0.2973 (n=74)."
+      },
+      "promo_sent1_excl_rate": {
+        "passed": false,
+        "actual": 0.4887,
+        "threshold": 0.35,
+        "op": "<=",
+        "detail": "Sentence-1 '!' rate on Promotional rows: 0.4887 (n=311)."
+      },
+      "promo_sent1_quest_rate": {
+        "passed": false,
+        "actual": 0.0804,
+        "threshold": 0.05,
+        "op": "<=",
+        "detail": "Sentence-1 '?' rate on Promotional rows: 0.0804 (n=311)."
+      },
+      "max_brand_count": {
+        "passed": false,
+        "actual": 25,
+        "threshold": 5,
+        "op": "<=",
+        "detail": "Max mentions for any single fictional brand: 25."
+      },
+      "brandless_rate": {
+        "passed": false,
+        "actual": 0.0772,
+        "threshold": 0.3,
+        "op": ">=",
+        "detail": "Brandless Promotional SMS rate: 0.0772 (n=311)."
+      },
+      "ussd_1234_share": {
+        "passed": false,
+        "actual": 0.6818,
+        "threshold": 0.25,
+        "op": "<=",
+        "detail": "*1234 USSD share: 0.6818 (15/22)."
+      }
+    },
+    "all_gates_passed": false
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "brands": {
+    "akashnet": [
+      "AkashNet",
+      "আকাশনেট"
+    ],
+    "piyalimart": [
+      "PiyaliMart",
+      "পিয়ালীমার্ট",
+      "পিয়ালীমার্ট"
+    ],
+    "nibirtech": [
+      "NibirTech",
+      "নিবিড়টেক",
+      "নিবিড়টেক"
+    ],
+    "tonupay": [
+      "TonuPay",
+      "তনুপে"
+    ],
+    "barshabank": [
+      "BarshaBank",
+      "বর্ষাব্যাংক",
+      "বর্ষা ব্যাংক"
+    ],
+    "ujancourier": [
+      "UjanCourier",
+      "উজানকুরিয়ার",
+      "উজানকুরিয়ার",
+      "উজান কুরিয়ার",
+      "উজান কুরিয়ার"
+    ],
+    "arshistyle": [
+      "ArshiStyle",
+      "আরশিস্টাইল"
+    ],
+    "kakonbazar": [
+      "KakonBazar",
+      "কাঁকনবাজার"
+    ]
+  }
+}

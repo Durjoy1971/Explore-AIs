@@ -1,0 +1,345 @@
+{
+  "total_candidates": 50,
+  "accepted_count": 50,
+  "independently_reviewed_accepted_count": 0,
+  "pending_independent_review_count": 50,
+  "rejected_count": 0,
+  "acceptance_rate_pct": 100.0,
+  "review_status_counts": {
+    "pending_independent_review": 50
+  },
+  "accepted_by_class": {
+    "Normal": 0,
+    "Promotional": 50,
+    "Smishing": 0
+  },
+  "accepted_by_class_language": {
+    "Promotional|Banglish": 19,
+    "Promotional|Bengali": 13,
+    "Promotional|CodeMix": 14,
+    "Promotional|English": 4
+  },
+  "accepted_by_domain": {
+    "banking_mfs": 5,
+    "civic_utility_health": 1,
+    "delivery_parcel": 3,
+    "employment": 1,
+    "personal_or_general": 11,
+    "shopping_ecommerce": 14,
+    "telecom": 15
+  },
+  "accepted_by_class_domain": {
+    "Normal": {},
+    "Promotional": {
+      "banking_mfs": 5,
+      "civic_utility_health": 1,
+      "delivery_parcel": 3,
+      "employment": 1,
+      "personal_or_general": 11,
+      "shopping_ecommerce": 14,
+      "telecom": 15
+    },
+    "Smishing": {}
+  },
+  "unique_accepted_families": 50,
+  "shared_family_groups": {},
+  "target_pilot_quotas": {
+    "Normal|Bengali": 10,
+    "Normal|Banglish": 8,
+    "Normal|English": 7,
+    "Normal|CodeMix": 14,
+    "Promotional|Bengali": 65,
+    "Promotional|Banglish": 115,
+    "Promotional|English": 21,
+    "Promotional|CodeMix": 60
+  },
+  "quota_gaps": {
+    "Normal|Bengali": 10,
+    "Normal|Banglish": 8,
+    "Normal|English": 7,
+    "Normal|CodeMix": 14,
+    "Promotional|Bengali": 52,
+    "Promotional|Banglish": 96,
+    "Promotional|English": 17,
+    "Promotional|CodeMix": 46
+  },
+  "quotas_exact_match": false,
+  "rejection_reason_counts": {},
+  "surface_diagnostics_before_pilot": {
+    "n_rows": 3999,
+    "surface_only_5fold_acc_pct": 73.14,
+    "surface_only_5fold_macro_f1_pct": 62.86,
+    "length_only_smishing_roc_auc": 0.7693,
+    "length_only_promo_vs_normal_roc_auc": 0.7414,
+    "per_class_surface": {
+      "Normal": {
+        "count": 1509,
+        "median_char_len": 47.0,
+        "mean_char_len": 61.5,
+        "pct_has_url": 0.73,
+        "pct_has_phone": 0.73
+      },
+      "Promotional": {
+        "count": 942,
+        "median_char_len": 74.0,
+        "mean_char_len": 89.2,
+        "pct_has_url": 29.83,
+        "pct_has_phone": 8.92
+      },
+      "Smishing": {
+        "count": 1548,
+        "median_char_len": 99.0,
+        "mean_char_len": 118.6,
+        "pct_has_url": 59.43,
+        "pct_has_phone": 27.45
+      }
+    }
+  },
+  "surface_diagnostics_after_pilot": {
+    "n_rows": 4049,
+    "surface_only_5fold_acc_pct": 72.46,
+    "surface_only_5fold_macro_f1_pct": 63.0,
+    "length_only_smishing_roc_auc": 0.7647,
+    "length_only_promo_vs_normal_roc_auc": 0.7448,
+    "per_class_surface": {
+      "Normal": {
+        "count": 1509,
+        "median_char_len": 47.0,
+        "mean_char_len": 61.5,
+        "pct_has_url": 0.73,
+        "pct_has_phone": 0.73
+      },
+      "Promotional": {
+        "count": 992,
+        "median_char_len": 75.0,
+        "mean_char_len": 89.8,
+        "pct_has_url": 29.74,
+        "pct_has_phone": 8.87
+      },
+      "Smishing": {
+        "count": 1548,
+        "median_char_len": 99.0,
+        "mean_char_len": 118.6,
+        "pct_has_url": 59.43,
+        "pct_has_phone": 27.45
+      }
+    }
+  },
+  "codemix_and_entity_diversity": {
+    "mode": "new_batch",
+    "total_rows": 50,
+    "promotional_rows": 50,
+    "codemix_rows": 14,
+    "promotional_codemix_rows": 14,
+    "codemix_script_counts": {
+      "bn_script_en": 14
+    },
+    "codemix_script_rates": {
+      "bn_script_en": 1.0
+    },
+    "codemix_discourse_counts": {
+      "intra_sentential_mix": 13,
+      "en_lead_bn_body": 1
+    },
+    "codemix_discourse_rates": {
+      "intra_sentential_mix": 0.9286,
+      "en_lead_bn_body": 0.0714
+    },
+    "promotional_codemix_script_counts": {
+      "bn_script_en": 14
+    },
+    "promotional_codemix_script_rates": {
+      "bn_script_en": 1.0
+    },
+    "promotional_codemix_discourse_counts": {
+      "intra_sentential_mix": 13,
+      "en_lead_bn_body": 1
+    },
+    "promotional_codemix_discourse_rates": {
+      "intra_sentential_mix": 0.9286,
+      "en_lead_bn_body": 0.0714
+    },
+    "bn_script_en_rate": 1.0,
+    "hook_plus_pure_en_rate": 0.0,
+    "intra_sentential_mix_rate": 0.9286,
+    "sent1_punct_counts": {
+      "।": 20,
+      ".": 19,
+      "none": 8,
+      ":": 2,
+      "!": 1
+    },
+    "sent1_excl_rate": 0.02,
+    "sent1_quest_rate": 0.0,
+    "max_opener_3gram_count": 1,
+    "max_opener_3gram_rate": 0.02,
+    "top_opener_3grams": [
+      [
+        "মাধবীপে অ্যাপ দিয়ে",
+        1
+      ],
+      [
+        "shankhotech e laptop",
+        1
+      ],
+      [
+        "মাসিক ৪৯৯ টাকায়",
+        1
+      ],
+      [
+        "বইমেলা উপলক্ষে দেশি",
+        1
+      ],
+      [
+        "যেকোনো bank account",
+        1
+      ],
+      [
+        "নকশিমার্ট সুপারশপে ২",
+        1
+      ],
+      [
+        "তিতাসস্টাইল আউটলেটে লেদার",
+        1
+      ],
+      [
+        "bashar sofa mattress",
+        1
+      ],
+      [
+        "নতুন hybrid sim",
+        1
+      ],
+      [
+        "it o engineering",
+        1
+      ]
+    ],
+    "brand_mention_rate": 0.38,
+    "brandless_rate": 0.62,
+    "max_brand_count": 3,
+    "unique_brands_count": 8,
+    "top_brands": [
+      [
+        "shankhotech",
+        3
+      ],
+      [
+        "nokshimart",
+        3
+      ],
+      [
+        "juitel",
+        3
+      ],
+      [
+        "madhobipay",
+        2
+      ],
+      [
+        "titasstyle",
+        2
+      ],
+      [
+        "ichamotibank",
+        2
+      ],
+      [
+        "doyelbazar",
+        2
+      ],
+      [
+        "boikalicourier",
+        2
+      ]
+    ],
+    "total_ussd_mentions": 6,
+    "ussd_1234_count": 0,
+    "ussd_1234_share": 0.0,
+    "gate_checks": {
+      "codemix_bn_script_en": {
+        "passed": true,
+        "actual": 1.0,
+        "threshold": 0.8,
+        "op": ">=",
+        "detail": "Bengali-script+English share on Promotional CodeMix: 1.0000 (n=14)."
+      },
+      "codemix_hook_plus_pure_en": {
+        "passed": true,
+        "actual": 0.0,
+        "threshold": 0.0,
+        "op": "==",
+        "detail": "[hook !/?] + [pure English] share: 0.0000 (0/14)."
+      },
+      "codemix_intra_sentential_mix": {
+        "passed": true,
+        "actual": 0.9286,
+        "threshold": 0.6,
+        "op": ">=",
+        "detail": "Intra-sentential lexical mixing share: 0.9286 (n=14)."
+      },
+      "promo_sent1_excl_rate": {
+        "passed": true,
+        "actual": 0.02,
+        "threshold": 0.35,
+        "op": "<=",
+        "detail": "Sentence-1 '!' rate on Promotional rows: 0.0200 (n=50)."
+      },
+      "promo_sent1_quest_rate": {
+        "passed": true,
+        "actual": 0.0,
+        "threshold": 0.05,
+        "op": "<=",
+        "detail": "Sentence-1 '?' rate on Promotional rows: 0.0000 (n=50)."
+      },
+      "max_brand_count": {
+        "passed": true,
+        "actual": 3,
+        "threshold": 5,
+        "op": "<=",
+        "detail": "Max mentions for any single fictional brand: 3."
+      },
+      "brandless_rate": {
+        "passed": true,
+        "actual": 0.62,
+        "threshold": 0.3,
+        "op": ">=",
+        "detail": "Brandless Promotional SMS rate: 0.6200 (n=50)."
+      },
+      "ussd_1234_share": {
+        "passed": true,
+        "actual": 0.0,
+        "threshold": 0.25,
+        "op": "<=",
+        "detail": "*1234 USSD share: 0.0000 (0/6)."
+      }
+    },
+    "all_gates_passed": true
+  },
+  "extended_diagnostics": {
+    "skipped": true
+  },
+  "eligible_counts_before_pilot": {
+    "Normal": 1509,
+    "Promotional": 942,
+    "Smishing": 1548
+  },
+  "eligible_counts_after_pilot": {
+    "Normal": 1509,
+    "Promotional": 992,
+    "Smishing": 1548
+  },
+  "stage_b_target_T": 1548,
+  "remaining_stage_b_deficits": {
+    "Normal": 39,
+    "Promotional": 556,
+    "Smishing": 0
+  },
+  "dry_run": true,
+  "artifacts": {
+    "candidates": "data/generated/curation_v2/batch4_50/precheck/candidates.jsonl",
+    "accepted": "data/generated/curation_v2/batch4_50/precheck/accepted.jsonl",
+    "rejected": "data/generated/curation_v2/batch4_50/precheck/rejected.jsonl",
+    "summary": "data/generated/curation_v2/batch4_50/precheck/pilot_validation_summary.json"
+  }
+}

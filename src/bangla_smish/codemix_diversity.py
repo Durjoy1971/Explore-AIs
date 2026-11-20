@@ -4,9 +4,21 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from collections import Counter
 from pathlib import Path
 from typing import Any
+
+from .schema import (
+    DEFAULT_CANONICAL_BRAND_ALIASES,
+    DEFAULT_KNOWN_BRANDS,
+    compile_brand_base_regex,
+    compile_brand_regex,
+    detect_brand_mentions,
+    normalize_text,
+)
+
+_BN_TO_ASCII_DIGITS = str.maketrans("০১২৩৪৫৬৭৮৯", "0123456789")
 
 # Strip URLs, phones, USSD codes, and placeholder tags before prose-language checks
 _URL_STRIP_RE = re.compile(
@@ -86,67 +98,8 @@ _ENGLISH_WORDS: frozenset[str] = frozenset({
     "authorized", "authorize", "immediately", "anyone", "support", "staff",
 })
 
-# Canonical alias -> canonical brand key for known fictional pilot brands
-_CANONICAL_BRAND_ALIASES: dict[str, str] = {
-    "purbachalbank": "purbachalbank",
-    "পূর্বাচলব্যাংক": "purbachalbank",
-    "nodipay": "nodipay",
-    "নদীপে": "nodipay",
-    "bornotelecom": "bornotelecom",
-    "বর্ণটেলিকম": "bornotelecom",
-    "taranganet": "taranganet",
-    "তরঙ্গনেট": "taranganet",
-    "surovimart": "surovimart",
-    "সুরভীমার্ট": "surovimart",
-    "shikorparcel": "shikorparcel",
-    "শিকড়পার্সেল": "shikorparcel",
-    "শিকড়পার্সেল": "shikorparcel",
-    "kothaedu": "kothaedu",
-    "কথাএডু": "kothaedu",
-    "meghnahealth": "meghnahealth",
-    "মেঘনাহেলথ": "meghnahealth",
-    "dighaexpress": "dighaexpress",
-    "দীঘাএক্সপ্রেস": "dighaexpress",
-    "aalokstore": "aalokstore",
-    "আলোকস্টোর": "aalokstore",
-    "chayaneer university": "chayaneer",
-    "chayaneer": "chayaneer",
-    "ছায়ানীড়": "chayaneer",
-    "ছায়ানীড়": "chayaneer",
-    "boishakhi fabrics": "boishakhifabrics",
-    "বৈশাখী ফেব্রিক্স": "boishakhifabrics",
-    "anondo books": "anondobooks",
-    "আনন্দ বুকস": "anondobooks",
-    "srijon career hub": "srijoncareerhub",
-    "সৃজন ক্যারিয়ার হাব": "srijoncareerhub",
-    "সৃজন ক্যারিয়ার হাব": "srijoncareerhub",
-    "barendra power grid": "barendra",
-    "বরেন্দ্র বিদ্যুৎ কেন্দ্র": "barendra",
-    "rupnagar water supply": "rupnagarwater",
-    "boshontobakery": "boshontobakery",
-    "chitrobooks": "chitrobooks",
-    "pallifresh": "pallifresh",
-    "noyonoptics": "noyonoptics",
-    "rupalithreads": "rupalithreads",
-    "kallolelectronics": "kallolelectronics",
-    "jhinukjewelry": "jhinukjewelry",
-    "padmabazar": "padmabazar",
-    "haatghor": "haatghor",
-    "urmitech": "urmitech",
-    "sagarikafashion": "sagarikafashion",
-    "bikalpomart": "bikalpomart",
-    "bonnakitchen": "bonnakitchen",
-    "kapotakshocourier": "kapotakshocourier",
-    "aloacademy": "aloacademy",
-    "dishariskills": "dishariskills",
-    "borno training hub": "bornotraininghub",
-    "kironcare": "kironcare",
-    "tarangagreen": "tarangagreen",
-    "shondhacafe": "shondhacafe",
-    "surmagym": "surmagym",
-    "tistatours": "tistatours",
-    "chayacinema": "chayacinema",
-}
+# Canonical alias -> canonical brand key (single unified source from schema.py)
+_CANONICAL_BRAND_ALIASES: dict[str, str] = dict(DEFAULT_CANONICAL_BRAND_ALIASES)
 
 DEFAULT_THRESHOLDS: dict[str, float | int] = {
     "bn_script_en_min": 0.80,
@@ -301,39 +254,18 @@ def analyze_codemix_row(text: str, language: str | None = None) -> dict[str, Any
 def _extract_brands_in_text(
     text: str,
     alias_map: dict[str, str],
+    *,
+    brand_pattern: re.Pattern[str] | None = None,
+    base_pattern: re.Pattern[str] | None = None,
 ) -> list[str]:
-    """Return canonical brand keys mentioned in text."""
-    found: list[str] = []
-    seen: set[str] = set()
-    lowered = text.lower()
-
-    # Check longest aliases first to avoid partial hits
-    for alias in sorted(alias_map, key=len, reverse=True):
-        if not alias:
-            continue
-        if _BN_CHAR_RE.search(alias):
-            pattern = re.escape(alias)
-        else:
-            pattern = r"\b" + re.escape(alias) + r"\b"
-        if re.search(pattern, lowered):
-            canon = alias_map[alias]
-            if canon not in seen:
-                found.append(canon)
-                seen.add(canon)
-
-    # Also catch unlisted CamelCase fictional brands (e.g., PadmaPay, NodiMart)
-    stripped = _URL_STRIP_RE.sub(" ", text)
-    for m in _CAMEL_BRAND_RE.finditer(stripped):
-        tok = m.group(0)
-        key = tok.lower()
-        if key in {"smarttv", "whatsapp", "youtube", "facebook"}:
-            continue
-        canon = alias_map.get(key, key)
-        if canon not in seen:
-            found.append(canon)
-            seen.add(canon)
-
-    return found
+    """Return canonical brand keys mentioned in text using unified schema brand detection."""
+    return detect_brand_mentions(
+        text,
+        alias_map=alias_map,
+        dynamic_fallback=True,
+        brand_pattern=brand_pattern,
+        base_pattern=base_pattern,
+    )
 
 
 def _opener_3gram(text: str) -> str:
@@ -349,12 +281,12 @@ def _add_brand_entry(
     canonical: str,
     aliases: list[str] | tuple[str, ...] | set[str] | str | None = None,
 ) -> None:
-    canon_clean = str(canonical or "").strip()
+    canon_clean = unicodedata.normalize("NFC", normalize_text(str(canonical or "")))
     if not canon_clean:
         return
     canon_key = alias_to_canon.get(canon_clean.lower(), canon_clean.lower())
     bucket = canon_to_aliases.setdefault(canon_key, [])
-    existing_lower = {a.lower() for a in bucket}
+    existing_lower = {unicodedata.normalize("NFC", normalize_text(a)).lower() for a in bucket}
 
     candidates: list[str] = [canon_clean]
     if isinstance(aliases, str):
@@ -363,7 +295,7 @@ def _add_brand_entry(
         candidates.extend(str(a) for a in aliases if a is not None)
 
     for raw_alias in candidates:
-        alias_clean = raw_alias.strip()
+        alias_clean = unicodedata.normalize("NFC", normalize_text(raw_alias))
         if not alias_clean:
             continue
         alias_low = alias_clean.lower()
@@ -443,6 +375,11 @@ def collect_brand_aliases(
     for alias_str, canon_str in _CANONICAL_BRAND_ALIASES.items():
         _add_brand_entry(canon_to_aliases, alias_to_canon, canon_str, [alias_str])
 
+    for brand_str in DEFAULT_KNOWN_BRANDS:
+        b_clean = str(brand_str or "").strip()
+        if b_clean:
+            _add_brand_entry(canon_to_aliases, alias_to_canon, b_clean, [b_clean])
+
     if brand_registry is not None:
         if isinstance(brand_registry, (str, Path)):
             reg_path = Path(brand_registry)
@@ -483,9 +420,15 @@ def evaluate_codemix_and_entity_diversity(
         extra_brands=known_brands,
     )
     alias_map: dict[str, str] = {}
+    all_aliases: list[str] = []
     for canon_key, aliases in merged_brands.items():
         for alias in aliases:
-            alias_map[alias.lower()] = canon_key
+            norm_alias = unicodedata.normalize("NFC", normalize_text(alias))
+            if norm_alias:
+                alias_map[norm_alias.lower()] = canon_key
+                all_aliases.append(norm_alias)
+    brand_pattern = compile_brand_regex(all_aliases)
+    base_pattern = compile_brand_base_regex(all_aliases)
 
     promo_records = [r for r in records if r.get("label_3class") == "Promotional"]
     target_punct_records = promo_records if promo_records else records
@@ -550,14 +493,20 @@ def evaluate_codemix_and_entity_diversity(
         og = _opener_3gram(txt)
         if og:
             opener_3grams[og] += 1
-        brands = _extract_brands_in_text(txt, alias_map)
+        brands = _extract_brands_in_text(
+            txt,
+            alias_map,
+            brand_pattern=brand_pattern,
+            base_pattern=base_pattern,
+        )
         if brands:
             rows_with_brand += 1
             for b in brands:
                 brand_counts[b] += 1
         for u in _USSD_RE.findall(txt):
             total_ussd_mentions += 1
-            if u == "*1234#" or u.startswith("*1234*"):
+            u_ascii = u.translate(_BN_TO_ASCII_DIGITS)
+            if u_ascii == "*1234#" or u_ascii.startswith("*1234*"):
                 ussd_1234_count += 1
 
     sent1_excl_rate = round(sent1_punct_counts.get("!", 0) / n_target, 4) if n_target else 0.0

@@ -1,0 +1,41 @@
+{
+  "brands": {
+    "juitel": [
+      "JuiTel",
+      "জুঁইটেল"
+    ],
+    "madhobipay": [
+      "MadhobiPay",
+      "মাধবীপে"
+    ],
+    "ichamotibank": [
+      "IchamotiBank",
+      "ইছামতিব্যাংক",
+      "ইছামতী ব্যাংক"
+    ],
+    "nokshimart": [
+      "NokshiMart",
+      "নকশিমার্ট"
+    ],
+    "doyelbazar": [
+      "DoyelBazar",
+      "দোয়েলবাজার",
+      "দোয়েলবাজার"
+    ],
+    "shankhotech": [
+      "ShankhoTech",
+      "শঙ্খটেক"
+    ],
+    "boikalicourier": [
+      "BoikaliCourier",
+      "বৈকালীকুরিয়ার",
+      "বৈকালীকুরিয়ার",
+      "বৈকালী কুরিয়ার",
+      "বৈকালী কুরিয়ার"
+    ],
+    "titasstyle": [
+      "TitasStyle",
+      "তিতাসস্টাইল"
+    ]
+  }
+}

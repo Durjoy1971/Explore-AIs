@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from bangla_smish.schema import (
+    DEFAULT_KNOWN_BRANDS,
+    detect_brand_mentions,
     extract_metadata_brands,
     extract_surface_features,
     mask_brands,
@@ -144,6 +146,64 @@ class TestSchemaMasking(unittest.TestCase):
         self.assertEqual(set(meta_brands), {"RupshaPay", "রূপসাপে", "SurmaShop", "সুরমাশপ"})
         inflected = mask_brands("রূপসাপে-তে এবং RupshaPay's অফার", brands=meta_brands, mode="mask")
         self.assertEqual(inflected.count("<BRAND>"), 2)
+
+    def test_bengali_and_banglish_brand_inflections_and_batch1_to_4_merged_defaults(self) -> None:
+        # Batch 1-6 brands must be in DEFAULT_KNOWN_BRANDS and masked/stripped/detected identically
+        self.assertIn("ShaplaSeba", DEFAULT_KNOWN_BRANDS)
+        self.assertIn("শাপলাসেবা", DEFAULT_KNOWN_BRANDS)
+        self.assertIn("TitasStyle", DEFAULT_KNOWN_BRANDS)
+        self.assertIn("বৈকালীকুরিয়ার", DEFAULT_KNOWN_BRANDS)
+        self.assertIn("SurjoTel", DEFAULT_KNOWN_BRANDS)
+        self.assertIn("সূর্যটেল", DEFAULT_KNOWN_BRANDS)
+        self.assertIn("KarnaphuliBank", DEFAULT_KNOWN_BRANDS)
+        self.assertIn("AkashNet", DEFAULT_KNOWN_BRANDS)
+        self.assertIn("পিয়ালীমার্ট", DEFAULT_KNOWN_BRANDS)
+
+        cases = [
+            ("শাপলাসেবায় ১৫০ টাকা রিচার্জে পাচ্ছেন ৫ জিবি বোনাস ডেটা!", "shaplaseba"),
+            ("শাপলাসেবায় (NFD) বিশেষ অফার চলছে।", "shaplaseba"),
+            ("শাপলাসেবা-য় নতুন প্যাক চালু হয়েছে।", "shaplaseba"),
+            ("শাপলাসেবা ও ShaplaSebay এবং ShaplaSeba-te আজ ছাড়।", "shaplaseba"),
+            ("NokshiMart-er আর NokshiMarter অফার এবং নকশিমার্টের ডিসকাউন্ট।", "nokshimart"),
+            ("AalokStore-এ আর MoniharFashion-এর কালেকশন।", "aalokstore"),
+            ("জুঁইটেল-এ বা করতোয়াটেলে দারুণ ডেটা প্যাক।", "juitel"),
+            ("নীড়হাটে তাজা সবজিতে ২০% ছাড়, দেখুন https://example.com/neerhaat/fresh", "neerhaat"),
+            ("সূর্যটেলের মাসিক কম্বো প্যাকে ২৫ জিবি ডেটা ও চম্পাস্টাইলে ছাড়।", "surjotel"),
+            ("KarnaphuliBank-er credit card ar তরীকুরিয়ারে ডিসকাউন্ট।", "karnaphulibank"),
+            ("পিয়ালীমার্টে শাড়ি ও AkashNet-er ডিসকাউন্ট প্যাক।", "piyalimart"),
+            ("নিবিড়টেক ও বর্ষা ব্যাংকের কার্ড অফার।", "nibirtech"),
+        ]
+        for text, expected_canon in cases:
+            views = mask_text_views(text)
+            detected = detect_brand_mentions(text)
+            self.assertIn(expected_canon, detected, msg=text)
+            self.assertIn("<BRAND>", views["brand_masked"], msg=text)
+            self.assertNotIn("<BRAND>", views["brand_stripped"], msg=text)
+            self.assertNotEqual(views["brand_stripped"], views["canon_masked"], msg=text)
+            # No dangling Bengali/Banglish inflection fragments like 'য়', '-এ', '-এর', '-er', '-te'
+            self.assertNotIn("<BRAND>য়", views["brand_masked"], msg=text)
+            self.assertNotIn("<BRAND>-এ", views["brand_masked"], msg=text)
+            self.assertNotIn("<BRAND>-এর", views["brand_masked"], msg=text)
+            self.assertNotIn("<BRAND>-er", views["brand_masked"], msg=text)
+            self.assertNotIn("<BRAND>-te", views["brand_masked"], msg=text)
+
+        # Boundary safety: 'Hon'ble' must NOT match 'BL', and 'রবিবার' must NOT match 'রবি'
+        for non_brand_text in (
+            "Hon'ble Prime Minister announced a new housing initiative.",
+            "শুক্রবার থেকে রবিবার পর্যন্ত বিশেষ উইকেন্ড ছাড় চলছে।",
+        ):
+            views = mask_text_views(non_brand_text)
+            self.assertEqual(detect_brand_mentions(non_brand_text), [], msg=non_brand_text)
+            self.assertEqual(views["brand_masked"], views["canon_masked"], msg=non_brand_text)
+            self.assertEqual(views["brand_stripped"], views["canon_masked"], msg=non_brand_text)
+
+    def test_bengali_digit_ussd_masking_and_surface_feature(self) -> None:
+        bn_ussd = "কম খরচে কথা বলুন, চালু করতে ডায়াল *৩২১*১৫# অথবা *১২১*৪২০৫#।"
+        feats = extract_surface_features(pd.DataFrame({"text": [bn_ussd]}))
+        self.assertTrue(bool(feats["has_ussd"].iloc[0]))
+        masked = mask_shortcuts(bn_ussd)
+        self.assertEqual(masked.count("<USSD>"), 2)
+        self.assertNotIn("*৩২১*১৫#", masked)
 
 
 if __name__ == "__main__":

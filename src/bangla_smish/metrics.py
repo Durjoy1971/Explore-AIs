@@ -149,7 +149,14 @@ def evaluate_predictions(
     # Also compute Smishing FPR at argmax prediction
     normal_mask = y_true == normal_idx
     argmax_fpr = float(((y_pred == smish_idx) & normal_mask).sum() / max(1, int(normal_mask.sum())) * 100.0)
-    report = classification_report(y_true, y_pred, target_names=list(label_names), output_dict=True, zero_division=0)
+    report = classification_report(
+        y_true,
+        y_pred,
+        labels=list(range(len(label_names))),
+        target_names=list(label_names),
+        output_dict=True,
+        zero_division=0,
+    )
 
     return {
         "n_samples": int(len(y_true)),

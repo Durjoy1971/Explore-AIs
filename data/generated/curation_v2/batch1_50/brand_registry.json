@@ -1,0 +1,64 @@
+{
+  "brands": {
+    "shaplaseba": [
+      "ShaplaSeba",
+      "Shapla Seba",
+      "শাপলাসেবা"
+    ],
+    "meghdoot": [
+      "Meghdoot",
+      "মেঘদূত"
+    ],
+    "rupkothacard": [
+      "RupkothaCard",
+      "Rupkotha",
+      "রূপকথাকার্ড"
+    ],
+    "kashfulpay": [
+      "KashfulPay",
+      "কাশফুলপে"
+    ],
+    "nilachalstore": [
+      "NilachalStore",
+      "Nilachal",
+      "নীলাচলস্টোর"
+    ],
+    "lalbaghmart": [
+      "LalbaghMart",
+      "লালবাগমার্ট"
+    ],
+    "aronyokbooks": [
+      "AronyokBooks",
+      "Aronyok Books",
+      "আরণ্যকবুকস"
+    ],
+    "bhorerbazar": [
+      "BhorerBazar",
+      "ভোরেরবাজার"
+    ],
+    "moniharfashion": [
+      "MoniharFashion",
+      "Monihar",
+      "মণিহারফ্যাশন"
+    ],
+    "sonargaoexpress": [
+      "SonargaoExpress",
+      "Sonargao Express",
+      "সোনারগাঁওএক্সপ্রেস"
+    ],
+    "charukolahealth": [
+      "CharukolaHealth",
+      "Charukola Clinic",
+      "চারুকলাহেলথ"
+    ],
+    "dipshikhaacademy": [
+      "DipshikhaAcademy",
+      "Dipshikha Academy",
+      "দীপশিখাএকাডেমি"
+    ],
+    "shitolcafe": [
+      "ShitolCafe",
+      "শীতলক্যাফে"
+    ]
+  }
+}

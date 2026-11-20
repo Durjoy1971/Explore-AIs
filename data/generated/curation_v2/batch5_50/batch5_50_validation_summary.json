@@ -1,0 +1,1794 @@
+{
+  "batch_name": "stage_b_batch5_50_v2",
+  "status": "accepted_and_validated_stopped_before_remaining_95",
+  "integrity_sha256": {
+    "all_protected_untouched": true,
+    "files": {
+      "data/processed/curation_v2/eligible_train.parquet": {
+        "sha256": "d9af8bf952558b91b45db5b5f721da2735ec4b18547cdca59d86e21a8b4993e7",
+        "matches_baseline": true
+      },
+      "data/processed/curation_v2/existing_unique.parquet": {
+        "sha256": "acb40c57870b8987b72a920e914d9e81966201caa26867456437a389d88b3e4f",
+        "matches_baseline": true
+      },
+      "data/processed/curation_v2/provenance.parquet": {
+        "sha256": "9a0fc3f2de54a7db4f040983504f5907b592dec751db9cb1dfcc07d99c21d443",
+        "matches_baseline": true
+      },
+      "data/processed/curation_v2/quarantined.parquet": {
+        "sha256": "c5cb0855abe2f2998e91d6affb8df7a2ae8984daeacb5373a63d4a1294b17cb4",
+        "matches_baseline": true
+      },
+      "data/processed/banglaphish2026_dedup.parquet": {
+        "sha256": "16aaa636aa8cf89cd07b8dd44887c11a7cc0398340c6698d36c2bbb91651c1f1",
+        "matches_baseline": true
+      },
+      "data/generated/curation_v2/accepted.jsonl": {
+        "sha256": "23af149826dec2411d79b61abceda44c564387574c97d7d12468d7f5a101c5ac",
+        "matches_baseline": true
+      },
+      "data/generated/curation_v2/batch1_50/accepted.jsonl": {
+        "sha256": "f6bc19c3b0466ac3ce327a51ee88f7e42c49668246a345183ee96c482c507dbd",
+        "matches_baseline": true
+      },
+      "data/generated/curation_v2/batch2_50/accepted.jsonl": {
+        "sha256": "5f4cb5afb8aaaf0ce37ab4cedb64639df6fb462d5f0f872e8444c7e85a6d32a6",
+        "matches_baseline": true
+      },
+      "data/generated/curation_v2/batch3_50/accepted.jsonl": {
+        "sha256": "abd5c9d931af3a2f9e84ac21d8a006554ae11bc17059729af19a33efe38b60a1",
+        "matches_baseline": true
+      },
+      "data/generated/curation_v2/batch4_50/accepted.jsonl": {
+        "sha256": "a97f0a912bad36ced9c5f104f2a4596a8b27f875a074bff4bf487cbce9ecbd64",
+        "matches_baseline": true
+      }
+    }
+  },
+  "statistical_methodology": {
+    "cv_protocol": "StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=seed) grouped by family_id, with TF-IDF + balanced LogisticRegression refitted inside every fold. Stratum-controlled probes restrict to shared strata and apply inverse-stratum-count sample weights during fitting.",
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "plus_minus_definition": "Sample standard deviation (ddof=1) of pooled out-of-fold (OOF) ROC-AUC across the 10 random CV fold-assignment seeds (42..51). Quantifies CV split-randomization variability on the fixed finite dataset; NOT standard error of the mean and NOT generalization uncertainty to unseen data.",
+    "ci_95_definitions": {
+      "bootstrap_95ci_seed42": "Stratified percentile bootstrap (B=1,000, [2.5, 97.5] percentiles) on seed=42 OOF predictions.",
+      "bootstrap_95ci_mean_oof": "Stratified percentile bootstrap (B=1,000, [2.5, 97.5] percentiles) on 10-seed averaged OOF probabilities per row.",
+      "cluster_bootstrap_95ci_mean_oof": "Family-cluster stratified percentile bootstrap (B=1,000, resampling family_id clusters with replacement within class) on 10-seed averaged OOF probabilities.",
+      "generalization_caveat": "OOF bootstrap CIs measure finite-sample score uncertainty conditional on the fixed training pool; they do NOT capture model-fitting variance or true out-of-sample generalization error to unseen distributions."
+    },
+    "cohort_comparability_warning": "Cohorts differ in synthetic sample size (N_syn = 50, 200, 250, 261, 511) and matched-stratum coverage. Do NOT claim statistically significant improvement from comparing AUCs across unequal-N_syn or unequally matched cohorts.",
+    "brand_detection_definition": "Unified schema.detect_brand_mentions + schema.mask_brands + schema.DEFAULT_KNOWN_BRANDS (Real BD + Pilot + Batch 1-4) + Batch 5 brand_registry.json, with NFC normalization, contact-masking before brand checks, and full Bengali (-য়/-য়/-য়ে/-ের/-এ/-এর/-ে/-তে/-কে/-র/-দের) and Banglish (-er/-e/-te/-ke/-r/-y/-ye/-der) inflection support."
+  },
+  "counts": {
+    "eligible_train": {
+      "Normal": 1509,
+      "Promotional": 942,
+      "Smishing": 1548,
+      "total": 3999
+    },
+    "pilot_300": {
+      "Normal": 39,
+      "Promotional": 261,
+      "Smishing": 0,
+      "total": 300
+    },
+    "b1_to_b4_200": {
+      "Normal": 0,
+      "Promotional": 200,
+      "Smishing": 0,
+      "total": 200
+    },
+    "batch5_50_raw": 50,
+    "batch5_50_replacements": 8,
+    "batch5_50_accepted": {
+      "Normal": 0,
+      "Promotional": 50,
+      "Smishing": 0,
+      "total": 50
+    },
+    "combined_new_250": {
+      "Normal": 0,
+      "Promotional": 250,
+      "Smishing": 0,
+      "total": 250
+    },
+    "combined_all_synthetic": {
+      "Normal": 39,
+      "Promotional": 511,
+      "Smishing": 0,
+      "total": 550
+    },
+    "combined_train_plus_all_synthetic": {
+      "Normal": 1548,
+      "Promotional": 1453,
+      "Smishing": 1548,
+      "total": 4549
+    },
+    "remaining_stage_b_deficit": {
+      "Normal": 0,
+      "Promotional": 95,
+      "Smishing": 0,
+      "total": 95
+    }
+  },
+  "remaining_promotional_by_language_for_equal_387": {
+    "Banglish": 36,
+    "Bengali": 26,
+    "CodeMix": 25,
+    "English": 8,
+    "total": 95
+  },
+  "screening_batch5_50": {
+    "total_candidates": 58,
+    "accepted_count": 50,
+    "independently_reviewed_accepted_count": 50,
+    "pending_independent_review_count": 0,
+    "rejected_count": 8,
+    "acceptance_rate_pct": 86.21,
+    "rejection_reason_counts": {
+      "independent_review:metadata_mismatch": 3,
+      "independent_review:unnatural_phrasing": 2,
+      "independent_review:cross_batch_scenario_clone": 2,
+      "independent_review:domain_mismatch": 1,
+      "banglish_appears_pure_english": 1,
+      "length_band_mismatch:medium(50-120)!=short(<50)": 1,
+      "length_band_mismatch:long(>120)!=medium(50-120)": 1
+    },
+    "accepted_by_class_language": {
+      "Promotional|Banglish": 19,
+      "Promotional|Bengali": 13,
+      "Promotional|CodeMix": 14,
+      "Promotional|English": 4
+    },
+    "matches_validation_run": true
+  },
+  "overlaps_and_deduplication": {
+    "unique_ids": 50,
+    "unique_families": 50,
+    "matches_validation_run": true,
+    "b5_brand_collisions_with_prior": [],
+    "corpora": {
+      "existing_unique": {
+        "n_ref": 11821,
+        "exact_norm_hits": 0,
+        "near_dup_raw_count": 0,
+        "max_cos_raw": 0.3924,
+        "near_dup_slot_count": 0,
+        "max_cos_slot": 0.4925,
+        "family_overlap": 0
+      },
+      "quarantined": {
+        "n_ref": 1094,
+        "exact_norm_hits": 0,
+        "near_dup_raw_count": 0,
+        "max_cos_raw": 0.3568,
+        "near_dup_slot_count": 0,
+        "max_cos_slot": 0.359,
+        "family_overlap": null
+      },
+      "banglaphish": {
+        "n_ref": 5416,
+        "exact_norm_hits": 0,
+        "near_dup_raw_count": 0,
+        "max_cos_raw": 0.2253,
+        "near_dup_slot_count": 0,
+        "max_cos_slot": 0.2295,
+        "family_overlap": null
+      },
+      "pilot_300": {
+        "n_ref": 300,
+        "exact_norm_hits": 0,
+        "near_dup_raw_count": 0,
+        "max_cos_raw": 0.3337,
+        "near_dup_slot_count": 0,
+        "max_cos_slot": 0.4514,
+        "family_overlap": 0
+      },
+      "batch1_50": {
+        "n_ref": 50,
+        "exact_norm_hits": 0,
+        "near_dup_raw_count": 0,
+        "max_cos_raw": 0.3961,
+        "near_dup_slot_count": 0,
+        "max_cos_slot": 0.5176,
+        "family_overlap": 0
+      },
+      "batch2_50": {
+        "n_ref": 50,
+        "exact_norm_hits": 0,
+        "near_dup_raw_count": 0,
+        "max_cos_raw": 0.3292,
+        "near_dup_slot_count": 0,
+        "max_cos_slot": 0.5195,
+        "family_overlap": 0
+      },
+      "batch3_50": {
+        "n_ref": 50,
+        "exact_norm_hits": 0,
+        "near_dup_raw_count": 0,
+        "max_cos_raw": 0.3236,
+        "near_dup_slot_count": 0,
+        "max_cos_slot": 0.4513,
+        "family_overlap": 0
+      },
+      "batch4_50": {
+        "n_ref": 50,
+        "exact_norm_hits": 0,
+        "near_dup_raw_count": 0,
+        "max_cos_raw": 0.3166,
+        "near_dup_slot_count": 0,
+        "max_cos_slot": 0.4925,
+        "family_overlap": 0
+      }
+    },
+    "intra_batch": {
+      "n": 50,
+      "exact_norm_hits": 0,
+      "near_dup_raw_count": 0,
+      "max_cos_raw": 0.3927,
+      "near_dup_slot_count": 0,
+      "max_cos_slot": 0.4832
+    }
+  },
+  "promotional_distributions_and_lexical": {
+    "eligible_train_promo_942": {
+      "n": 942,
+      "language": {
+        "CodeMix": 234,
+        "Bengali": 229,
+        "English": 338,
+        "Banglish": 141
+      },
+      "domain": {
+        "unspecified": 942
+      },
+      "length_band": {
+        "medium(50-120)": 779,
+        "long(>120)": 143,
+        "short(<50)": 20
+      },
+      "min_char_len": 42,
+      "p10_char_len": 58.0,
+      "p25_char_len": 66.0,
+      "median_char_len": 74.0,
+      "p75_char_len": 99.0,
+      "p90_char_len": 140.0,
+      "max_char_len": 448,
+      "mean_char_len": 89.2,
+      "sd_char_len": 40.77,
+      "length_bins": {
+        "<50": {
+          "count": 20,
+          "pct": 2.12
+        },
+        "50-59": {
+          "count": 91,
+          "pct": 9.66
+        },
+        "60-69": {
+          "count": 236,
+          "pct": 25.05
+        },
+        "70-79": {
+          "count": 205,
+          "pct": 21.76
+        },
+        "80-89": {
+          "count": 70,
+          "pct": 7.43
+        },
+        "90-99": {
+          "count": 94,
+          "pct": 9.98
+        },
+        "100-120": {
+          "count": 83,
+          "pct": 8.81
+        },
+        "121-150": {
+          "count": 65,
+          "pct": 6.9
+        },
+        ">150": {
+          "count": 78,
+          "pct": 8.28
+        }
+      },
+      "has_url_count": 281,
+      "has_url_pct": 29.83,
+      "has_phone_count": 84,
+      "has_phone_pct": 8.92,
+      "has_ussd_count": 122,
+      "has_ussd_pct": 12.95,
+      "ussd_script_breakdown": {
+        "ascii": 90,
+        "bengali_digit": 32,
+        "mixed": 0
+      },
+      "has_urgency_count": 175,
+      "has_urgency_pct": 18.58,
+      "brandless_count": 657,
+      "brandless_pct": 69.75,
+      "bn_cm_lexical": {
+        "n": 463,
+        "ও": {
+          "count": 23,
+          "pct": 4.97
+        },
+        "এবং": {
+          "count": 40,
+          "pct": 8.64
+        },
+        "আর": {
+          "count": 9,
+          "pct": 1.94
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 3,
+          "pct": 0.65
+        },
+        "পাবেন": {
+          "count": 15,
+          "pct": 3.24
+        },
+        "পাচ্ছেন": {
+          "count": 19,
+          "pct": 4.1
+        },
+        "মিলবে": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 1,
+          "pct": 0.22
+        },
+        "ভিজিট করুন": {
+          "count": 3,
+          "pct": 0.65
+        },
+        "দেখুন": {
+          "count": 1,
+          "pct": 0.22
+        },
+        "বিস্তারিত": {
+          "count": 5,
+          "pct": 1.08
+        }
+      },
+      "banglish_lexical": {
+        "n": 141,
+        "ar": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "ebong": {
+          "count": 4,
+          "pct": 2.84
+        },
+        "o": {
+          "count": 10,
+          "pct": 7.09
+        }
+      }
+    },
+    "pilot_300_promo": {
+      "n": 261,
+      "language": {
+        "Bengali": 65,
+        "English": 21,
+        "Banglish": 115,
+        "CodeMix": 60
+      },
+      "domain": {
+        "shopping_ecommerce": 58,
+        "banking_mfs": 43,
+        "telecom": 47,
+        "delivery_parcel": 32,
+        "education": 29,
+        "employment": 25,
+        "civic_utility_health": 14,
+        "personal_or_general": 13
+      },
+      "length_band": {
+        "short(<50)": 36,
+        "medium(50-120)": 120,
+        "long(>120)": 105
+      },
+      "min_char_len": 36,
+      "p10_char_len": 45.0,
+      "p25_char_len": 91.0,
+      "median_char_len": 116.0,
+      "p75_char_len": 127.0,
+      "p90_char_len": 140.0,
+      "max_char_len": 190,
+      "mean_char_len": 106.66,
+      "sd_char_len": 32.86,
+      "length_bins": {
+        "<50": {
+          "count": 36,
+          "pct": 13.79
+        },
+        "50-59": {
+          "count": 5,
+          "pct": 1.92
+        },
+        "60-69": {
+          "count": 3,
+          "pct": 1.15
+        },
+        "70-79": {
+          "count": 2,
+          "pct": 0.77
+        },
+        "80-89": {
+          "count": 12,
+          "pct": 4.6
+        },
+        "90-99": {
+          "count": 23,
+          "pct": 8.81
+        },
+        "100-120": {
+          "count": 75,
+          "pct": 28.74
+        },
+        "121-150": {
+          "count": 92,
+          "pct": 35.25
+        },
+        ">150": {
+          "count": 13,
+          "pct": 4.98
+        }
+      },
+      "has_url_count": 59,
+      "has_url_pct": 22.61,
+      "has_phone_count": 23,
+      "has_phone_pct": 8.81,
+      "has_ussd_count": 15,
+      "has_ussd_pct": 5.75,
+      "ussd_script_breakdown": {
+        "ascii": 15,
+        "bengali_digit": 0,
+        "mixed": 0
+      },
+      "has_urgency_count": 61,
+      "has_urgency_pct": 23.37,
+      "brandless_count": 5,
+      "brandless_pct": 1.92,
+      "bn_cm_lexical": {
+        "n": 125,
+        "ও": {
+          "count": 27,
+          "pct": 21.6
+        },
+        "এবং": {
+          "count": 2,
+          "pct": 1.6
+        },
+        "আর": {
+          "count": 4,
+          "pct": 3.2
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 3,
+          "pct": 2.4
+        },
+        "পাবেন": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "পাচ্ছেন": {
+          "count": 4,
+          "pct": 3.2
+        },
+        "মিলবে": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "ভিজিট করুন": {
+          "count": 3,
+          "pct": 2.4
+        },
+        "দেখুন": {
+          "count": 2,
+          "pct": 1.6
+        },
+        "বিস্তারিত": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "banglish_lexical": {
+        "n": 115,
+        "ar": {
+          "count": 25,
+          "pct": 21.74
+        },
+        "ebong": {
+          "count": 1,
+          "pct": 0.87
+        },
+        "o": {
+          "count": 19,
+          "pct": 16.52
+        }
+      }
+    },
+    "batch1_50_promo": {
+      "n": 50,
+      "language": {
+        "Banglish": 19,
+        "CodeMix": 14,
+        "Bengali": 13,
+        "English": 4
+      },
+      "domain": {
+        "telecom": 15,
+        "shopping_ecommerce": 14,
+        "personal_or_general": 11,
+        "banking_mfs": 5,
+        "delivery_parcel": 3,
+        "civic_utility_health": 1,
+        "education": 1
+      },
+      "length_band": {
+        "short(<50)": 1,
+        "medium(50-120)": 41,
+        "long(>120)": 8
+      },
+      "min_char_len": 45,
+      "p10_char_len": 63.0,
+      "p25_char_len": 67.0,
+      "median_char_len": 72.5,
+      "p75_char_len": 97.0,
+      "p90_char_len": 139.3,
+      "max_char_len": 157,
+      "mean_char_len": 85.92,
+      "sd_char_len": 29.26,
+      "length_bins": {
+        "<50": {
+          "count": 1,
+          "pct": 2.0
+        },
+        "50-59": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "60-69": {
+          "count": 21,
+          "pct": 42.0
+        },
+        "70-79": {
+          "count": 9,
+          "pct": 18.0
+        },
+        "80-89": {
+          "count": 3,
+          "pct": 6.0
+        },
+        "90-99": {
+          "count": 4,
+          "pct": 8.0
+        },
+        "100-120": {
+          "count": 4,
+          "pct": 8.0
+        },
+        "121-150": {
+          "count": 6,
+          "pct": 12.0
+        },
+        ">150": {
+          "count": 2,
+          "pct": 4.0
+        }
+      },
+      "has_url_count": 14,
+      "has_url_pct": 28.0,
+      "has_phone_count": 4,
+      "has_phone_pct": 8.0,
+      "has_ussd_count": 7,
+      "has_ussd_pct": 14.0,
+      "ussd_script_breakdown": {
+        "ascii": 7,
+        "bengali_digit": 0,
+        "mixed": 0
+      },
+      "has_urgency_count": 4,
+      "has_urgency_pct": 8.0,
+      "brandless_count": 18,
+      "brandless_pct": 36.0,
+      "bn_cm_lexical": {
+        "n": 27,
+        "ও": {
+          "count": 16,
+          "pct": 59.26
+        },
+        "এবং": {
+          "count": 1,
+          "pct": 3.7
+        },
+        "আর": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 2,
+          "pct": 7.41
+        },
+        "পাবেন": {
+          "count": 2,
+          "pct": 7.41
+        },
+        "পাচ্ছেন": {
+          "count": 5,
+          "pct": 18.52
+        },
+        "মিলবে": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "ভিজিট করুন": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "দেখুন": {
+          "count": 3,
+          "pct": 11.11
+        },
+        "বিস্তারিত": {
+          "count": 2,
+          "pct": 7.41
+        }
+      },
+      "banglish_lexical": {
+        "n": 19,
+        "ar": {
+          "count": 10,
+          "pct": 52.63
+        },
+        "ebong": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "o": {
+          "count": 0,
+          "pct": 0.0
+        }
+      }
+    },
+    "batch2_50_promo": {
+      "n": 50,
+      "language": {
+        "Banglish": 19,
+        "Bengali": 14,
+        "CodeMix": 13,
+        "English": 4
+      },
+      "domain": {
+        "telecom": 15,
+        "shopping_ecommerce": 14,
+        "personal_or_general": 11,
+        "banking_mfs": 5,
+        "delivery_parcel": 3,
+        "employment": 1,
+        "civic_utility_health": 1
+      },
+      "length_band": {
+        "short(<50)": 1,
+        "medium(50-120)": 41,
+        "long(>120)": 8
+      },
+      "min_char_len": 44,
+      "p10_char_len": 65.8,
+      "p25_char_len": 69.25,
+      "median_char_len": 74.5,
+      "p75_char_len": 86.5,
+      "p90_char_len": 138.3,
+      "max_char_len": 173,
+      "mean_char_len": 86.4,
+      "sd_char_len": 29.33,
+      "length_bins": {
+        "<50": {
+          "count": 1,
+          "pct": 2.0
+        },
+        "50-59": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "60-69": {
+          "count": 12,
+          "pct": 24.0
+        },
+        "70-79": {
+          "count": 19,
+          "pct": 38.0
+        },
+        "80-89": {
+          "count": 6,
+          "pct": 12.0
+        },
+        "90-99": {
+          "count": 2,
+          "pct": 4.0
+        },
+        "100-120": {
+          "count": 2,
+          "pct": 4.0
+        },
+        "121-150": {
+          "count": 5,
+          "pct": 10.0
+        },
+        ">150": {
+          "count": 3,
+          "pct": 6.0
+        }
+      },
+      "has_url_count": 14,
+      "has_url_pct": 28.0,
+      "has_phone_count": 4,
+      "has_phone_pct": 8.0,
+      "has_ussd_count": 7,
+      "has_ussd_pct": 14.0,
+      "ussd_script_breakdown": {
+        "ascii": 7,
+        "bengali_digit": 0,
+        "mixed": 0
+      },
+      "has_urgency_count": 4,
+      "has_urgency_pct": 8.0,
+      "brandless_count": 30,
+      "brandless_pct": 60.0,
+      "bn_cm_lexical": {
+        "n": 27,
+        "ও": {
+          "count": 20,
+          "pct": 74.07
+        },
+        "এবং": {
+          "count": 1,
+          "pct": 3.7
+        },
+        "আর": {
+          "count": 1,
+          "pct": 3.7
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 4,
+          "pct": 14.81
+        },
+        "পাবেন": {
+          "count": 2,
+          "pct": 7.41
+        },
+        "পাচ্ছেন": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "মিলবে": {
+          "count": 4,
+          "pct": 14.81
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 3,
+          "pct": 11.11
+        },
+        "ভিজিট করুন": {
+          "count": 1,
+          "pct": 3.7
+        },
+        "দেখুন": {
+          "count": 2,
+          "pct": 7.41
+        },
+        "বিস্তারিত": {
+          "count": 1,
+          "pct": 3.7
+        }
+      },
+      "banglish_lexical": {
+        "n": 19,
+        "ar": {
+          "count": 2,
+          "pct": 10.53
+        },
+        "ebong": {
+          "count": 3,
+          "pct": 15.79
+        },
+        "o": {
+          "count": 4,
+          "pct": 21.05
+        }
+      }
+    },
+    "batch3_50_promo": {
+      "n": 50,
+      "language": {
+        "Banglish": 19,
+        "Bengali": 14,
+        "CodeMix": 13,
+        "English": 4
+      },
+      "domain": {
+        "telecom": 15,
+        "shopping_ecommerce": 14,
+        "personal_or_general": 11,
+        "banking_mfs": 5,
+        "delivery_parcel": 3,
+        "civic_utility_health": 1,
+        "employment": 1
+      },
+      "length_band": {
+        "medium(50-120)": 41,
+        "long(>120)": 8,
+        "short(<50)": 1
+      },
+      "min_char_len": 48,
+      "p10_char_len": 68.0,
+      "p25_char_len": 72.25,
+      "median_char_len": 78.0,
+      "p75_char_len": 88.5,
+      "p90_char_len": 147.2,
+      "max_char_len": 168,
+      "mean_char_len": 88.52,
+      "sd_char_len": 28.83,
+      "length_bins": {
+        "<50": {
+          "count": 1,
+          "pct": 2.0
+        },
+        "50-59": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "60-69": {
+          "count": 6,
+          "pct": 12.0
+        },
+        "70-79": {
+          "count": 22,
+          "pct": 44.0
+        },
+        "80-89": {
+          "count": 9,
+          "pct": 18.0
+        },
+        "90-99": {
+          "count": 4,
+          "pct": 8.0
+        },
+        "100-120": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "121-150": {
+          "count": 5,
+          "pct": 10.0
+        },
+        ">150": {
+          "count": 3,
+          "pct": 6.0
+        }
+      },
+      "has_url_count": 15,
+      "has_url_pct": 30.0,
+      "has_phone_count": 4,
+      "has_phone_pct": 8.0,
+      "has_ussd_count": 6,
+      "has_ussd_pct": 12.0,
+      "ussd_script_breakdown": {
+        "ascii": 6,
+        "bengali_digit": 0,
+        "mixed": 0
+      },
+      "has_urgency_count": 4,
+      "has_urgency_pct": 8.0,
+      "brandless_count": 31,
+      "brandless_pct": 62.0,
+      "bn_cm_lexical": {
+        "n": 27,
+        "ও": {
+          "count": 3,
+          "pct": 11.11
+        },
+        "এবং": {
+          "count": 4,
+          "pct": 14.81
+        },
+        "আর": {
+          "count": 3,
+          "pct": 11.11
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "পাবেন": {
+          "count": 3,
+          "pct": 11.11
+        },
+        "পাচ্ছেন": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "মিলবে": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "ভিজিট করুন": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "দেখুন": {
+          "count": 2,
+          "pct": 7.41
+        },
+        "বিস্তারিত": {
+          "count": 2,
+          "pct": 7.41
+        }
+      },
+      "banglish_lexical": {
+        "n": 19,
+        "ar": {
+          "count": 3,
+          "pct": 15.79
+        },
+        "ebong": {
+          "count": 1,
+          "pct": 5.26
+        },
+        "o": {
+          "count": 2,
+          "pct": 10.53
+        }
+      }
+    },
+    "batch4_50_promo": {
+      "n": 50,
+      "language": {
+        "Bengali": 13,
+        "CodeMix": 14,
+        "Banglish": 19,
+        "English": 4
+      },
+      "domain": {
+        "banking_mfs": 5,
+        "telecom": 15,
+        "shopping_ecommerce": 14,
+        "personal_or_general": 11,
+        "delivery_parcel": 3,
+        "civic_utility_health": 1,
+        "employment": 1
+      },
+      "length_band": {
+        "medium(50-120)": 41,
+        "long(>120)": 8,
+        "short(<50)": 1
+      },
+      "min_char_len": 43,
+      "p10_char_len": 82.9,
+      "p25_char_len": 87.5,
+      "median_char_len": 95.5,
+      "p75_char_len": 107.0,
+      "p90_char_len": 150.3,
+      "max_char_len": 167,
+      "mean_char_len": 102.96,
+      "sd_char_len": 25.51,
+      "length_bins": {
+        "<50": {
+          "count": 1,
+          "pct": 2.0
+        },
+        "50-59": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "60-69": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "70-79": {
+          "count": 2,
+          "pct": 4.0
+        },
+        "80-89": {
+          "count": 12,
+          "pct": 24.0
+        },
+        "90-99": {
+          "count": 15,
+          "pct": 30.0
+        },
+        "100-120": {
+          "count": 12,
+          "pct": 24.0
+        },
+        "121-150": {
+          "count": 3,
+          "pct": 6.0
+        },
+        ">150": {
+          "count": 5,
+          "pct": 10.0
+        }
+      },
+      "has_url_count": 14,
+      "has_url_pct": 28.0,
+      "has_phone_count": 4,
+      "has_phone_pct": 8.0,
+      "has_ussd_count": 5,
+      "has_ussd_pct": 10.0,
+      "ussd_script_breakdown": {
+        "ascii": 5,
+        "bengali_digit": 0,
+        "mixed": 0
+      },
+      "has_urgency_count": 4,
+      "has_urgency_pct": 8.0,
+      "brandless_count": 31,
+      "brandless_pct": 62.0,
+      "bn_cm_lexical": {
+        "n": 27,
+        "ও": {
+          "count": 19,
+          "pct": 70.37
+        },
+        "এবং": {
+          "count": 4,
+          "pct": 14.81
+        },
+        "আর": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 7,
+          "pct": 25.93
+        },
+        "পাবেন": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "পাচ্ছেন": {
+          "count": 7,
+          "pct": 25.93
+        },
+        "মিলবে": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 3,
+          "pct": 11.11
+        },
+        "ভিজিট করুন": {
+          "count": 1,
+          "pct": 3.7
+        },
+        "দেখুন": {
+          "count": 3,
+          "pct": 11.11
+        },
+        "বিস্তারিত": {
+          "count": 1,
+          "pct": 3.7
+        }
+      },
+      "banglish_lexical": {
+        "n": 19,
+        "ar": {
+          "count": 10,
+          "pct": 52.63
+        },
+        "ebong": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "o": {
+          "count": 4,
+          "pct": 21.05
+        }
+      }
+    },
+    "b1_to_b4_200_promo": {
+      "n": 200,
+      "language": {
+        "Banglish": 76,
+        "CodeMix": 54,
+        "Bengali": 54,
+        "English": 16
+      },
+      "domain": {
+        "telecom": 60,
+        "shopping_ecommerce": 56,
+        "personal_or_general": 44,
+        "banking_mfs": 20,
+        "delivery_parcel": 12,
+        "civic_utility_health": 4,
+        "education": 1,
+        "employment": 3
+      },
+      "length_band": {
+        "short(<50)": 4,
+        "medium(50-120)": 164,
+        "long(>120)": 32
+      },
+      "min_char_len": 43,
+      "p10_char_len": 66.0,
+      "p25_char_len": 71.0,
+      "median_char_len": 82.0,
+      "p75_char_len": 99.25,
+      "p90_char_len": 145.1,
+      "max_char_len": 173,
+      "mean_char_len": 90.95,
+      "sd_char_len": 28.93,
+      "length_bins": {
+        "<50": {
+          "count": 4,
+          "pct": 2.0
+        },
+        "50-59": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "60-69": {
+          "count": 39,
+          "pct": 19.5
+        },
+        "70-79": {
+          "count": 52,
+          "pct": 26.0
+        },
+        "80-89": {
+          "count": 30,
+          "pct": 15.0
+        },
+        "90-99": {
+          "count": 25,
+          "pct": 12.5
+        },
+        "100-120": {
+          "count": 18,
+          "pct": 9.0
+        },
+        "121-150": {
+          "count": 19,
+          "pct": 9.5
+        },
+        ">150": {
+          "count": 13,
+          "pct": 6.5
+        }
+      },
+      "has_url_count": 57,
+      "has_url_pct": 28.5,
+      "has_phone_count": 16,
+      "has_phone_pct": 8.0,
+      "has_ussd_count": 25,
+      "has_ussd_pct": 12.5,
+      "ussd_script_breakdown": {
+        "ascii": 25,
+        "bengali_digit": 0,
+        "mixed": 0
+      },
+      "has_urgency_count": 16,
+      "has_urgency_pct": 8.0,
+      "brandless_count": 110,
+      "brandless_pct": 55.0,
+      "bn_cm_lexical": {
+        "n": 108,
+        "ও": {
+          "count": 58,
+          "pct": 53.7
+        },
+        "এবং": {
+          "count": 10,
+          "pct": 9.26
+        },
+        "আর": {
+          "count": 4,
+          "pct": 3.7
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 13,
+          "pct": 12.04
+        },
+        "পাবেন": {
+          "count": 7,
+          "pct": 6.48
+        },
+        "পাচ্ছেন": {
+          "count": 12,
+          "pct": 11.11
+        },
+        "মিলবে": {
+          "count": 4,
+          "pct": 3.7
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 6,
+          "pct": 5.56
+        },
+        "ভিজিট করুন": {
+          "count": 2,
+          "pct": 1.85
+        },
+        "দেখুন": {
+          "count": 10,
+          "pct": 9.26
+        },
+        "বিস্তারিত": {
+          "count": 6,
+          "pct": 5.56
+        }
+      },
+      "banglish_lexical": {
+        "n": 76,
+        "ar": {
+          "count": 25,
+          "pct": 32.89
+        },
+        "ebong": {
+          "count": 4,
+          "pct": 5.26
+        },
+        "o": {
+          "count": 10,
+          "pct": 13.16
+        }
+      }
+    },
+    "batch5_50_promo": {
+      "n": 50,
+      "language": {
+        "Bengali": 13,
+        "Banglish": 19,
+        "CodeMix": 14,
+        "English": 4
+      },
+      "domain": {
+        "telecom": 15,
+        "banking_mfs": 5,
+        "shopping_ecommerce": 14,
+        "personal_or_general": 11,
+        "civic_utility_health": 1,
+        "education": 1,
+        "delivery_parcel": 3
+      },
+      "length_band": {
+        "long(>120)": 8,
+        "medium(50-120)": 41,
+        "short(<50)": 1
+      },
+      "min_char_len": 43,
+      "p10_char_len": 58.7,
+      "p25_char_len": 65.0,
+      "median_char_len": 77.0,
+      "p75_char_len": 94.75,
+      "p90_char_len": 133.1,
+      "max_char_len": 171,
+      "mean_char_len": 86.86,
+      "sd_char_len": 32.22,
+      "length_bins": {
+        "<50": {
+          "count": 1,
+          "pct": 2.0
+        },
+        "50-59": {
+          "count": 5,
+          "pct": 10.0
+        },
+        "60-69": {
+          "count": 12,
+          "pct": 24.0
+        },
+        "70-79": {
+          "count": 8,
+          "pct": 16.0
+        },
+        "80-89": {
+          "count": 6,
+          "pct": 12.0
+        },
+        "90-99": {
+          "count": 8,
+          "pct": 16.0
+        },
+        "100-120": {
+          "count": 2,
+          "pct": 4.0
+        },
+        "121-150": {
+          "count": 4,
+          "pct": 8.0
+        },
+        ">150": {
+          "count": 4,
+          "pct": 8.0
+        }
+      },
+      "has_url_count": 15,
+      "has_url_pct": 30.0,
+      "has_phone_count": 4,
+      "has_phone_pct": 8.0,
+      "has_ussd_count": 7,
+      "has_ussd_pct": 14.0,
+      "ussd_script_breakdown": {
+        "ascii": 5,
+        "bengali_digit": 2,
+        "mixed": 0
+      },
+      "has_urgency_count": 5,
+      "has_urgency_pct": 10.0,
+      "brandless_count": 31,
+      "brandless_pct": 62.0,
+      "bn_cm_lexical": {
+        "n": 27,
+        "ও": {
+          "count": 7,
+          "pct": 25.93
+        },
+        "এবং": {
+          "count": 2,
+          "pct": 7.41
+        },
+        "আর": {
+          "count": 3,
+          "pct": 11.11
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 2,
+          "pct": 7.41
+        },
+        "পাবেন": {
+          "count": 5,
+          "pct": 18.52
+        },
+        "পাচ্ছেন": {
+          "count": 4,
+          "pct": 14.81
+        },
+        "মিলবে": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "ভিজিট করুন": {
+          "count": 1,
+          "pct": 3.7
+        },
+        "দেখুন": {
+          "count": 5,
+          "pct": 18.52
+        },
+        "বিস্তারিত": {
+          "count": 2,
+          "pct": 7.41
+        }
+      },
+      "banglish_lexical": {
+        "n": 19,
+        "ar": {
+          "count": 5,
+          "pct": 26.32
+        },
+        "ebong": {
+          "count": 1,
+          "pct": 5.26
+        },
+        "o": {
+          "count": 4,
+          "pct": 21.05
+        }
+      }
+    },
+    "combined_new_250_promo": {
+      "n": 250,
+      "language": {
+        "Banglish": 95,
+        "CodeMix": 68,
+        "Bengali": 67,
+        "English": 20
+      },
+      "domain": {
+        "telecom": 75,
+        "shopping_ecommerce": 70,
+        "personal_or_general": 55,
+        "banking_mfs": 25,
+        "delivery_parcel": 15,
+        "civic_utility_health": 5,
+        "education": 2,
+        "employment": 3
+      },
+      "length_band": {
+        "short(<50)": 5,
+        "medium(50-120)": 205,
+        "long(>120)": 40
+      },
+      "min_char_len": 43,
+      "p10_char_len": 64.0,
+      "p25_char_len": 70.0,
+      "median_char_len": 81.0,
+      "p75_char_len": 99.0,
+      "p90_char_len": 143.2,
+      "max_char_len": 173,
+      "mean_char_len": 90.13,
+      "sd_char_len": 29.59,
+      "length_bins": {
+        "<50": {
+          "count": 5,
+          "pct": 2.0
+        },
+        "50-59": {
+          "count": 5,
+          "pct": 2.0
+        },
+        "60-69": {
+          "count": 51,
+          "pct": 20.4
+        },
+        "70-79": {
+          "count": 60,
+          "pct": 24.0
+        },
+        "80-89": {
+          "count": 36,
+          "pct": 14.4
+        },
+        "90-99": {
+          "count": 33,
+          "pct": 13.2
+        },
+        "100-120": {
+          "count": 20,
+          "pct": 8.0
+        },
+        "121-150": {
+          "count": 23,
+          "pct": 9.2
+        },
+        ">150": {
+          "count": 17,
+          "pct": 6.8
+        }
+      },
+      "has_url_count": 72,
+      "has_url_pct": 28.8,
+      "has_phone_count": 20,
+      "has_phone_pct": 8.0,
+      "has_ussd_count": 32,
+      "has_ussd_pct": 12.8,
+      "ussd_script_breakdown": {
+        "ascii": 30,
+        "bengali_digit": 2,
+        "mixed": 0
+      },
+      "has_urgency_count": 21,
+      "has_urgency_pct": 8.4,
+      "brandless_count": 141,
+      "brandless_pct": 56.4,
+      "bn_cm_lexical": {
+        "n": 135,
+        "ও": {
+          "count": 65,
+          "pct": 48.15
+        },
+        "এবং": {
+          "count": 12,
+          "pct": 8.89
+        },
+        "আর": {
+          "count": 7,
+          "pct": 5.19
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 15,
+          "pct": 11.11
+        },
+        "পাবেন": {
+          "count": 12,
+          "pct": 8.89
+        },
+        "পাচ্ছেন": {
+          "count": 16,
+          "pct": 11.85
+        },
+        "মিলবে": {
+          "count": 4,
+          "pct": 2.96
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 6,
+          "pct": 4.44
+        },
+        "ভিজিট করুন": {
+          "count": 3,
+          "pct": 2.22
+        },
+        "দেখুন": {
+          "count": 15,
+          "pct": 11.11
+        },
+        "বিস্তারিত": {
+          "count": 8,
+          "pct": 5.93
+        }
+      },
+      "banglish_lexical": {
+        "n": 95,
+        "ar": {
+          "count": 30,
+          "pct": 31.58
+        },
+        "ebong": {
+          "count": 5,
+          "pct": 5.26
+        },
+        "o": {
+          "count": 14,
+          "pct": 14.74
+        }
+      }
+    },
+    "full_combined_550_promo": {
+      "n": 511,
+      "language": {
+        "Bengali": 132,
+        "English": 41,
+        "Banglish": 210,
+        "CodeMix": 128
+      },
+      "domain": {
+        "shopping_ecommerce": 128,
+        "banking_mfs": 68,
+        "telecom": 122,
+        "delivery_parcel": 47,
+        "education": 31,
+        "employment": 28,
+        "civic_utility_health": 19,
+        "personal_or_general": 68
+      },
+      "length_band": {
+        "short(<50)": 41,
+        "medium(50-120)": 325,
+        "long(>120)": 145
+      },
+      "min_char_len": 36,
+      "p10_char_len": 60.0,
+      "p25_char_len": 73.0,
+      "median_char_len": 96.0,
+      "p75_char_len": 124.0,
+      "p90_char_len": 141.0,
+      "max_char_len": 190,
+      "mean_char_len": 98.58,
+      "sd_char_len": 32.35,
+      "length_bins": {
+        "<50": {
+          "count": 41,
+          "pct": 8.02
+        },
+        "50-59": {
+          "count": 10,
+          "pct": 1.96
+        },
+        "60-69": {
+          "count": 54,
+          "pct": 10.57
+        },
+        "70-79": {
+          "count": 62,
+          "pct": 12.13
+        },
+        "80-89": {
+          "count": 48,
+          "pct": 9.39
+        },
+        "90-99": {
+          "count": 56,
+          "pct": 10.96
+        },
+        "100-120": {
+          "count": 95,
+          "pct": 18.59
+        },
+        "121-150": {
+          "count": 115,
+          "pct": 22.5
+        },
+        ">150": {
+          "count": 30,
+          "pct": 5.87
+        }
+      },
+      "has_url_count": 131,
+      "has_url_pct": 25.64,
+      "has_phone_count": 43,
+      "has_phone_pct": 8.41,
+      "has_ussd_count": 47,
+      "has_ussd_pct": 9.2,
+      "ussd_script_breakdown": {
+        "ascii": 45,
+        "bengali_digit": 2,
+        "mixed": 0
+      },
+      "has_urgency_count": 82,
+      "has_urgency_pct": 16.05,
+      "brandless_count": 146,
+      "brandless_pct": 28.57,
+      "bn_cm_lexical": {
+        "n": 260,
+        "ও": {
+          "count": 92,
+          "pct": 35.38
+        },
+        "এবং": {
+          "count": 14,
+          "pct": 5.38
+        },
+        "আর": {
+          "count": 11,
+          "pct": 4.23
+        },
+        "উপলব্ধ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "লাভ": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "থাকছে": {
+          "count": 18,
+          "pct": 6.92
+        },
+        "পাবেন": {
+          "count": 12,
+          "pct": 4.62
+        },
+        "পাচ্ছেন": {
+          "count": 20,
+          "pct": 7.69
+        },
+        "মিলবে": {
+          "count": 4,
+          "pct": 1.54
+        },
+        "পাওয়া/পাওয়া": {
+          "count": 6,
+          "pct": 2.31
+        },
+        "ভিজিট করুন": {
+          "count": 6,
+          "pct": 2.31
+        },
+        "দেখুন": {
+          "count": 17,
+          "pct": 6.54
+        },
+        "বিস্তারিত": {
+          "count": 8,
+          "pct": 3.08
+        }
+      },
+      "banglish_lexical": {
+        "n": 210,
+        "ar": {
+          "count": 55,
+          "pct": 26.19
+        },
+        "ebong": {
+          "count": 6,
+          "pct": 2.86
+        },
+        "o": {
+          "count": 33,
+          "pct": 15.71
+        }
+      }
+    }
+  }
+}

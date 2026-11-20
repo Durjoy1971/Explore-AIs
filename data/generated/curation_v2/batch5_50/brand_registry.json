@@ -1,0 +1,40 @@
+{
+  "brands": {
+    "surjotel": [
+      "SurjoTel",
+      "সূর্যটেল"
+    ],
+    "belimart": [
+      "BeliMart",
+      "বেলীমার্ট"
+    ],
+    "kajoltech": [
+      "KajolTech",
+      "কাজলটেক"
+    ],
+    "komolpay": [
+      "KomolPay",
+      "কমলপে"
+    ],
+    "karnaphulibank": [
+      "KarnaphuliBank",
+      "কর্ণফুলীব্যাংক",
+      "কর্ণফুলী ব্যাংক"
+    ],
+    "toricourier": [
+      "ToriCourier",
+      "তরীকুরিয়ার",
+      "তরীকুরিয়ার",
+      "তরী কুরিয়ার",
+      "তরী কুরিয়ার"
+    ],
+    "champastyle": [
+      "ChampaStyle",
+      "চম্পাস্টাইল"
+    ],
+    "kanchanbazar": [
+      "KanchanBazar",
+      "কাঞ্চনবাজার"
+    ]
+  }
+}

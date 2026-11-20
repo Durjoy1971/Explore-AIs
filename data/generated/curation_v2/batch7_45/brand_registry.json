@@ -1,0 +1,41 @@
+{
+  "brands": {
+    "shuvrotel": [
+      "ShuvroTel",
+      "শুভ্রটেল"
+    ],
+    "dhansiribank": [
+      "DhansiriBank",
+      "ধানসিঁড়িব্যাংক",
+      "ধানসিঁড়ি ব্যাংক"
+    ],
+    "kheyapay": [
+      "KheyaPay",
+      "খেয়াপে",
+      "খেয়াপে"
+    ],
+    "alponamart": [
+      "AlponaMart",
+      "আলপনামার্ট"
+    ],
+    "shatabdibazar": [
+      "ShatabdiBazar",
+      "শতাব্দীবাজার"
+    ],
+    "shoilpikstyle": [
+      "ShoilpikStyle",
+      "শৈল্পিকস্টাইল"
+    ],
+    "jolchobitech": [
+      "JolchobiTech",
+      "জলছবিটেক"
+    ],
+    "belacourier": [
+      "BelaCourier",
+      "বেলাকুরিয়ার",
+      "বেলাকুরিয়ার",
+      "বেলা কুরিয়ার",
+      "বেলা কুরিয়ার"
+    ]
+  }
+}

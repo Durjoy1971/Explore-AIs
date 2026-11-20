@@ -1,0 +1,1792 @@
+{
+  "total_candidates": 51,
+  "accepted_count": 45,
+  "independently_reviewed_accepted_count": 45,
+  "pending_independent_review_count": 0,
+  "rejected_count": 6,
+  "acceptance_rate_pct": 88.24,
+  "review_status_counts": {
+    "accepted": 45
+  },
+  "accepted_by_class": {
+    "Normal": 0,
+    "Promotional": 45,
+    "Smishing": 0
+  },
+  "accepted_by_class_language": {
+    "Promotional|Banglish": 17,
+    "Promotional|Bengali": 12,
+    "Promotional|CodeMix": 12,
+    "Promotional|English": 4
+  },
+  "accepted_by_domain": {
+    "banking_mfs": 4,
+    "civic_utility_health": 1,
+    "delivery_parcel": 3,
+    "education": 1,
+    "personal_or_general": 10,
+    "shopping_ecommerce": 13,
+    "telecom": 13
+  },
+  "accepted_by_class_domain": {
+    "Normal": {},
+    "Promotional": {
+      "banking_mfs": 4,
+      "civic_utility_health": 1,
+      "delivery_parcel": 3,
+      "education": 1,
+      "personal_or_general": 10,
+      "shopping_ecommerce": 13,
+      "telecom": 13
+    },
+    "Smishing": {}
+  },
+  "unique_accepted_families": 45,
+  "shared_family_groups": {},
+  "target_pilot_quotas": {
+    "Normal|Bengali": 10,
+    "Normal|Banglish": 8,
+    "Normal|English": 7,
+    "Normal|CodeMix": 14,
+    "Promotional|Bengali": 65,
+    "Promotional|Banglish": 115,
+    "Promotional|English": 21,
+    "Promotional|CodeMix": 60
+  },
+  "quota_gaps": {
+    "Normal|Bengali": 10,
+    "Normal|Banglish": 8,
+    "Normal|English": 7,
+    "Normal|CodeMix": 14,
+    "Promotional|Bengali": 53,
+    "Promotional|Banglish": 98,
+    "Promotional|English": 17,
+    "Promotional|CodeMix": 48
+  },
+  "quotas_exact_match": false,
+  "rejection_reason_counts": {
+    "independent_review:cross_batch_scenario_clone": 3,
+    "independent_review:unnatural_phrasing": 2,
+    "independent_review:intra_batch_scenario_clone": 1,
+    "independent_review:domain_mismatch": 1
+  },
+  "surface_diagnostics_before_pilot": {
+    "n_rows": 3999,
+    "surface_only_5fold_acc_pct": 73.14,
+    "surface_only_5fold_macro_f1_pct": 62.86,
+    "length_only_smishing_roc_auc": 0.7693,
+    "length_only_promo_vs_normal_roc_auc": 0.7414,
+    "per_class_surface": {
+      "Normal": {
+        "count": 1509,
+        "median_char_len": 47.0,
+        "mean_char_len": 61.5,
+        "pct_has_url": 0.73,
+        "pct_has_phone": 0.73
+      },
+      "Promotional": {
+        "count": 942,
+        "median_char_len": 74.0,
+        "mean_char_len": 89.2,
+        "pct_has_url": 29.83,
+        "pct_has_phone": 8.92
+      },
+      "Smishing": {
+        "count": 1548,
+        "median_char_len": 99.0,
+        "mean_char_len": 118.6,
+        "pct_has_url": 59.43,
+        "pct_has_phone": 27.45
+      }
+    }
+  },
+  "surface_diagnostics_after_pilot": {
+    "n_rows": 4044,
+    "surface_only_5fold_acc_pct": 72.35,
+    "surface_only_5fold_macro_f1_pct": 62.53,
+    "length_only_smishing_roc_auc": 0.768,
+    "length_only_promo_vs_normal_roc_auc": 0.7411,
+    "per_class_surface": {
+      "Normal": {
+        "count": 1509,
+        "median_char_len": 47.0,
+        "mean_char_len": 61.5,
+        "pct_has_url": 0.73,
+        "pct_has_phone": 0.73
+      },
+      "Promotional": {
+        "count": 987,
+        "median_char_len": 74.0,
+        "mean_char_len": 89.1,
+        "pct_has_url": 29.79,
+        "pct_has_phone": 8.92
+      },
+      "Smishing": {
+        "count": 1548,
+        "median_char_len": 99.0,
+        "mean_char_len": 118.6,
+        "pct_has_url": 59.43,
+        "pct_has_phone": 27.45
+      }
+    }
+  },
+  "codemix_and_entity_diversity": {
+    "mode": "new_batch",
+    "total_rows": 45,
+    "promotional_rows": 45,
+    "codemix_rows": 12,
+    "promotional_codemix_rows": 12,
+    "codemix_script_counts": {
+      "bn_script_en": 12
+    },
+    "codemix_script_rates": {
+      "bn_script_en": 1.0
+    },
+    "codemix_discourse_counts": {
+      "intra_sentential_mix": 12
+    },
+    "codemix_discourse_rates": {
+      "intra_sentential_mix": 1.0
+    },
+    "promotional_codemix_script_counts": {
+      "bn_script_en": 12
+    },
+    "promotional_codemix_script_rates": {
+      "bn_script_en": 1.0
+    },
+    "promotional_codemix_discourse_counts": {
+      "intra_sentential_mix": 12
+    },
+    "promotional_codemix_discourse_rates": {
+      "intra_sentential_mix": 1.0
+    },
+    "bn_script_en_rate": 1.0,
+    "hook_plus_pure_en_rate": 0.0,
+    "intra_sentential_mix_rate": 1.0,
+    "sent1_punct_counts": {
+      "।": 15,
+      ".": 15,
+      "!": 2,
+      "none": 9,
+      ":": 4
+    },
+    "sent1_excl_rate": 0.0444,
+    "sent1_quest_rate": 0.0,
+    "max_opener_3gram_count": 1,
+    "max_opener_3gram_rate": 0.0222,
+    "top_opener_3grams": [
+      [
+        "আজ রাত ১২টা",
+        1
+      ],
+      [
+        "সাপ্তাহিক ছুটিতে pottery",
+        1
+      ],
+      [
+        "belacourier e dhaka",
+        1
+      ],
+      [
+        "ends tonight 25",
+        1
+      ],
+      [
+        "shoilpikstyle e bridal",
+        1
+      ],
+      [
+        "বেলাকুরিয়ারে door pickup",
+        1
+      ],
+      [
+        "বাঁশের ঝুড়ি মাদুর",
+        1
+      ],
+      [
+        "proti 79 takar",
+        1
+      ],
+      [
+        "শুভ্রটেল গ্রাহকেরা চেপে",
+        1
+      ],
+      [
+        "shital pati o",
+        1
+      ]
+    ],
+    "brand_mention_rate": 0.3556,
+    "brandless_rate": 0.6444,
+    "max_brand_count": 3,
+    "unique_brands_count": 8,
+    "top_brands": [
+      [
+        "shuvrotel",
+        3
+      ],
+      [
+        "jolchobitech",
+        3
+      ],
+      [
+        "alponamart",
+        3
+      ],
+      [
+        "belacourier",
+        2
+      ],
+      [
+        "kheyapay",
+        2
+      ],
+      [
+        "shoilpikstyle",
+        1
+      ],
+      [
+        "dhansiribank",
+        1
+      ],
+      [
+        "shatabdibazar",
+        1
+      ]
+    ],
+    "total_ussd_mentions": 6,
+    "ussd_1234_count": 0,
+    "ussd_1234_share": 0.0,
+    "gate_checks": {
+      "codemix_bn_script_en": {
+        "passed": true,
+        "actual": 1.0,
+        "threshold": 0.8,
+        "op": ">=",
+        "detail": "Bengali-script+English share on Promotional CodeMix: 1.0000 (n=12)."
+      },
+      "codemix_hook_plus_pure_en": {
+        "passed": true,
+        "actual": 0.0,
+        "threshold": 0.0,
+        "op": "==",
+        "detail": "[hook !/?] + [pure English] share: 0.0000 (0/12)."
+      },
+      "codemix_intra_sentential_mix": {
+        "passed": true,
+        "actual": 1.0,
+        "threshold": 0.6,
+        "op": ">=",
+        "detail": "Intra-sentential lexical mixing share: 1.0000 (n=12)."
+      },
+      "promo_sent1_excl_rate": {
+        "passed": true,
+        "actual": 0.0444,
+        "threshold": 0.35,
+        "op": "<=",
+        "detail": "Sentence-1 '!' rate on Promotional rows: 0.0444 (n=45)."
+      },
+      "promo_sent1_quest_rate": {
+        "passed": true,
+        "actual": 0.0,
+        "threshold": 0.05,
+        "op": "<=",
+        "detail": "Sentence-1 '?' rate on Promotional rows: 0.0000 (n=45)."
+      },
+      "max_brand_count": {
+        "passed": true,
+        "actual": 3,
+        "threshold": 5,
+        "op": "<=",
+        "detail": "Max mentions for any single fictional brand: 3."
+      },
+      "brandless_rate": {
+        "passed": true,
+        "actual": 0.6444,
+        "threshold": 0.3,
+        "op": ">=",
+        "detail": "Brandless Promotional SMS rate: 0.6444 (n=45)."
+      },
+      "ussd_1234_share": {
+        "passed": true,
+        "actual": 0.0,
+        "threshold": 0.25,
+        "op": "<=",
+        "detail": "*1234 USSD share: 0.0000 (0/6)."
+      }
+    },
+    "all_gates_passed": true
+  },
+  "extended_diagnostics": {
+    "three_class_before_pilot": {
+      "raw": {
+        "accuracy": 98.1,
+        "macro_f1": 98.01,
+        "smishing_recall_argmax": 98.77,
+        "normal_as_smishing_fpr_argmax": 1.26,
+        "smishing_recall_at_1pct_fpr": 98.51,
+        "top_negative_smishing_features": [
+          [
+            "word__আজ",
+            -1.08
+          ],
+          [
+            "word__discount",
+            -0.83
+          ],
+          [
+            "char__ কি",
+            -0.771
+          ],
+          [
+            "word__আম",
+            -0.758
+          ],
+          [
+            "word__মন",
+            -0.738
+          ],
+          [
+            "word__আজক",
+            -0.727
+          ],
+          [
+            "word__অফ",
+            -0.716
+          ],
+          [
+            "word__সব",
+            -0.669
+          ]
+        ]
+      },
+      "canon_masked": {
+        "accuracy": 97.95,
+        "macro_f1": 97.86,
+        "smishing_recall_argmax": 98.45,
+        "normal_as_smishing_fpr_argmax": 1.19,
+        "smishing_recall_at_1pct_fpr": 97.8,
+        "top_negative_smishing_features": [
+          [
+            "word__আজ",
+            -1.021
+          ],
+          [
+            "word__discount",
+            -0.875
+          ],
+          [
+            "word__মন",
+            -0.766
+          ],
+          [
+            "word__cashback",
+            -0.756
+          ],
+          [
+            "word__৩০দ",
+            -0.746
+          ],
+          [
+            "word__ussd",
+            -0.727
+          ],
+          [
+            "word__may",
+            -0.701
+          ],
+          [
+            "word__আজক",
+            -0.688
+          ]
+        ]
+      },
+      "brand_masked": {
+        "accuracy": 97.85,
+        "macro_f1": 97.76,
+        "smishing_recall_argmax": 98.39,
+        "normal_as_smishing_fpr_argmax": 1.33,
+        "smishing_recall_at_1pct_fpr": 97.8,
+        "top_negative_smishing_features": [
+          [
+            "word__আজ",
+            -1.005
+          ],
+          [
+            "word__discount",
+            -0.865
+          ],
+          [
+            "word__মন",
+            -0.765
+          ],
+          [
+            "word__৩০দ",
+            -0.756
+          ],
+          [
+            "word__cashback",
+            -0.749
+          ],
+          [
+            "word__may",
+            -0.693
+          ],
+          [
+            "word__ussd",
+            -0.693
+          ],
+          [
+            "char__ কি",
+            -0.672
+          ]
+        ]
+      },
+      "brand_stripped": {
+        "accuracy": 97.8,
+        "macro_f1": 97.71,
+        "smishing_recall_argmax": 98.39,
+        "normal_as_smishing_fpr_argmax": 1.46,
+        "smishing_recall_at_1pct_fpr": 97.8,
+        "top_negative_smishing_features": [
+          [
+            "word__আজ",
+            -1.03
+          ],
+          [
+            "word__discount",
+            -0.854
+          ],
+          [
+            "word__cashback",
+            -0.765
+          ],
+          [
+            "word__মন",
+            -0.762
+          ],
+          [
+            "word__৩০দ",
+            -0.729
+          ],
+          [
+            "word__ussd",
+            -0.711
+          ],
+          [
+            "word__may",
+            -0.685
+          ],
+          [
+            "word__আজক",
+            -0.672
+          ]
+        ]
+      }
+    },
+    "three_class_after_pilot": {
+      "raw": {
+        "accuracy": 98.22,
+        "macro_f1": 98.15,
+        "smishing_recall_argmax": 98.77,
+        "normal_as_smishing_fpr_argmax": 1.13,
+        "smishing_recall_at_1pct_fpr": 98.19,
+        "top_negative_smishing_features": [
+          [
+            "word__আজ",
+            -1.099
+          ],
+          [
+            "word__discount",
+            -0.827
+          ],
+          [
+            "char__ কি",
+            -0.782
+          ],
+          [
+            "word__আজক",
+            -0.772
+          ],
+          [
+            "word__আম",
+            -0.74
+          ],
+          [
+            "word__মন",
+            -0.725
+          ],
+          [
+            "word__সব",
+            -0.679
+          ],
+          [
+            "word__cashback",
+            -0.674
+          ]
+        ]
+      },
+      "canon_masked": {
+        "accuracy": 97.68,
+        "macro_f1": 97.58,
+        "smishing_recall_argmax": 98.51,
+        "normal_as_smishing_fpr_argmax": 1.59,
+        "smishing_recall_at_1pct_fpr": 97.67,
+        "top_negative_smishing_features": [
+          [
+            "word__আজ",
+            -1.025
+          ],
+          [
+            "word__discount",
+            -0.844
+          ],
+          [
+            "word__cashback",
+            -0.776
+          ],
+          [
+            "word__মন",
+            -0.756
+          ],
+          [
+            "word__ussd",
+            -0.739
+          ],
+          [
+            "word__৩০দ",
+            -0.726
+          ],
+          [
+            "word__আজক",
+            -0.693
+          ],
+          [
+            "word__may",
+            -0.687
+          ]
+        ]
+      },
+      "brand_masked": {
+        "accuracy": 97.7,
+        "macro_f1": 97.61,
+        "smishing_recall_argmax": 98.45,
+        "normal_as_smishing_fpr_argmax": 1.59,
+        "smishing_recall_at_1pct_fpr": 97.74,
+        "top_negative_smishing_features": [
+          [
+            "word__আজ",
+            -1.004
+          ],
+          [
+            "word__discount",
+            -0.847
+          ],
+          [
+            "word__cashback",
+            -0.764
+          ],
+          [
+            "word__মন",
+            -0.748
+          ],
+          [
+            "word__৩০দ",
+            -0.739
+          ],
+          [
+            "word__ussd",
+            -0.711
+          ],
+          [
+            "word__may",
+            -0.69
+          ],
+          [
+            "word__আজক",
+            -0.679
+          ]
+        ]
+      },
+      "brand_stripped": {
+        "accuracy": 97.75,
+        "macro_f1": 97.66,
+        "smishing_recall_argmax": 98.45,
+        "normal_as_smishing_fpr_argmax": 1.59,
+        "smishing_recall_at_1pct_fpr": 97.67,
+        "top_negative_smishing_features": [
+          [
+            "word__আজ",
+            -1.031
+          ],
+          [
+            "word__discount",
+            -0.866
+          ],
+          [
+            "word__cashback",
+            -0.774
+          ],
+          [
+            "word__ussd",
+            -0.77
+          ],
+          [
+            "word__মন",
+            -0.745
+          ],
+          [
+            "word__৩০দ",
+            -0.709
+          ],
+          [
+            "word__আজক",
+            -0.687
+          ],
+          [
+            "word__may",
+            -0.686
+          ]
+        ]
+      }
+    },
+    "is_synthetic_probes": {
+      "all_vs_real": {
+        "n_synth": 45,
+        "n_real": 3999,
+        "n_splits": 5,
+        "sample_weighted": false,
+        "raw": {
+          "roc_auc": 0.985,
+          "accuracy_pct": 99.51,
+          "macro_f1_pct": 85.59,
+          "top_positive_features": [
+            [
+              "word__example",
+              4.357
+            ],
+            [
+              "word__চলছ",
+              3.429
+            ],
+            [
+              "word__chhar",
+              3.091
+            ],
+            [
+              "word__paben",
+              3.014
+            ],
+            [
+              "char__ ও ",
+              2.805
+            ],
+            [
+              "word__20",
+              2.4
+            ],
+            [
+              "char__ ছাড় ",
+              2.294
+            ],
+            [
+              "char__ছাড় ",
+              2.267
+            ]
+          ]
+        },
+        "canon_masked": {
+          "roc_auc": 0.9855,
+          "accuracy_pct": 99.28,
+          "macro_f1_pct": 77.51,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              3.564
+            ],
+            [
+              "word__paben",
+              3.365
+            ],
+            [
+              "char__ ও ",
+              3.246
+            ],
+            [
+              "word__20",
+              3.214
+            ],
+            [
+              "word__chhar",
+              2.988
+            ],
+            [
+              "word__25",
+              2.53
+            ],
+            [
+              "word__15",
+              2.375
+            ],
+            [
+              "char__ছাড় ",
+              2.336
+            ]
+          ]
+        },
+        "brand_masked": {
+          "roc_auc": 0.9798,
+          "accuracy_pct": 99.33,
+          "macro_f1_pct": 78.4,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              3.647
+            ],
+            [
+              "char__ ও ",
+              3.365
+            ],
+            [
+              "word__paben",
+              3.277
+            ],
+            [
+              "word__20",
+              3.163
+            ],
+            [
+              "word__chhar",
+              2.864
+            ],
+            [
+              "word__25",
+              2.519
+            ],
+            [
+              "char__ছাড় ",
+              2.38
+            ],
+            [
+              "char__াড় ",
+              2.38
+            ]
+          ]
+        },
+        "brand_stripped": {
+          "roc_auc": 0.9833,
+          "accuracy_pct": 99.31,
+          "macro_f1_pct": 77.95,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              3.618
+            ],
+            [
+              "char__ ও ",
+              3.379
+            ],
+            [
+              "word__paben",
+              3.281
+            ],
+            [
+              "word__20",
+              3.143
+            ],
+            [
+              "word__chhar",
+              2.95
+            ],
+            [
+              "word__25",
+              2.47
+            ],
+            [
+              "char__ছাড় ",
+              2.425
+            ],
+            [
+              "char__াড় ",
+              2.425
+            ]
+          ]
+        },
+        "surface_8feat": {
+          "roc_auc": 0.4265,
+          "accuracy_pct": 63.67,
+          "macro_f1_pct": 39.79,
+          "top_positive_features": [
+            [
+              "word_len",
+              0.691
+            ],
+            [
+              "has_ussd",
+              0.259
+            ],
+            [
+              "has_url",
+              0.104
+            ],
+            [
+              "has_bn",
+              0.095
+            ],
+            [
+              "has_redacted_tag",
+              0.0
+            ],
+            [
+              "has_latin",
+              -0.017
+            ],
+            [
+              "has_phone",
+              -0.063
+            ],
+            [
+              "char_len",
+              -0.742
+            ]
+          ]
+        }
+      },
+      "synth_vs_real_smishing": {
+        "n_synth": 45,
+        "n_real": 1548,
+        "n_splits": 5,
+        "sample_weighted": false,
+        "raw": {
+          "roc_auc": 0.9983,
+          "accuracy_pct": 98.87,
+          "macro_f1_pct": 87.55,
+          "top_positive_features": [
+            [
+              "word__example",
+              2.985
+            ],
+            [
+              "word__চলছ",
+              2.455
+            ],
+            [
+              "word__chhar",
+              2.289
+            ],
+            [
+              "word__paben",
+              2.265
+            ],
+            [
+              "word__25",
+              2.081
+            ],
+            [
+              "word__off",
+              2.036
+            ],
+            [
+              "char__ ও ",
+              2.03
+            ],
+            [
+              "word__20",
+              1.943
+            ]
+          ]
+        },
+        "canon_masked": {
+          "roc_auc": 0.9967,
+          "accuracy_pct": 98.93,
+          "macro_f1_pct": 88.69,
+          "top_positive_features": [
+            [
+              "word__ussd",
+              2.65
+            ],
+            [
+              "word__paben",
+              2.502
+            ],
+            [
+              "word__চলছ",
+              2.473
+            ],
+            [
+              "word__20",
+              2.469
+            ],
+            [
+              "word__off",
+              2.277
+            ],
+            [
+              "word__25",
+              2.247
+            ],
+            [
+              "word__chhar",
+              2.225
+            ],
+            [
+              "char__ ও ",
+              2.187
+            ]
+          ]
+        },
+        "brand_masked": {
+          "roc_auc": 0.9967,
+          "accuracy_pct": 99.18,
+          "macro_f1_pct": 91.77,
+          "top_positive_features": [
+            [
+              "word__ussd",
+              2.653
+            ],
+            [
+              "word__চলছ",
+              2.511
+            ],
+            [
+              "word__paben",
+              2.506
+            ],
+            [
+              "word__20",
+              2.454
+            ],
+            [
+              "word__25",
+              2.318
+            ],
+            [
+              "word__off",
+              2.292
+            ],
+            [
+              "char__ ও ",
+              2.205
+            ],
+            [
+              "word__chhar",
+              2.089
+            ]
+          ]
+        },
+        "brand_stripped": {
+          "roc_auc": 0.9967,
+          "accuracy_pct": 99.0,
+          "macro_f1_pct": 89.49,
+          "top_positive_features": [
+            [
+              "word__ussd",
+              2.767
+            ],
+            [
+              "word__চলছ",
+              2.651
+            ],
+            [
+              "word__paben",
+              2.558
+            ],
+            [
+              "word__20",
+              2.452
+            ],
+            [
+              "word__off",
+              2.305
+            ],
+            [
+              "char__ ও ",
+              2.236
+            ],
+            [
+              "word__25",
+              2.223
+            ],
+            [
+              "word__chhar",
+              2.178
+            ]
+          ]
+        },
+        "surface_8feat": {
+          "roc_auc": 0.7958,
+          "accuracy_pct": 81.23,
+          "macro_f1_pct": 52.84,
+          "top_positive_features": [
+            [
+              "word_len",
+              1.889
+            ],
+            [
+              "has_ussd",
+              0.183
+            ],
+            [
+              "has_bn",
+              0.039
+            ],
+            [
+              "has_redacted_tag",
+              0.0
+            ],
+            [
+              "has_latin",
+              -0.241
+            ],
+            [
+              "has_url",
+              -0.516
+            ],
+            [
+              "has_phone",
+              -0.915
+            ],
+            [
+              "char_len",
+              -2.62
+            ]
+          ]
+        }
+      },
+      "synthetic_normal_vs_real_normal": {
+        "skipped": "insufficient_synthetic_or_real_rows_or_families",
+        "n_synth": 0,
+        "n_real": 1509
+      },
+      "synthetic_normal_vs_real_normal_stratum_3way": {
+        "skipped": "no_synthetic_or_real_rows_for_class",
+        "stratum_type": "language_domain_length_band",
+        "matched_strata_count": 0,
+        "matched_real_count": 0,
+        "total_real_count": 1509,
+        "matched_synth_count": 0,
+        "total_synth_count": 0
+      },
+      "synthetic_normal_vs_real_normal_stratum_2way": {
+        "skipped": "no_synthetic_or_real_rows_for_class",
+        "stratum_type": "language_length_band",
+        "matched_strata_count": 0,
+        "matched_real_count": 0,
+        "total_real_count": 1509,
+        "matched_synth_count": 0,
+        "total_synth_count": 0
+      },
+      "synthetic_promo_vs_real_promo": {
+        "n_synth": 45,
+        "n_real": 942,
+        "n_splits": 5,
+        "sample_weighted": false,
+        "raw": {
+          "roc_auc": 0.9869,
+          "accuracy_pct": 98.07,
+          "macro_f1_pct": 86.12,
+          "top_positive_features": [
+            [
+              "word__example",
+              2.79
+            ],
+            [
+              "word__চলছ",
+              2.455
+            ],
+            [
+              "char__ ও ",
+              2.044
+            ],
+            [
+              "word__paben",
+              1.984
+            ],
+            [
+              "word__chhar",
+              1.822
+            ],
+            [
+              "word__ar",
+              1.668
+            ],
+            [
+              "word__net",
+              1.584
+            ],
+            [
+              "word__20",
+              1.518
+            ]
+          ]
+        },
+        "canon_masked": {
+          "roc_auc": 0.9766,
+          "accuracy_pct": 97.47,
+          "macro_f1_pct": 80.69,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              2.554
+            ],
+            [
+              "char__ ও ",
+              2.392
+            ],
+            [
+              "word__paben",
+              2.34
+            ],
+            [
+              "word__20",
+              2.024
+            ],
+            [
+              "word__ar",
+              1.872
+            ],
+            [
+              "word__chhar",
+              1.788
+            ],
+            [
+              "char__ড় ",
+              1.619
+            ],
+            [
+              "char__ছাড় ",
+              1.545
+            ]
+          ]
+        },
+        "brand_masked": {
+          "roc_auc": 0.9711,
+          "accuracy_pct": 97.37,
+          "macro_f1_pct": 79.62,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              2.592
+            ],
+            [
+              "char__ ও ",
+              2.467
+            ],
+            [
+              "word__paben",
+              2.335
+            ],
+            [
+              "word__20",
+              1.985
+            ],
+            [
+              "word__ar",
+              1.907
+            ],
+            [
+              "word__chhar",
+              1.765
+            ],
+            [
+              "char__ড় ",
+              1.676
+            ],
+            [
+              "char__ছাড় ",
+              1.604
+            ]
+          ]
+        },
+        "brand_stripped": {
+          "roc_auc": 0.9724,
+          "accuracy_pct": 97.37,
+          "macro_f1_pct": 79.62,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              2.593
+            ],
+            [
+              "char__ ও ",
+              2.473
+            ],
+            [
+              "word__paben",
+              2.299
+            ],
+            [
+              "word__20",
+              1.978
+            ],
+            [
+              "word__ar",
+              1.9
+            ],
+            [
+              "word__chhar",
+              1.765
+            ],
+            [
+              "char__ড় ",
+              1.681
+            ],
+            [
+              "char__াড় ",
+              1.609
+            ]
+          ]
+        },
+        "surface_8feat": {
+          "roc_auc": 0.4532,
+          "accuracy_pct": 55.52,
+          "macro_f1_pct": 38.43,
+          "top_positive_features": [
+            [
+              "word_len",
+              0.919
+            ],
+            [
+              "has_url",
+              0.158
+            ],
+            [
+              "has_bn",
+              0.088
+            ],
+            [
+              "has_phone",
+              0.027
+            ],
+            [
+              "has_redacted_tag",
+              0.0
+            ],
+            [
+              "has_ussd",
+              -0.026
+            ],
+            [
+              "has_latin",
+              -0.148
+            ],
+            [
+              "char_len",
+              -0.914
+            ]
+          ]
+        }
+      },
+      "synthetic_promo_vs_real_promo_stratum_3way": {
+        "n_synth": 45,
+        "n_real": 803,
+        "n_splits": 5,
+        "sample_weighted": true,
+        "stratum_type": "language_domain_length_band",
+        "matched_strata_count": 27,
+        "matched_real_count": 803,
+        "total_real_count": 942,
+        "matched_synth_count": 45,
+        "total_synth_count": 45,
+        "raw": {
+          "roc_auc": 0.9675,
+          "accuracy_pct": 97.52,
+          "macro_f1_pct": 84.14,
+          "top_positive_features": [
+            [
+              "word__example",
+              0.99
+            ],
+            [
+              "word__চলছ",
+              0.836
+            ],
+            [
+              "char__ ও ",
+              0.616
+            ],
+            [
+              "word__chhar",
+              0.569
+            ],
+            [
+              "word__paben",
+              0.526
+            ],
+            [
+              "word__20",
+              0.502
+            ],
+            [
+              "char__াড় ",
+              0.472
+            ],
+            [
+              "char__ছাড় ",
+              0.472
+            ]
+          ]
+        },
+        "canon_masked": {
+          "roc_auc": 0.953,
+          "accuracy_pct": 96.23,
+          "macro_f1_pct": 76.16,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              0.878
+            ],
+            [
+              "char__ ও ",
+              0.676
+            ],
+            [
+              "word__20",
+              0.615
+            ],
+            [
+              "word__paben",
+              0.605
+            ],
+            [
+              "word__chhar",
+              0.566
+            ],
+            [
+              "word__কর url",
+              0.511
+            ],
+            [
+              "char__ড় ",
+              0.502
+            ],
+            [
+              "word__15",
+              0.49
+            ]
+          ]
+        },
+        "brand_masked": {
+          "roc_auc": 0.9445,
+          "accuracy_pct": 96.11,
+          "macro_f1_pct": 75.75,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              0.891
+            ],
+            [
+              "char__ ও ",
+              0.688
+            ],
+            [
+              "word__20",
+              0.612
+            ],
+            [
+              "word__paben",
+              0.601
+            ],
+            [
+              "word__chhar",
+              0.56
+            ],
+            [
+              "char__ড় ",
+              0.516
+            ],
+            [
+              "word__কর url",
+              0.513
+            ],
+            [
+              "char__াড় ",
+              0.493
+            ]
+          ]
+        },
+        "brand_stripped": {
+          "roc_auc": 0.946,
+          "accuracy_pct": 96.11,
+          "macro_f1_pct": 75.75,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              0.891
+            ],
+            [
+              "char__ ও ",
+              0.69
+            ],
+            [
+              "word__20",
+              0.613
+            ],
+            [
+              "word__paben",
+              0.6
+            ],
+            [
+              "word__chhar",
+              0.561
+            ],
+            [
+              "char__ড় ",
+              0.517
+            ],
+            [
+              "word__কর url",
+              0.513
+            ],
+            [
+              "char__াড় ",
+              0.494
+            ]
+          ]
+        },
+        "surface_8feat": {
+          "roc_auc": 0.4656,
+          "accuracy_pct": 50.71,
+          "macro_f1_pct": 37.31,
+          "top_positive_features": [
+            [
+              "word_len",
+              0.448
+            ],
+            [
+              "has_url",
+              0.27
+            ],
+            [
+              "has_phone",
+              0.135
+            ],
+            [
+              "has_bn",
+              0.011
+            ],
+            [
+              "has_redacted_tag",
+              0.0
+            ],
+            [
+              "has_ussd",
+              -0.073
+            ],
+            [
+              "has_latin",
+              -0.112
+            ],
+            [
+              "char_len",
+              -0.542
+            ]
+          ]
+        }
+      },
+      "synthetic_promo_vs_real_promo_stratum_2way": {
+        "n_synth": 45,
+        "n_real": 891,
+        "n_splits": 5,
+        "sample_weighted": true,
+        "stratum_type": "language_length_band",
+        "matched_strata_count": 8,
+        "matched_real_count": 891,
+        "total_real_count": 942,
+        "matched_synth_count": 45,
+        "total_synth_count": 45,
+        "raw": {
+          "roc_auc": 0.9299,
+          "accuracy_pct": 97.44,
+          "macro_f1_pct": 81.15,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              0.488
+            ],
+            [
+              "word__example",
+              0.463
+            ],
+            [
+              "word__১৫",
+              0.307
+            ],
+            [
+              "word__নত",
+              0.286
+            ],
+            [
+              "char__ ও ",
+              0.264
+            ],
+            [
+              "word__https example",
+              0.232
+            ],
+            [
+              "char__ ছাড় ",
+              0.224
+            ],
+            [
+              "char__াড় ",
+              0.22
+            ]
+          ]
+        },
+        "canon_masked": {
+          "roc_auc": 0.8894,
+          "accuracy_pct": 96.69,
+          "macro_f1_pct": 74.54,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              0.497
+            ],
+            [
+              "word__১৫",
+              0.301
+            ],
+            [
+              "word__নত",
+              0.296
+            ],
+            [
+              "char__ ও ",
+              0.281
+            ],
+            [
+              "word__paben",
+              0.246
+            ],
+            [
+              "word__20",
+              0.235
+            ],
+            [
+              "word__evening",
+              0.227
+            ],
+            [
+              "word__কর url",
+              0.225
+            ]
+          ]
+        },
+        "brand_masked": {
+          "roc_auc": 0.8774,
+          "accuracy_pct": 96.69,
+          "macro_f1_pct": 74.54,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              0.503
+            ],
+            [
+              "word__১৫",
+              0.299
+            ],
+            [
+              "word__নত",
+              0.294
+            ],
+            [
+              "char__ ও ",
+              0.284
+            ],
+            [
+              "word__paben",
+              0.244
+            ],
+            [
+              "word__20",
+              0.234
+            ],
+            [
+              "word__evening",
+              0.227
+            ],
+            [
+              "word__কর url",
+              0.225
+            ]
+          ]
+        },
+        "brand_stripped": {
+          "roc_auc": 0.8767,
+          "accuracy_pct": 96.69,
+          "macro_f1_pct": 74.54,
+          "top_positive_features": [
+            [
+              "word__চলছ",
+              0.504
+            ],
+            [
+              "word__১৫",
+              0.298
+            ],
+            [
+              "word__নত",
+              0.294
+            ],
+            [
+              "char__ ও ",
+              0.285
+            ],
+            [
+              "word__paben",
+              0.242
+            ],
+            [
+              "word__20",
+              0.236
+            ],
+            [
+              "word__evening",
+              0.227
+            ],
+            [
+              "word__কর url",
+              0.225
+            ]
+          ]
+        },
+        "surface_8feat": {
+          "roc_auc": 0.4279,
+          "accuracy_pct": 52.46,
+          "macro_f1_pct": 37.92,
+          "top_positive_features": [
+            [
+              "has_url",
+              0.21
+            ],
+            [
+              "word_len",
+              0.192
+            ],
+            [
+              "has_phone",
+              0.079
+            ],
+            [
+              "has_bn",
+              0.078
+            ],
+            [
+              "has_redacted_tag",
+              0.0
+            ],
+            [
+              "has_latin",
+              -0.084
+            ],
+            [
+              "has_ussd",
+              -0.097
+            ],
+            [
+              "char_len",
+              -0.245
+            ]
+          ]
+        }
+      }
+    },
+    "counterfactual_probes": {
+      "n_probed": 1279,
+      "views": {
+        "raw": {
+          "smishing_pred_pct_before": 100.0,
+          "contact_swap": {
+            "smishing_pred_pct_after": 98.44,
+            "pp_drop": -1.56,
+            "mean_p_smishing_before": 0.9469,
+            "mean_p_smishing_after": 0.8689,
+            "mean_p_smishing_delta": -0.0781
+          },
+          "contact_and_brand_swap": {
+            "smishing_pred_pct_after": 98.44,
+            "pp_drop": -1.56,
+            "mean_p_smishing_before": 0.9469,
+            "mean_p_smishing_after": 0.8662,
+            "mean_p_smishing_delta": -0.0807
+          }
+        },
+        "canon_masked": {
+          "smishing_pred_pct_before": 100.0,
+          "contact_swap": {
+            "smishing_pred_pct_after": 100.0,
+            "pp_drop": 0.0,
+            "mean_p_smishing_before": 0.9523,
+            "mean_p_smishing_after": 0.9524,
+            "mean_p_smishing_delta": 0.0001
+          },
+          "contact_and_brand_swap": {
+            "smishing_pred_pct_after": 100.0,
+            "pp_drop": 0.0,
+            "mean_p_smishing_before": 0.9523,
+            "mean_p_smishing_after": 0.9512,
+            "mean_p_smishing_delta": -0.0011
+          }
+        },
+        "brand_masked": {
+          "smishing_pred_pct_before": 100.0,
+          "contact_swap": {
+            "smishing_pred_pct_after": 100.0,
+            "pp_drop": 0.0,
+            "mean_p_smishing_before": 0.9519,
+            "mean_p_smishing_after": 0.952,
+            "mean_p_smishing_delta": 0.0001
+          },
+          "contact_and_brand_swap": {
+            "smishing_pred_pct_after": 100.0,
+            "pp_drop": 0.0,
+            "mean_p_smishing_before": 0.9519,
+            "mean_p_smishing_after": 0.952,
+            "mean_p_smishing_delta": 0.0001
+          }
+        },
+        "brand_stripped": {
+          "smishing_pred_pct_before": 100.0,
+          "contact_swap": {
+            "smishing_pred_pct_after": 100.0,
+            "pp_drop": 0.0,
+            "mean_p_smishing_before": 0.9517,
+            "mean_p_smishing_after": 0.9518,
+            "mean_p_smishing_delta": 0.0001
+          },
+          "contact_and_brand_swap": {
+            "smishing_pred_pct_after": 100.0,
+            "pp_drop": 0.0,
+            "mean_p_smishing_before": 0.9517,
+            "mean_p_smishing_after": 0.9518,
+            "mean_p_smishing_delta": 0.0001
+          }
+        }
+      }
+    }
+  },
+  "eligible_counts_before_pilot": {
+    "Normal": 1509,
+    "Promotional": 942,
+    "Smishing": 1548
+  },
+  "eligible_counts_after_pilot": {
+    "Normal": 1509,
+    "Promotional": 987,
+    "Smishing": 1548
+  },
+  "stage_b_target_T": 1548,
+  "remaining_stage_b_deficits": {
+    "Normal": 39,
+    "Promotional": 561,
+    "Smishing": 0
+  },
+  "dry_run": false,
+  "artifacts": {
+    "candidates": "data/generated/curation_v2/batch7_45/validation_run/candidates.jsonl",
+    "accepted": "data/generated/curation_v2/batch7_45/validation_run/accepted.jsonl",
+    "rejected": "data/generated/curation_v2/batch7_45/validation_run/rejected.jsonl",
+    "summary": "data/generated/curation_v2/batch7_45/validation_run/pilot_validation_summary.json"
+  }
+}
