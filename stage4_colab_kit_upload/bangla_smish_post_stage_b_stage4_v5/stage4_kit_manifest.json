@@ -1,0 +1,217 @@
+{
+  "kit_version": "post_stage_b_stage4_kit_v2",
+  "contract_type": "portable_colab_execution_kit",
+  "verifies_full_repository_282": false,
+  "scope_disclosure": "Portable Colab execution kit integrity verifies ONLY the staged runtime bundle, source code, configs, frozen cohort masks, statistical governance evidence, and Stage 4 notebook. It does NOT claim to verify absent historical repository files outside the portable kit; full 282-file repository verification must run locally against the complete repository.",
+  "created_at_utc": "2026-11-24T14:39:39.654690+00:00",
+  "bundle_dir_name": "post_stage_b_bundle_v2",
+  "bundle_manifest_sha256": "308d1c889840c1ec04e1cd6f6751cccfca0e559f2e12c61e18ff2e54d6fa2922",
+  "option_a_config_sha256": "518ec0cf56d52619fe5f24da7ef18a4b077466d38058c4d2538cd605c6910ecc",
+  "t4_benchmark_config_sha256": "03a5f10d433f657af82d1af401774fd40d9d36209d35e13a14bc934086416180",
+  "stage4_notebook_sha256": "d0c0c173c629ef97cb3b2c5df60f72e669fdec69e9bf1868abc8c9e695ba468c",
+  "source_baseline_reference": {
+    "protected_baseline_282_sha256": "f0b80b1e29bd3d3002e6455672c43f73d01a87dd927ea0b55e693cb6f3945ce1",
+    "total_repository_protected_files": 282,
+    "staged_v2_bundle_files_cross_checked": 8,
+    "branch": "main",
+    "head_commit": "4d341183cb7a6fce0ed773ff33da2a3b757d6f94"
+  },
+  "statistical_governance_evidence": {
+    "validation_results_sha256": "bde8085b77066cbf449a1b17d0a1afa77f2dcbcb4ea1a82f7d0dde68f6fe504f",
+    "validation_verdict": "FAIL_OR_INCONCLUSIVE_CONFIRMATORY_DISABLED",
+    "confirmatory_declarations_enabled": false
+  },
+  "dependency_specification": {
+    "min_torch_version": "2.6",
+    "base_packages": [
+      "transformers>=4.57.1,<5",
+      "datasets>=2.20,<5",
+      "accelerate>=0.33,<2",
+      "safetensors>=0.4",
+      "sentencepiece>=0.2,<1",
+      "packaging>=23.0",
+      "huggingface_hub>=0.24,<2",
+      "protobuf>=3.20",
+      "numpy>=1.26",
+      "pandas>=2.1",
+      "scipy>=1.11",
+      "scikit-learn>=1.4",
+      "pyarrow>=15.0"
+    ],
+    "banglabert_normalizer_requirement": "normalizer @ git+https://github.com/csebuetnlp/normalizer@d405944dde5ceeacb7c2fd3245ae2a9dea5f35c9",
+    "banglabert_normalizer_commit": "d405944dde5ceeacb7c2fd3245ae2a9dea5f35c9"
+  },
+  "required_runtime_files": {
+    "data/processed/post_stage_b_bundle_v2/counterfactual_smish_probe.parquet": {
+      "sha256": "9f2546e04f31368014a686605a843009a59ecb15284080f13391f87264a16c83",
+      "bytes": 1185746,
+      "category": "v2_bundle"
+    },
+    "data/processed/post_stage_b_bundle_v2/dataset_manifest.json": {
+      "sha256": "308d1c889840c1ec04e1cd6f6751cccfca0e559f2e12c61e18ff2e54d6fa2922",
+      "bytes": 15534,
+      "category": "v2_bundle"
+    },
+    "data/processed/post_stage_b_bundle_v2/eval_banglaphish_ood.parquet": {
+      "sha256": "d08fd5cf7b45e89de7f9647c1e677e31a6120e40b39f520c0833eccafd73b12d",
+      "bytes": 7279129,
+      "category": "v2_bundle"
+    },
+    "data/processed/post_stage_b_bundle_v2/eval_smishdetect_test.parquet": {
+      "sha256": "80fb4d18d567add3d1854e0cad8a462fe10a9a84bb43fc8292aefcde7a2983ac",
+      "bytes": 1354154,
+      "category": "v2_bundle"
+    },
+    "data/processed/post_stage_b_bundle_v2/eval_smishdetect_validation.parquet": {
+      "sha256": "783cb23ec3920a3c5395fac83a8360af96b624e1413916f4c5ccf516d6b181d0",
+      "bytes": 623026,
+      "category": "v2_bundle"
+    },
+    "data/processed/post_stage_b_bundle_v2/real_train_pool.parquet": {
+      "sha256": "b42029c001e9277f875a91b8b5e17d6cbd594a8fdafb3095ab847ac70f361324",
+      "bytes": 3404813,
+      "category": "v2_bundle"
+    },
+    "data/processed/post_stage_b_bundle_v2/synthetic_batches_b1_b7.parquet": {
+      "sha256": "62a099d761b0ce79293e4c215ed4bce4d18faf7bb9accab859a0ca19fd925abc",
+      "bytes": 291112,
+      "category": "v2_bundle"
+    },
+    "data/processed/post_stage_b_bundle_v2/synthetic_pilot_300.parquet": {
+      "sha256": "62e95b7f037b3c899573ed416ea315941210420a32591237c409b5c941b8d54a",
+      "bytes": 284460,
+      "category": "v2_bundle"
+    },
+    "experiments/colab/configs/gpu_smoke_test_config.json": {
+      "sha256": "f60c0abe78c9c657bff471dccc124d8cc3ec1d369cb1487a75455ee319ecd41b",
+      "bytes": 660,
+      "category": "runner_config"
+    },
+    "experiments/colab/configs/post_stage_b_stage4_option_a_config.json": {
+      "sha256": "518ec0cf56d52619fe5f24da7ef18a4b077466d38058c4d2538cd605c6910ecc",
+      "bytes": 1356,
+      "category": "runner_config"
+    },
+    "experiments/colab/configs/post_stage_b_stage4_t4_benchmark_config.json": {
+      "sha256": "03a5f10d433f657af82d1af401774fd40d9d36209d35e13a14bc934086416180",
+      "bytes": 1608,
+      "category": "runner_config"
+    },
+    "experiments/colab/post_stage_b_stage4_experiments.ipynb": {
+      "sha256": "d0c0c173c629ef97cb3b2c5df60f72e669fdec69e9bf1868abc8c9e695ba468c",
+      "bytes": 16383,
+      "category": "notebook"
+    },
+    "pyproject.toml": {
+      "sha256": "8b4dba3644d2d5b826c2bd1c87d2c4699dc55fe67b108cf976d9e18cc33b57e9",
+      "bytes": 715,
+      "category": "dependency_spec"
+    },
+    "reports/protected_baseline_282.json": {
+      "sha256": "f0b80b1e29bd3d3002e6455672c43f73d01a87dd927ea0b55e693cb6f3945ce1",
+      "bytes": 117762,
+      "category": "governance_or_baseline_artifact"
+    },
+    "reports/stage4_frozen_test_masks.json": {
+      "sha256": "db2cde6a5aa47a0050162cc97447de83eeb45a63819ee506ec4ca8d95e11c9cc",
+      "bytes": 6347,
+      "category": "governance_or_baseline_artifact"
+    },
+    "reports/stage4_statistical_validation_results.json": {
+      "sha256": "bde8085b77066cbf449a1b17d0a1afa77f2dcbcb4ea1a82f7d0dde68f6fe504f",
+      "bytes": 14554,
+      "category": "governance_or_baseline_artifact"
+    },
+    "src/bangla_smish/__init__.py": {
+      "sha256": "57d0d5ec15b7f5f46281eb3a6aaa69713feef9c9f415d4d7dc76d9ee660af654",
+      "bytes": 270,
+      "category": "source_module"
+    },
+    "src/bangla_smish/audit.py": {
+      "sha256": "5ec0feb30e147a7aea63c531e507d6616232206bea46c9ea45573a94f667e9c0",
+      "bytes": 6771,
+      "category": "source_module"
+    },
+    "src/bangla_smish/codemix_diversity.py": {
+      "sha256": "a0a62179be6b08a1adad27747dda406b1d79786858a86d6efe6b2984b183b8c2",
+      "bytes": 28085,
+      "category": "source_module"
+    },
+    "src/bangla_smish/curation.py": {
+      "sha256": "461f5244615a191dc43fbd994ab81c0c28035ac4a813ed711f0e82c55557e9d2",
+      "bytes": 43966,
+      "category": "source_module"
+    },
+    "src/bangla_smish/metrics.py": {
+      "sha256": "c50d3f0f53967921c9585055b68a4b1b2b2ea573329c247627456a38495f506f",
+      "bytes": 11203,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_checkpointing.py": {
+      "sha256": "321fc8acba90b11e480f8ca73479e0e12770facb0c2c86820e1e2663fe45fba3",
+      "bytes": 39696,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_cohorts.py": {
+      "sha256": "d6aa505003f484e402280341e9f6a24b8d70e0cd86ec1c2c52f10dcf0a6274ca",
+      "bytes": 11257,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_colab_deps.py": {
+      "sha256": "0875b9287879d4147be99d2d627c8c4efa54b307b03a534daceb45d445ef3c74",
+      "bytes": 8028,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_data.py": {
+      "sha256": "43276121a483264b9d1b48144bf69e8ea4f857adb8e796cff7845bd8f78f7e28",
+      "bytes": 40059,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_ensemble.py": {
+      "sha256": "89b600bf3217cf0354e2e4f8412e2d7567874fdc356d1b5d1924b487034db075",
+      "bytes": 17207,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_integrity.py": {
+      "sha256": "42b0ffd92735ad59a96f75559d95b7be8203e811e646ee325bc108e5eb20f356",
+      "bytes": 31755,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_model_view_audit.py": {
+      "sha256": "34a2036d6cb45af2bb32fdcbcadca6d689a86ecead8d5530911589eac63a38b9",
+      "bytes": 2814,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_runner.py": {
+      "sha256": "f0a00c529bc4dc61ce6112ed9c4c1967b4c5b3f7f540a3eaef8a5bf694656d44",
+      "bytes": 95513,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_stats.py": {
+      "sha256": "21d6cea31a93298d5dbfdd9f7f3a4a650df15dc1222cbc7adf82a6666bcaef24",
+      "bytes": 24887,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_tokenization.py": {
+      "sha256": "45a036407e456f75174c5abcbc75663807f861ffebe2b52796aab50a75bc3439",
+      "bytes": 834,
+      "category": "source_module"
+    },
+    "src/bangla_smish/post_stage_b_tokenizer_gate.py": {
+      "sha256": "fee128773d761875f7b9d7f892c6c8035720c47cd667466b591b6ab81de24627",
+      "bytes": 9066,
+      "category": "source_module"
+    },
+    "src/bangla_smish/schema.py": {
+      "sha256": "39edd69c897ff37d7150f830b9708089c90dc3863eba0cb428b8bb03a49fdb98",
+      "bytes": 38400,
+      "category": "source_module"
+    },
+    "src/bangla_smish/splits.py": {
+      "sha256": "fce582b7f4bcb0e4e0afe47333f0a51b69ab370da2733ecc56e742b06e8d6072",
+      "bytes": 3045,
+      "category": "source_module"
+    }
+  },
+  "manifest_sha256": "dfdbd65a310ae68c75947df3fc12b0bf9defba08145e1472de82f9d6b82bc419"
+}

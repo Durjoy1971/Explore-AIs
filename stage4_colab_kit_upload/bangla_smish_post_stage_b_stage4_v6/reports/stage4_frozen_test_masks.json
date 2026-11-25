@@ -1,0 +1,198 @@
+{
+  "schema_version": "stage4_test_cohort_masks_v1",
+  "bundle_test_parquet_sha256": "80fb4d18d567add3d1854e0cad8a462fe10a9a84bb43fc8292aefcde7a2983ac",
+  "test_row_ids_sha256": "2e87b97911bdcb3755c1039366663ab1448d0fa86edb1d39b6d33472f1a63f77",
+  "threshold_calibration_independent_of_test_exclusions": true,
+  "validation_normal_count": 265,
+  "ambiguous_test_all_smishing": true,
+  "near_duplicate_and_leakage_caveat": "Evaluation masking removes near-duplicate test rows/families at test scoring time cleanly and identically across all compared models without modifying frozen files. However, post-hoc test masking CANNOT undo any indirect influence of train<->CV or train<->val near-duplicates on epoch checkpoint selection during training, and 21 semantically related template pairs remain in sensitivity comparisons outside template_stress.",
+  "tfidf_reproduction": {
+    "n_corpus_rows": 12466,
+    "n_unique_cross_boundary_pairs": 32,
+    "test_hit_row_ids": [
+      "cur_3e1b3d2c7bee",
+      "cur_40dd2f53ca2f",
+      "cur_7936ee1f5382",
+      "cur_7c14e8bae65c",
+      "cur_9b7b07f54ebb",
+      "cur_a8aaa428cc24",
+      "cur_b6041ad053cb",
+      "cur_c00c6e3fa781",
+      "cur_c24e8fee19a2",
+      "cur_cfa2f9f81a31",
+      "cur_eb7d06582b65",
+      "cur_ede29997f5d4",
+      "cur_f0af08bf6ed0",
+      "cur_f481de255c11",
+      "cur_f7cfb2326b54"
+    ],
+    "test_hit_family_ids": [
+      "fam_03f840170c",
+      "fam_194ea98c59",
+      "fam_210d66c8f3",
+      "fam_3ae7bc14a0",
+      "fam_4bb67afb14",
+      "fam_5408bae462",
+      "fam_735d8c7d90",
+      "fam_77db01305f",
+      "fam_b7af3c4ecc",
+      "fam_c025d51b1d",
+      "fam_d992d2b1c6",
+      "fam_e396320454"
+    ]
+  },
+  "frozen_at_utc": "2026-11-24T07:57:32.490087+00:00",
+  "cohorts": {
+    "primary_family_decontam_1687": {
+      "role": "primary_confirmatory",
+      "rule": "Exclude entire test families owning any ambiguous (>=0.85) cross-split pair.",
+      "n_rows": 1687,
+      "n_families": 1299,
+      "by_class": {
+        "Normal": 581,
+        "Promotional": 384,
+        "Smishing": 722
+      },
+      "n_excluded_rows": 11,
+      "excluded_by_class": {
+        "Normal": 0,
+        "Promotional": 0,
+        "Smishing": 11
+      },
+      "excluded_row_ids": [
+        "cur_3e1b3d2c7bee",
+        "cur_4ee2ac99660d",
+        "cur_7936ee1f5382",
+        "cur_7c14e8bae65c",
+        "cur_880b4ba396b1",
+        "cur_892885fb400c",
+        "cur_b32f757e6e7b",
+        "cur_c00c6e3fa781",
+        "cur_c24e8fee19a2",
+        "cur_cfa2f9f81a31",
+        "cur_f22983f25081"
+      ],
+      "excluded_family_ids": [
+        "fam_03f840170c",
+        "fam_210d66c8f3",
+        "fam_735d8c7d90",
+        "fam_77db01305f",
+        "fam_b7af3c4ecc"
+      ],
+      "included_row_ids_sha256": "d127ebc95bd843657b5e817361ce1c959801a4b6fd0a0422ed6ebb635fba5f1e",
+      "mask_sha256": "86527c48b8a803842990b64e127828f9684e4a7cc55c88c1f8b050be591d105d"
+    },
+    "supplementary_full_1698": {
+      "role": "supplementary_benchmark",
+      "rule": "Retain full untouched eval_smishdetect_test benchmark (zero exclusions).",
+      "n_rows": 1698,
+      "n_families": 1304,
+      "by_class": {
+        "Normal": 581,
+        "Promotional": 384,
+        "Smishing": 733
+      },
+      "n_excluded_rows": 0,
+      "excluded_by_class": {
+        "Normal": 0,
+        "Promotional": 0,
+        "Smishing": 0
+      },
+      "excluded_row_ids": [],
+      "excluded_family_ids": [],
+      "included_row_ids_sha256": "2e87b97911bdcb3755c1039366663ab1448d0fa86edb1d39b6d33472f1a63f77",
+      "mask_sha256": "e73e775f70a0485b8bf777796a140cdcd8392fa2a1740adc3da4de01dff312d6"
+    },
+    "sensitivity_row_only_1693": {
+      "role": "sensitivity_row_only",
+      "rule": "Exclude only the 5 ambiguous test rows individually (preserving sibling rows).",
+      "n_rows": 1693,
+      "n_families": 1302,
+      "by_class": {
+        "Normal": 581,
+        "Promotional": 384,
+        "Smishing": 728
+      },
+      "n_excluded_rows": 5,
+      "excluded_by_class": {
+        "Normal": 0,
+        "Promotional": 0,
+        "Smishing": 5
+      },
+      "excluded_row_ids": [
+        "cur_7936ee1f5382",
+        "cur_7c14e8bae65c",
+        "cur_c00c6e3fa781",
+        "cur_c24e8fee19a2",
+        "cur_cfa2f9f81a31"
+      ],
+      "excluded_family_ids": [
+        "fam_03f840170c",
+        "fam_210d66c8f3",
+        "fam_735d8c7d90",
+        "fam_77db01305f",
+        "fam_b7af3c4ecc"
+      ],
+      "included_row_ids_sha256": "7d1c8d7213c4e9180d9f72defd163a6789d92574a239d3b1d55104bb7796fbec",
+      "mask_sha256": "a70fe670d874912f77bae763d1db38adaf407de079cc63b48408c67f4c321c13"
+    },
+    "sensitivity_template_stress_1675": {
+      "role": "sensitivity_template_stress",
+      "rule": "Exclude all 12 test families hit by any of the 32 cross-split TF-IDF >= 0.85 pairs.",
+      "n_rows": 1675,
+      "n_families": 1292,
+      "by_class": {
+        "Normal": 580,
+        "Promotional": 384,
+        "Smishing": 711
+      },
+      "n_excluded_rows": 23,
+      "excluded_by_class": {
+        "Normal": 1,
+        "Promotional": 0,
+        "Smishing": 22
+      },
+      "excluded_row_ids": [
+        "cur_29c274a385ff",
+        "cur_3e1b3d2c7bee",
+        "cur_40dd2f53ca2f",
+        "cur_4ee2ac99660d",
+        "cur_7936ee1f5382",
+        "cur_7c14e8bae65c",
+        "cur_880b4ba396b1",
+        "cur_892885fb400c",
+        "cur_9b7b07f54ebb",
+        "cur_a8aaa428cc24",
+        "cur_b32f757e6e7b",
+        "cur_b3a2c85f10aa",
+        "cur_b6041ad053cb",
+        "cur_c00c6e3fa781",
+        "cur_c24e8fee19a2",
+        "cur_cfa2f9f81a31",
+        "cur_eb7d06582b65",
+        "cur_ede29997f5d4",
+        "cur_f0af08bf6ed0",
+        "cur_f22983f25081",
+        "cur_f481de255c11",
+        "cur_f545488088ac",
+        "cur_f7cfb2326b54"
+      ],
+      "excluded_family_ids": [
+        "fam_03f840170c",
+        "fam_194ea98c59",
+        "fam_210d66c8f3",
+        "fam_3ae7bc14a0",
+        "fam_4bb67afb14",
+        "fam_5408bae462",
+        "fam_735d8c7d90",
+        "fam_77db01305f",
+        "fam_b7af3c4ecc",
+        "fam_c025d51b1d",
+        "fam_d992d2b1c6",
+        "fam_e396320454"
+      ],
+      "included_row_ids_sha256": "96d601f66d74051fcc41f834d620c725a36fe05099e42900550ca5de340ab001",
+      "mask_sha256": "0b2e99963ee6f413bff1e06697bb6c607b9f7875149a7190389deca9f752b480"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "run_name": "post_stage_b_stage4_t4_benchmark_v1",
+  "run_mode": "t4_benchmark",
+  "experiments": ["B", "D"],
+  "models": [
+    "csebuetnlp/banglabert",
+    "google/muril-base-cased",
+    "xlm-roberta-base",
+    "distilbert-base-multilingual-cased"
+  ],
+  "tokenizer_revisions": {
+    "csebuetnlp/banglabert": "9ce791f330578f50da6bc52b54205166fb5d1c8c",
+    "google/muril-base-cased": "afd9f36c7923d54e97903922ff1b260d091d202f",
+    "xlm-roberta-base": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
+    "distilbert-base-multilingual-cased": "45c032ab32cc946ad88a166f7cb282f58c753c2e"
+  },
+  "text_views": ["canon_masked"],
+  "folds": [0],
+  "epochs": 3,
+  "batch_size": 32,
+  "gradient_accumulation_steps": 1,
+  "eval_batch_size": 64,
+  "learning_rate": 3e-5,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.1,
+  "max_length": 128,
+  "seed": 42,
+  "fp16": "auto",
+  "experiment_b_balance_mode": "class_weight",
+  "run_heldout_eval": false,
+  "run_adversarial_eval": true,
+  "run_counterfactual_eval": true,
+  "keep_model_weights": "none",
+  "checkpoint_retention_limit": 1,
+  "local_checkpoint_root": "/content/tmp_stage4_ckpt",
+  "confirmatory_mode": false,
+  "benchmark_workload_fixture_eval": true,
+  "unit_schedule": [
+    ["D", "csebuetnlp/banglabert", "canon_masked", 0],
+    ["D", "google/muril-base-cased", "canon_masked", 0],
+    ["D", "xlm-roberta-base", "canon_masked", 0],
+    ["D", "distilbert-base-multilingual-cased", "canon_masked", 0],
+    ["B", "xlm-roberta-base", "canon_masked", 0]
+  ],
+  "smoke_max_train_samples": null,
+  "smoke_max_val_samples": null,
+  "smoke_max_eval_samples": null
+}

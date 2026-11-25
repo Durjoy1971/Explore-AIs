@@ -1,0 +1,2567 @@
+{
+  "schema_version": "stage4_protected_baseline_v1",
+  "generated_at_utc": "2026-11-24T07:57:18.902334+00:00",
+  "owner_acceptance_status": "ACCEPTED_BY_OWNER_STAGE4",
+  "git_anchor": {
+    "branch": "main",
+    "head_commit": "4d341183cb7a6fce0ed773ff33da2a3b757d6f94",
+    "historical_commits": [
+      "282ef63",
+      "4d34118"
+    ]
+  },
+  "total_protected_files": 282,
+  "non_self_referential": true,
+  "provenance_tier_counts": {
+    "git_282ef63": 175,
+    "protected_input_digests": 1,
+    "git_4d34118_v2_and_reports": 15,
+    "current_state_snapshot_accepted_not_historical_proof": 64,
+    "consolidation_v1_prefix_and_intrep": 4,
+    "upstream_sha256sums": 23
+  },
+  "artifact_class_counts": {
+    "scientific_dataset_or_report": 240,
+    "machine_specific_metadata": 42
+  },
+  "entries": [
+    {
+      "path": "DataSet.csv",
+      "sha256": "5df79924b5966513760ad6ec38911cb12a1233a569b1a645b83b5b0936eabf27",
+      "bytes": 502514,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/DATASET_GUIDE.md",
+      "sha256": "4518acb8dc3046959cc30eca31a19bf36e7f6fbe8af21ed6bc2d0044845d5189",
+      "bytes": 11494,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/accepted.jsonl",
+      "sha256": "23af149826dec2411d79b61abceda44c564387574c97d7d12468d7f5a101c5ac",
+      "bytes": 356152,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/accepted.jsonl",
+      "sha256": "f6bc19c3b0466ac3ce327a51ee88f7e42c49668246a345183ee96c482c507dbd",
+      "bytes": 50424,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/batch1_50_validation_summary.json",
+      "sha256": "afcd6e0335abe9f378cfa37d6744919f79a7c41b98808cb83ef2c33c2b0c7003",
+      "bytes": 124799,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/brand_registry.json",
+      "sha256": "58880fced2254cfc6465f715731e7615d89afe821ac268526dd9838c369732ca",
+      "bytes": 1402,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/combined_350_diagnostics.json",
+      "sha256": "155a2a3c25129705dee75b3e2dae5500314b182609d887437ea7d465cc36b796",
+      "bytes": 68386,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/fast_checks_summary.json",
+      "sha256": "e65c0fb260319d96f211b804ebafb23384c09bfa5c78ef2421e675718089ce36",
+      "bytes": 13881,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/precheck/accepted.jsonl",
+      "sha256": "9a07d02ac91401f78460364ef7010fa3f6be547a1f63ad22a3630b5e95c5435d",
+      "bytes": 66440,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/precheck/candidates.jsonl",
+      "sha256": "8a0bbf88ead44261b60c9af522a39d7203ceafeb21629a01522b9d1186404375",
+      "bytes": 51634,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/precheck/pilot_validation_summary.json",
+      "sha256": "75414e02688fecbfd21065ad341d16c7e60080d8d823b2e10648e0c2a51f841d",
+      "bytes": 8349,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/precheck/rejected.jsonl",
+      "sha256": "da6b57418c62b1cfaefa585046d4daadf87793b25a162fb5b823278e5acd9871",
+      "bytes": 2704,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/precheck_report.md",
+      "sha256": "08e35770422386a1a0a3bd9fc5e79051c20864d925afa7d9e6506d16ffc39ef7",
+      "bytes": 6305,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/raw_batch1_50.jsonl",
+      "sha256": "d0779901ba6afdd229541d817c909b3581233873c9b137e003f4ddb93b1b1473",
+      "bytes": 49470,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/replacements.jsonl",
+      "sha256": "8629fc0959fda0e4537dfb6b385448a90616690b42cd33dd0abfeb8dc633300f",
+      "bytes": 2164,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/review_batch1_50.jsonl",
+      "sha256": "a17cf664fbc467762f9e48f1a4c12963f50139a17c03edc50d6f9c38c0cb36fd",
+      "bytes": 25034,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/validation_run/accepted.jsonl",
+      "sha256": "40acf7340260ddf21c19c5e0a18e74b8ad5a10331016f91a0a7defd830458225",
+      "bytes": 66464,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/validation_run/candidates.jsonl",
+      "sha256": "8a0bbf88ead44261b60c9af522a39d7203ceafeb21629a01522b9d1186404375",
+      "bytes": 51634,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/validation_run/pilot_validation_summary.json",
+      "sha256": "e110d1793a42322469ea5d8b71f641afdaf45a3ee69884eed44c79187116929c",
+      "bytes": 39814,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/validation_run/rejected.jsonl",
+      "sha256": "da6b57418c62b1cfaefa585046d4daadf87793b25a162fb5b823278e5acd9871",
+      "bytes": 2704,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch1_50/validation_run/validation_report.md",
+      "sha256": "ee37392ca7328aab89712fe6363123c88c87c0a09d83dd97a8f1497d497ddd23",
+      "bytes": 12683,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/accepted.jsonl",
+      "sha256": "5f4cb5afb8aaaf0ce37ab4cedb64639df6fb462d5f0f872e8444c7e85a6d32a6",
+      "bytes": 49206,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/batch2_50_validation_summary.json",
+      "sha256": "c48ccb20b60cb36c852a0005910c1b5d545d032956bd8a8199d0c4349dd8cb79",
+      "bytes": 130781,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/brand_registry.json",
+      "sha256": "dc2086163c5fd5aef31faf9f91b9219af0622f87e8e0d35b33ddfdfdc60b9b3b",
+      "bytes": 754,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/combined_100_and_400_diagnostics.json",
+      "sha256": "b0ea5bade4ef455952fa79d60d898a90893d467544c1e4d3613cc3ebeb251e7c",
+      "bytes": 90096,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/precheck/accepted.jsonl",
+      "sha256": "c1ec74b6022bd32de81c01390ec83741feb3601c20e01a016e04435a1814f660",
+      "bytes": 65241,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/precheck/candidates.jsonl",
+      "sha256": "b1a38f085c0d1127572bc6da6221d3fd47cfa71b5a49aa766ab3501018ef3acf",
+      "bytes": 51186,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/precheck/pilot_validation_summary.json",
+      "sha256": "30c3cd49889354f61d6ded9c5f7340dcda0b4728183149a3acbde373b7a43801",
+      "bytes": 8374,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/precheck/rejected.jsonl",
+      "sha256": "3ece8c89f690a871004b9f5768c2d8b3578e95fde2182ebe67b5cf231a56d427",
+      "bytes": 4019,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/precheck_report.md",
+      "sha256": "ec9ae337860dfa66eed86e96ea0583c2b5700c9165215a470adee15c35cbb6c2",
+      "bytes": 6334,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/raw_batch2_50.jsonl",
+      "sha256": "69c42e7a07f7b08d4c4bce2c58de7f3eeadc839b6166cb511e73e5daa2e50875",
+      "bytes": 48263,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/replacements.jsonl",
+      "sha256": "512ae1d6ac0693f3bdb6a0f3e5c95241d1cd7f11c4610c510083628d3b2400d4",
+      "bytes": 2923,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/review_batch2_50.jsonl",
+      "sha256": "57a5045f6c9650ec6889e551b9df9077fc528e160f4a0713449adac07621d932",
+      "bytes": 24856,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/validation_run/accepted.jsonl",
+      "sha256": "408cb6c38a9d553511778315ca47287f999247913272f8e9271383132433c439",
+      "bytes": 65277,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/validation_run/candidates.jsonl",
+      "sha256": "b1a38f085c0d1127572bc6da6221d3fd47cfa71b5a49aa766ab3501018ef3acf",
+      "bytes": 51186,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/validation_run/pilot_validation_summary.json",
+      "sha256": "3c8ce63fdaf22862e5d85746d01ec531b71f29341977f4f9e02690c19e177cb1",
+      "bytes": 39886,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/validation_run/rejected.jsonl",
+      "sha256": "3ece8c89f690a871004b9f5768c2d8b3578e95fde2182ebe67b5cf231a56d427",
+      "bytes": 4019,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch2_50/validation_run/validation_report.md",
+      "sha256": "39dce0729b280bb5237c24f0a0b331a478672edc5624a86a183e330b99b3680b",
+      "bytes": 12798,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/accepted.jsonl",
+      "sha256": "abd5c9d931af3a2f9e84ac21d8a006554ae11bc17059729af19a33efe38b60a1",
+      "bytes": 51469,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/batch3_50_validation_summary.json",
+      "sha256": "1534482ec56a8a188014c3c5562eb219aad4e2a718a54bcf9b2d4e85eadd1122",
+      "bytes": 316977,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/brand_registry.json",
+      "sha256": "39869c16d6a54c176b2e521f19e4915f67d3f417c7e04be63cee297d92178664",
+      "bytes": 911,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/combined_cohorts_diagnostics.json",
+      "sha256": "72abecf826f759d0c014b5c0f253a1871ebd3837f5c8046e5cfab11b1731260e",
+      "bytes": 314011,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/precheck/accepted.jsonl",
+      "sha256": "38a890b7af18fd290ec3994a8787aa812fc7548f53fd2949f8f1b2ee369f984a",
+      "bytes": 67705,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/precheck/candidates.jsonl",
+      "sha256": "42ba2427dd000de2d8ebf172c6e78253eda4003ddd26bdcae90c3a59c1ec4d59",
+      "bytes": 67584,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/precheck/pilot_validation_summary.json",
+      "sha256": "47116e6a4a272485894e6283a5a83b2e6ac322b034f28dc7b3b79dc5cf4b1d4b",
+      "bytes": 8685,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/precheck/rejected.jsonl",
+      "sha256": "f4721cea1d46776a7b3346eba269a81511db0d1ee80ed055b9d4a80b70a4adab",
+      "bytes": 30705,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/precheck_report.md",
+      "sha256": "8735874a2a591a732751875cc5561a8ba8de7656a6637b6092ab65a435102e77",
+      "bytes": 6871,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/raw_batch3_50.jsonl",
+      "sha256": "9a39bd43038b668d9e5eaf68ab632b398823059d374f15b464abd989afa4c5eb",
+      "bytes": 48751,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/replacements.jsonl",
+      "sha256": "b4a210c814047756b141d6ded358d985782109be6ce8cda690f394d2f54e1747",
+      "bytes": 18833,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/review_batch3_50.jsonl",
+      "sha256": "6efa4984e9fd710d4f3a77f9819b8530d283e9daeeb307f0c7444352468e4055",
+      "bytes": 43576,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/validation_run/accepted.jsonl",
+      "sha256": "1a11c541477995f2cd3295bb04004798808598f574624b6ecc4ef4c9a7521c9e",
+      "bytes": 67732,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/validation_run/candidates.jsonl",
+      "sha256": "42ba2427dd000de2d8ebf172c6e78253eda4003ddd26bdcae90c3a59c1ec4d59",
+      "bytes": 67584,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/validation_run/pilot_validation_summary.json",
+      "sha256": "3d40a735481f3d9a4e679aa5ca59c06711159bd7a6ef465dbc68886068be6804",
+      "bytes": 40216,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/validation_run/rejected.jsonl",
+      "sha256": "f4721cea1d46776a7b3346eba269a81511db0d1ee80ed055b9d4a80b70a4adab",
+      "bytes": 30705,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch3_50/validation_run/validation_report.md",
+      "sha256": "7072b6034ebe12dad0c3929455874229f02f07f94d1b49e5793309261784d595",
+      "bytes": 13318,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/accepted.jsonl",
+      "sha256": "a97f0a912bad36ced9c5f104f2a4596a8b27f875a074bff4bf487cbce9ecbd64",
+      "bytes": 51880,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/batch4_50_validation_summary.json",
+      "sha256": "f3c84a461dcebecc02c03a4596630aca0debac30456b90b9b1dafc4ed43fc02a",
+      "bytes": 408425,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/brand_registry.json",
+      "sha256": "c7dc255e63c65c81524f1a3818d1792cb8f6f1e44d6548073b68a44002a81524",
+      "bytes": 948,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/combined_cohorts_diagnostics.json",
+      "sha256": "82ef8393c67f2091a1a5ef315998ae534afbebf7d389d33e61d18629498b886d",
+      "bytes": 405651,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/precheck/accepted.jsonl",
+      "sha256": "8e07bc8e6550f20873f6e0bb77a6f65b817a1046c60813721c77dfd9e42bb279",
+      "bytes": 68127,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/precheck/candidates.jsonl",
+      "sha256": "248e533156fa15b532cc53ba3d8e68de49523f7ca91aa4b9e1b1b38c6c39f97c",
+      "bytes": 49800,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/precheck/pilot_validation_summary.json",
+      "sha256": "5e9ab1d62c3976125c93e0e2e3f84e26cc5efad2917915eb2a9e10e4b54b2e5c",
+      "bytes": 8412,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/precheck/rejected.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/precheck_report.md",
+      "sha256": "38d45ab65e77f41c6488e14ca708ea9ec4665487d85cd1e5279147a369ec25b3",
+      "bytes": 6037,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/raw_batch4_50.jsonl",
+      "sha256": "248e533156fa15b532cc53ba3d8e68de49523f7ca91aa4b9e1b1b38c6c39f97c",
+      "bytes": 49800,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/replacements.jsonl",
+      "sha256": "21cc5579fa995eb2a5048c0aa2bcb09ba91366d9809d3695e01255efd1c527b6",
+      "bytes": 13791,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/review_batch4_50.jsonl",
+      "sha256": "75facb93a7d854e9f87c4767d956b162264280e15a56ca378944e032edb5d3d9",
+      "bytes": 40356,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/validation_run/accepted.jsonl",
+      "sha256": "4bcf9c0c5481e24637a7a0112006301848350751da66bf81035fed101725460a",
+      "bytes": 70444,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/validation_run/candidates.jsonl",
+      "sha256": "bb6dd2368f558db7266dffef9a868067cfc1b9a0fbc316913be7cc38f16f2345",
+      "bytes": 63591,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/validation_run/pilot_validation_summary.json",
+      "sha256": "eff2456f4887c3649e709e9c3cd43b6a44850478e073f83dcede55be553ebccc",
+      "bytes": 40321,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/validation_run/rejected.jsonl",
+      "sha256": "31e0e8a3839df94be87be3da6c16b090598f462b74084f8ac83d52551170209f",
+      "bytes": 22339,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch4_50/validation_run/validation_report.md",
+      "sha256": "bc8472b5d27b7f90649ac6f1c88242cd412f90243ab481d2d30f2d2522c98b18",
+      "bytes": 13074,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/accepted.jsonl",
+      "sha256": "a0cc662f85097f40767ddc78c85982fd50fab8d71897d76ce553742e6d3f6da1",
+      "bytes": 63556,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/batch5_50_validation_summary.json",
+      "sha256": "a117850f3d3e5afad1b8b957a860d3bf0c4fb8cc7f31f10e5615487e40bbe28f",
+      "bytes": 41645,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/brand_registry.json",
+      "sha256": "5f3af0ea10b075d011c354a581e5385cb202a1fc73eceff19fecbaa5920cd4c8",
+      "bytes": 877,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/combined_cohorts_diagnostics.json",
+      "sha256": "2f83b5a8cf67af1eef6da42ca6a65f309e5907c8e591ed0fb6d4b0064a284f8a",
+      "bytes": 336344,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/precheck/accepted.jsonl",
+      "sha256": "ef3b35b589682a9b432c181e6ade6d0937ba64d627217eb31f2b3732cf33182c",
+      "bytes": 58826,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/precheck/batch5_plan.json",
+      "sha256": "4d1891102708a381faf3e750950cc5a07a62b9da4619116e9e02479a3cc680d1",
+      "bytes": 13591,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/precheck/candidates.jsonl",
+      "sha256": "740f4019232c8d4494cf8bf34585b16da021d2e4a46d5519d07c9422b349713b",
+      "bytes": 45588,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/precheck/pilot_validation_summary.json",
+      "sha256": "2bd47c3a6182d790422e84703544709393ea19809d2151786cd3dd355ef9675d",
+      "bytes": 8452,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/precheck/rejected.jsonl",
+      "sha256": "e717fb736a289b85a229e40961b208859f63c31ba7b70ee5e51eba3bbfc826da",
+      "bytes": 2875,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/precheck_report.md",
+      "sha256": "1ce2b2918e46f80f25a257542645bb8cb1a14e2ed8d86fa7ef309174de0df550",
+      "bytes": 6332,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/raw_batch5_50.jsonl",
+      "sha256": "740f4019232c8d4494cf8bf34585b16da021d2e4a46d5519d07c9422b349713b",
+      "bytes": 45588,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/replacements.jsonl",
+      "sha256": "cd6261c0672e0c3ce5d002cd0036bb4aaf9d78360b7d7c5062d4690f8afd13a9",
+      "bytes": 7637,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/review_batch5_50.jsonl",
+      "sha256": "1d24550bc3d0fb3353d9e4551e480caaf915b0c51f2ef006dcad61a46e0dac16",
+      "bytes": 24786,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/validation_run/accepted.jsonl",
+      "sha256": "a0cc662f85097f40767ddc78c85982fd50fab8d71897d76ce553742e6d3f6da1",
+      "bytes": 63556,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/validation_run/candidates.jsonl",
+      "sha256": "605f38e87103a70e65e28f4e067bba07bef0f3c162c51c3c7656bb5ff1b23456",
+      "bytes": 53225,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/validation_run/pilot_validation_summary.json",
+      "sha256": "c7f7f9c39d1055d3bc8466d20ba674e79c8b996cf2b0f4dffefaf6f1497133fa",
+      "bytes": 40281,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/validation_run/rejected.jsonl",
+      "sha256": "69119e95097d864be7b1d2ca69f8caaa788ac2f3ede909cb427f6f261eafa695",
+      "bytes": 11363,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch5_50/validation_run/report.md",
+      "sha256": "69f19a966d25988df0712946882723cdb95bb87efe3daabf299b7ebf41917bb4",
+      "bytes": 12989,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/accepted.jsonl",
+      "sha256": "ba4b6329c6a52ffcd6c233a76173eeb5c2ef713be9cbfb1174680dcef2eec682",
+      "bytes": 63714,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/batch6_50_validation_summary.json",
+      "sha256": "73f49870dacb41af7223a4e327170d465c6e9fd7366647a5ee507a1bfff7b883",
+      "bytes": 45916,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/brand_registry.json",
+      "sha256": "e119c7a508c3ff4bf4246aa5454bec74ba5aa743050cb1e320538f8bc2ecb55e",
+      "bytes": 942,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/combined_cohorts_diagnostics.json",
+      "sha256": "03bdc7511b4fc3e6ab4708629e17c28b46306f99b80c82b02e0b0326d99fcd90",
+      "bytes": 356532,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/precheck/accepted.jsonl",
+      "sha256": "4737e827b028239f66e1cf713e2a59f62f5da3d32b050b24613efe15047fe237",
+      "bytes": 62254,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/precheck/batch6_plan.json",
+      "sha256": "d7e6b340b5e70789ea457a2e211a044c91fa0a2edf63e19f58cdad6687b1a03a",
+      "bytes": 13579,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/precheck/candidates.jsonl",
+      "sha256": "bcad68fee9db5e611a2b2180294be5d403b89fd36513b37e91328ec585ed8c99",
+      "bytes": 46071,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/precheck/pilot_validation_summary.json",
+      "sha256": "4baa7a111cfa132dd81ba03e04e888e7407b25d4a16fb671659af265cc2ef390",
+      "bytes": 8227,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/precheck/rejected.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/precheck_report.md",
+      "sha256": "97d617d55e4576fddb415c961b08dddeaf2b589f9659705bdc33ddaf1fa1d858",
+      "bytes": 6034,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/raw_batch6_50.jsonl",
+      "sha256": "bcad68fee9db5e611a2b2180294be5d403b89fd36513b37e91328ec585ed8c99",
+      "bytes": 46071,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/replacements.jsonl",
+      "sha256": "216b8a8c4cec8041c3f11313acc30cb38c23b9417cfe99e5785f73eb667c7a22",
+      "bytes": 10121,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/review_batch6_50.jsonl",
+      "sha256": "3d3675326dfa9d17c7a460d4e34042a8dd97442f17ce92005cd766a226d47edc",
+      "bytes": 28262,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/review_round1.jsonl",
+      "sha256": "13e5cd4225b45717349e9895b3ff6304fdef183700e84fe919c50823c6bb3fab",
+      "bytes": 22329,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/review_round2.jsonl",
+      "sha256": "22316859de0d96ede0e8cd6b6400f4a439cd4ce93a31ac711f25752b7647159f",
+      "bytes": 4624,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/review_round3.jsonl",
+      "sha256": "6d3ed6b28dd3f1c1b06499256ccfb52773486389a313f68069b01f33c35e75a6",
+      "bytes": 1309,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/validation_run/accepted.jsonl",
+      "sha256": "ba4b6329c6a52ffcd6c233a76173eeb5c2ef713be9cbfb1174680dcef2eec682",
+      "bytes": 63714,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/validation_run/candidates.jsonl",
+      "sha256": "ba362cdd04292234ecaa8e8403bdf283fdd34dd7272e4bab85abcf19ff5f7c55",
+      "bytes": 56192,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/validation_run/pilot_validation_summary.json",
+      "sha256": "8e9d5bba1f43678c966d122aa0ad023c52ee0668c165e741c471da84ffe16047",
+      "bytes": 39635,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/validation_run/rejected.jsonl",
+      "sha256": "f534a7caccdee2bdfb7baf38f6ea7e945fab60885b337fab746495566e99b18f",
+      "bytes": 16121,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch6_50/validation_run/report.md",
+      "sha256": "112823ccce3b8af565606b5a426692f3bae46f47175677469dcf2534c08ba1ac",
+      "bytes": 12823,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/accepted.jsonl",
+      "sha256": "5e7d237b9b12c08b68ea909b15563a95f2352f33e9a66d19986682f074c38438",
+      "bytes": 56973,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/batch7_45_validation_summary.json",
+      "sha256": "4acb03efdfa5e2e3b0390a32746b45531a0c67eb634f3e5bde3a78883ca5d41e",
+      "bytes": 49529,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/brand_registry.json",
+      "sha256": "1f871d61cd9a4d28537c01f6c04e0749f6d9eb82e47ad076773d188e5cd296d6",
+      "bytes": 955,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/combined_cohorts_diagnostics.json",
+      "sha256": "4ca48aa614e90b09fb9458ed29f232da5a34e18368e5f834a6cfd540360552ef",
+      "bytes": 360720,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/precheck/accepted.jsonl",
+      "sha256": "17d65c53514060a858163ac83b8d5ce421637613575c7fed0bfc90e98ef987db",
+      "bytes": 55896,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/precheck/batch7_plan.json",
+      "sha256": "e1343d1ec98632e23f09af566d7eb82f8dd6ab107bbe102ec17f8c973cc9e026",
+      "bytes": 12248,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/precheck/candidates.jsonl",
+      "sha256": "4f210f4dc462ca72603835819766e4bb33c975d38a9a09feb811335126addbbf",
+      "bytes": 41381,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/precheck/pilot_validation_summary.json",
+      "sha256": "b7a5b0936799b114137dac5ac8fbbbfc552b7617f58b71421bb9efb6b141f181",
+      "bytes": 8239,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/precheck/rejected.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/precheck_report.md",
+      "sha256": "097a3fe822dca2667730a8e4165aa9382c728b47b57669cd45f8233c0e21cdac",
+      "bytes": 6037,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/raw_batch7_45.jsonl",
+      "sha256": "4f210f4dc462ca72603835819766e4bb33c975d38a9a09feb811335126addbbf",
+      "bytes": 41381,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/replacements.jsonl",
+      "sha256": "0a8b5800ca77fcde8633a04300c0085630a1f2c45a504e813bcae11d356c7a8a",
+      "bytes": 5395,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/review_batch7_45.jsonl",
+      "sha256": "3fe01c5b26a7125331c78f289ddef73c08e26b71455c0e5ba800ecd508bb6e7b",
+      "bytes": 23065,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/review_round1.jsonl",
+      "sha256": "18e6cd1a781210ca4227d0040e1315d841ecf7e9a8dc4e145fc25d377327838b",
+      "bytes": 20504,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/review_round2.jsonl",
+      "sha256": "812cab818d341c27d1b8e5aa301871952070918f884f6ac558c07a549513ee70",
+      "bytes": 2561,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/validation_run/accepted.jsonl",
+      "sha256": "5e7d237b9b12c08b68ea909b15563a95f2352f33e9a66d19986682f074c38438",
+      "bytes": 56973,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/validation_run/candidates.jsonl",
+      "sha256": "7001bfa58270dcfababf1da7ee412019b9b9e74b190faf13617e27df719c95f9",
+      "bytes": 46776,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/validation_run/pilot_validation_summary.json",
+      "sha256": "b5d5498265802b186c126b7a1e1acd871c9f2ab8be780d827f1a43f8806f63f8",
+      "bytes": 39965,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/validation_run/rejected.jsonl",
+      "sha256": "384d29efe910749924c3226900e69c132da08ae2770edfd8589b5b61f7747be6",
+      "bytes": 9434,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/batch7_45/validation_run/report.md",
+      "sha256": "fdb4525bb4eb022313aca081ca0fbc6dab3dcca80aceed11ef6a04c33b3d7d08",
+      "bytes": 12851,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/candidates.jsonl",
+      "sha256": "bdc1dfd689cc908d800699e6fa1006610633d564bd6c09f228f4acd12d202c5b",
+      "bytes": 256215,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/pilot_validation_summary.json",
+      "sha256": "fe74b13f40db7a1810efee1d0e4e7ce840fe8ad73017d22c4a31ae91a96b2225",
+      "bytes": 4793,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/raw_batch_a.jsonl",
+      "sha256": "3d4e7122a02030e627842c8f23993a7e235da7fe18d4829cbfb3325e74412307",
+      "bytes": 108015,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/raw_batch_b.jsonl",
+      "sha256": "5a663b6226d888a9c89ad259fe8c8cf90a39846518d33b3c9a41aa82ed9168a9",
+      "bytes": 131170,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/raw_batch_c_replacements.jsonl",
+      "sha256": "9c9a21ead3a146d965a352c4b1cea1a8c1c7dfb1aaee381a18faac6bdff939af",
+      "bytes": 10653,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/rejected.jsonl",
+      "sha256": "68e20e2599030057e7550e95112dd9db3a8c6be26bbb70815db04cc38e490947",
+      "bytes": 13510,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/review_replacements.jsonl",
+      "sha256": "aa5eefa2fe3c34eab631ecd43edecfcd1931e2471ac42a624fde26daa17542ed",
+      "bytes": 3803,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/review_shard_1.jsonl",
+      "sha256": "10e2aeb333ddad8ad3b5064004d8b98db15ecf0824d35f2ad441a32f5c9a01ad",
+      "bytes": 64552,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/generated/curation_v2/review_shard_2.jsonl",
+      "sha256": "15b88d827edb682b27137db25b462b5db11a29b6c756b1701ecb9835aeefe937",
+      "bytes": 53563,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/banglaphish2026_dedup.parquet",
+      "sha256": "16aaa636aa8cf89cd07b8dd44887c11a7cc0398340c6698d36c2bbb91651c1f1",
+      "bytes": 861498,
+      "provenance_tier": "protected_input_digests",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches hardcoded SHA256 in PROTECTED_INPUT_DIGESTS."
+    },
+    {
+      "path": "data/processed/curation_v1/curation_summary.json",
+      "sha256": "a400268026561897a1b967db470d9c816dc4666bc654f4c1a9bb960ed7182aa6",
+      "bytes": 6656,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v1/eligible_train.parquet",
+      "sha256": "62e9d587ffa8b53a2982dd19ed36191a3fb95bf312cb7dff7658f12a725d57d4",
+      "bytes": 1781514,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v1/existing_unique.parquet",
+      "sha256": "5c8e15e3f666f31ba9c4338a20af1f088be08fc179e1747c62c28000269fe3cf",
+      "bytes": 6196647,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v1/near_duplicate_review.jsonl",
+      "sha256": "c602dd9c93225f44ac8e7911efaddd4537c31e215a055b8c694556497af54b7d",
+      "bytes": 2270014,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v1/provenance.parquet",
+      "sha256": "a3dd7182c72c3c22346674173ff4f49fc767b3092a098ca168761177d6cf6a32",
+      "bytes": 1573817,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v1/quarantined.parquet",
+      "sha256": "55ac1e093ea5fbfd6a6412e72eeee12ba46ef39302b925930880827a10f9774a",
+      "bytes": 354789,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v2/audit_decisions.parquet",
+      "sha256": "9ee5bd811f8f362a24ddbb15ccb1d274b7820ef74f11720e146b29e418b0cdf9",
+      "bytes": 62898,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v2/curation_summary.json",
+      "sha256": "8c3a76fa9b8dbb66943d0280d7bba36e023ef5a987a9baa302a60914cecfc3b5",
+      "bytes": 5822,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v2/eligible_train.parquet",
+      "sha256": "d9af8bf952558b91b45db5b5f721da2735ec4b18547cdca59d86e21a8b4993e7",
+      "bytes": 1720833,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v2/existing_unique.parquet",
+      "sha256": "acb40c57870b8987b72a920e914d9e81966201caa26867456437a389d88b3e4f",
+      "bytes": 6138455,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v2/provenance.parquet",
+      "sha256": "9a0fc3f2de54a7db4f040983504f5907b592dec751db9cb1dfcc07d99c21d443",
+      "bytes": 1574173,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/curation_v2/quarantined.parquet",
+      "sha256": "c5cb0855abe2f2998e91d6affb8df7a2ae8984daeacb5373a63d4a1294b17cb4",
+      "bytes": 402650,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle/counterfactual_smish_probe.parquet",
+      "sha256": "9f2546e04f31368014a686605a843009a59ecb15284080f13391f87264a16c83",
+      "bytes": 1185746,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle/dataset_manifest.json",
+      "sha256": "2e2e76e296873ffc843629ccae560dd8df6597debf93cfe2ab522af49dcd7a9b",
+      "bytes": 12104,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle/eval_banglaphish_ood.parquet",
+      "sha256": "7352d3781295832b0cf1b6891d59baf0258d2ee48ae9494d72c27b6e48f5a766",
+      "bytes": 4591629,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle/eval_smishdetect_test.parquet",
+      "sha256": "4be9b589f1de05a5eb0b6c0d2c90cc0172cd360eebb470dfec5e68ea49074665",
+      "bytes": 933157,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle/eval_smishdetect_validation.parquet",
+      "sha256": "b1a08e04b8d441bdf067b236986c2b5f502c3fd6f15fdb3c57519271e31fa59f",
+      "bytes": 431062,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle/real_train_pool.parquet",
+      "sha256": "f71c81cf776b7a5e53989664495d386b04cb482368b13bc67c9d92e79c522839",
+      "bytes": 2347717,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle/synthetic_batches_b1_b7.parquet",
+      "sha256": "59a3c4fbcfcacf1f22511047ca78f6c78badb3ab6210fd05356832687538ac06",
+      "bytes": 199301,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle/synthetic_pilot_300.parquet",
+      "sha256": "b2a3860c1ad8628f60da96d288e049c84891336dd961e9922939fee18ee44589",
+      "bytes": 194115,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle_v2/counterfactual_smish_probe.parquet",
+      "sha256": "9f2546e04f31368014a686605a843009a59ecb15284080f13391f87264a16c83",
+      "bytes": 1185746,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle_v2/dataset_manifest.json",
+      "sha256": "308d1c889840c1ec04e1cd6f6751cccfca0e559f2e12c61e18ff2e54d6fa2922",
+      "bytes": 15534,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle_v2/eval_banglaphish_ood.parquet",
+      "sha256": "d08fd5cf7b45e89de7f9647c1e677e31a6120e40b39f520c0833eccafd73b12d",
+      "bytes": 7279129,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle_v2/eval_smishdetect_test.parquet",
+      "sha256": "80fb4d18d567add3d1854e0cad8a462fe10a9a84bb43fc8292aefcde7a2983ac",
+      "bytes": 1354154,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle_v2/eval_smishdetect_validation.parquet",
+      "sha256": "783cb23ec3920a3c5395fac83a8360af96b624e1413916f4c5ccf516d6b181d0",
+      "bytes": 623026,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle_v2/real_train_pool.parquet",
+      "sha256": "b42029c001e9277f875a91b8b5e17d6cbd594a8fdafb3095ab847ac70f361324",
+      "bytes": 3404813,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle_v2/synthetic_batches_b1_b7.parquet",
+      "sha256": "62a099d761b0ce79293e4c215ed4bce4d18faf7bb9accab859a0ca19fd925abc",
+      "bytes": 291112,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "data/processed/post_stage_b_bundle_v2/synthetic_pilot_300.parquet",
+      "sha256": "62e95b7f037b3c899573ed416ea315941210420a32591237c409b5c941b8d54a",
+      "bytes": 284460,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "data/processed/unified_3class_dedup.parquet",
+      "sha256": "7810ef0080c3039504469483ade7a55f19f7a5dbdda2671aafb84f1b66c1b8ca",
+      "bytes": 2307329,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only (not historical proof); rows=6997, clusters=6493 match 282ef63 reports."
+    },
+    {
+      "path": "data/raw/bangalabarta/BangalaBarta bangla_spam_sms smishing.csv",
+      "sha256": "260c2e3bd12c6f35d47eb9be255ec42e5d14f0b3df4c594c40776e99586897e9",
+      "bytes": 514339,
+      "provenance_tier": "consolidation_v1_prefix_and_intrep",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "10-hex prefix in 282ef63:dataset_consolidation_v1.md + full SHA256 in integrity report."
+    },
+    {
+      "path": "data/raw/bangalabarta/BangalaBarta bangla_spam_sms smishing.zip",
+      "sha256": "6adb4902fedab7ea942d5b6c2e7e44fedcd16b82f4ad2dc1349aca80e70659ae",
+      "bytes": 120902,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; matches mendeley_metadata.json & extracted CSV SHA256."
+    },
+    {
+      "path": "data/raw/bangalabarta/mendeley_metadata.json",
+      "sha256": "640f933a1c5228cf11ad41f49b44db75325bd04abf1e0e4422a30c514488e89f",
+      "bytes": 6524,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; records sibling Mendeley ZIP size and SHA256."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/HEAD",
+      "sha256": "28d25bf82af4c0e2b72f50959b2beb859e3e60b9630a5e8c603dad4ddb2b6e80",
+      "bytes": 21,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/config",
+      "sha256": "91b448a7c1357ebdedcc3ead16273c0a5d4a4a3e37710eb6f234350626f867c8",
+      "bytes": 273,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/description",
+      "sha256": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee",
+      "bytes": 73,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/applypatch-msg.sample",
+      "sha256": "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7",
+      "bytes": 478,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/commit-msg.sample",
+      "sha256": "1f74d5e9292979b573ebd59741d46cb93ff391acdd083d340b94370753d92437",
+      "bytes": 896,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/fsmonitor-watchman.sample",
+      "sha256": "e0549964e93897b519bd8e333c037e51fff0f88ba13e086a331592bf801fa1d0",
+      "bytes": 4726,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/post-update.sample",
+      "sha256": "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5",
+      "bytes": 189,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/pre-applypatch.sample",
+      "sha256": "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475",
+      "bytes": 424,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/pre-commit.sample",
+      "sha256": "57185b7b9f05239d7ab52db045f5b89eb31348d7b2177eab214f5eb872e1971b",
+      "bytes": 1649,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/pre-merge-commit.sample",
+      "sha256": "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53",
+      "bytes": 416,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/pre-push.sample",
+      "sha256": "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a",
+      "bytes": 1374,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/pre-rebase.sample",
+      "sha256": "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3",
+      "bytes": 4898,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/pre-receive.sample",
+      "sha256": "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989",
+      "bytes": 544,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/prepare-commit-msg.sample",
+      "sha256": "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619",
+      "bytes": 1492,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/push-to-checkout.sample",
+      "sha256": "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f",
+      "bytes": 2783,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/sendemail-validate.sample",
+      "sha256": "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92",
+      "bytes": 2308,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/hooks/update.sample",
+      "sha256": "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106",
+      "bytes": 3650,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/index",
+      "sha256": "a3f9e354082b13b09f2328199a8c06ff22df5677776042e7b9806c28c00cbfb5",
+      "bytes": 3794,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/info/exclude",
+      "sha256": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1",
+      "bytes": 240,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/logs/HEAD",
+      "sha256": "3f70b838b56e96bff66502ee20e33f153e83e71444bf3ca22e6f3af91b4d6a2b",
+      "bytes": 205,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/logs/refs/heads/main",
+      "sha256": "3f70b838b56e96bff66502ee20e33f153e83e71444bf3ca22e6f3af91b4d6a2b",
+      "bytes": 205,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/logs/refs/remotes/origin/HEAD",
+      "sha256": "3f70b838b56e96bff66502ee20e33f153e83e71444bf3ca22e6f3af91b4d6a2b",
+      "bytes": 205,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/objects/pack/pack-a9803706ac6aa2e13681f72afa714cad597abe65.idx",
+      "sha256": "24b8d06a8418331e3d44ac136b5e6e050b476b1238be9c1783e53b49a61972a3",
+      "bytes": 2388,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/objects/pack/pack-a9803706ac6aa2e13681f72afa714cad597abe65.pack",
+      "sha256": "e199112d26c6c0a1b923891a8a0b441a3b77db07a4e4b73ce9d44f7aa90e5849",
+      "bytes": 1491484,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/objects/pack/pack-a9803706ac6aa2e13681f72afa714cad597abe65.rev",
+      "sha256": "23366938551c7b8a9944d4c5708eeeaf62a12d9a233b1c4350a3dd448fb3deaa",
+      "bytes": 240,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/packed-refs",
+      "sha256": "8f598f80a33566a1d9308a7c88721661c8db630490cc5580b91a5d3af5439101",
+      "bytes": 112,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/refs/heads/main",
+      "sha256": "d55372867d87cfc734e9311e2725156bb84cfc6996ee7f25bcd5d254b4ef502a",
+      "bytes": 41,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/refs/remotes/origin/HEAD",
+      "sha256": "2bb6a24aa0fc6c484100f5d51a29bbad841cd2c755f5d93faa204e5dbb4eb2b4",
+      "bytes": 30,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.git/shallow",
+      "sha256": "d55372867d87cfc734e9311e2725156bb84cfc6996ee7f25bcd5d254b4ef502a",
+      "bytes": 41,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific nested Git metadata at commit 3c42aae9."
+    },
+    {
+      "path": "data/raw/banglaphish2026/.gitignore",
+      "sha256": "0f316d6b4fe97d6dd1778c5f645b47627222ab4852da75f20542ede37b0a04f4",
+      "bytes": 2511,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/BanglaPhish-2026_v1.0_MASTER.xlsx",
+      "sha256": "cf8028bbbc8373edad16f30fdfa61bcde17f6c7419efaf6ecf9fae5ee087a259",
+      "bytes": 655722,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/LICENSE",
+      "sha256": "318e9db75801ab1f5d5729a6d6c5406ce2b4995d9a27d2fa2cbfa4dd663d3dd0",
+      "bytes": 673,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/README.md",
+      "sha256": "839a8212e046d9c6443ecccb771ca7ff24b73b754451c5985cf5403ce423c16c",
+      "bytes": 15520,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in clean nested Git commit 3c42aae9 (differs from SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/SHA256SUMS.txt",
+      "sha256": "139805599029a47105273ca25576e87a813122db1c437beb3d3d98d66afeb02c",
+      "bytes": 2188,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/baseline/README.md",
+      "sha256": "20b529064b6a23576ff05fdefce6187ec75d04fa282c1903a372e99114cc568c",
+      "bytes": 329,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/baseline/requirements.txt",
+      "sha256": "63ecb2e9fe9f6abbe8685632e382ede4857818bf6d186072dc973e6c890f454c",
+      "bytes": 28,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/baseline/train_baseline.py",
+      "sha256": "2b9ec8cf295ffb72e2927a6c6470127baa736734679f9422077a4abb29c836d8",
+      "bytes": 2682,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/citation.bib",
+      "sha256": "19d90a9aa79fbce8f215aabded649d81a01be819adc3d6230c78e5fbfeaeba4c",
+      "bytes": 469,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/data/BanglaPhish-2026_v1.0_MASTER.csv",
+      "sha256": "4d8dd5d2c3423ebb1c2db6dd16db8e0bcc1bf489a5caa99288dcb7cf08fe979c",
+      "bytes": 5383142,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/data/BanglaPhish-2026_v1.0_MASTER.jsonl",
+      "sha256": "79ed56fdd6859a98b64d5a097b82571fff6fc679b0133d1994bb487712918b27",
+      "bytes": 8107364,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/data/splits/test.csv",
+      "sha256": "9659117efdd2a5e10432adb66832151389be83527ac917e01c3febac5b224664",
+      "bytes": 806670,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/data/splits/test.jsonl",
+      "sha256": "3027127d303c5cafe80288dc173aa952343dd4671d024f508740e3279a067c78",
+      "bytes": 1215068,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/data/splits/train.csv",
+      "sha256": "051db12438250d799fb3c9ae4b56a18a091dc5df7fb9bc7800f6310ce9e82225",
+      "bytes": 3770604,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/data/splits/train.jsonl",
+      "sha256": "d72e82cd336f859490daee35b31f84c3aa25f62c9bfc416ba47b0a180a419fd6",
+      "bytes": 5677451,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/data/splits/validation.csv",
+      "sha256": "228bf4b335bfaa3f96e7536c32cd4dedadbdb2f77d4359304b16a553d06ec7f5",
+      "bytes": 806550,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/data/splits/validation.jsonl",
+      "sha256": "d33c8c1475d8e2fcf99be064095ae151144e3c4eee2eb62dec5328650eed8eaa",
+      "bytes": 1214845,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/docs/ANNOTATION_GUIDE.md",
+      "sha256": "54ed0ab603fb955a74edffd7da32100802d561cf91c49e60f083ebf2f5c427d7",
+      "bytes": 1757,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/docs/DATASET_CARD.md",
+      "sha256": "10be253fb0902199b9b38d7d1f511a4117040894a61c2349ceba57033e619c21",
+      "bytes": 2061,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/docs/DATA_DICTIONARY.md",
+      "sha256": "85ade03fde0327fa60f94dddb17b8f705bc3cfe7918a16be43d438f104008182",
+      "bytes": 1952,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/docs/ETHICS_AND_SAFETY.md",
+      "sha256": "0ccda7964d3fd7e46538233f2407ff9af33601a9be1c74fbda0759d91c3dd88e",
+      "bytes": 1224,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/docs/HUGGINGFACE_CARD.md",
+      "sha256": "360379a94256004291fc82736cdfdede2d54315371cada5c9476a9c707979987",
+      "bytes": 6528,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/docs/ORIGINAL_MASTER_DATASET_CARD.md",
+      "sha256": "2bbee3b783af0d9b6a24d71ffb3222a566cd17512d9085a3b3850b2a244d130c",
+      "bytes": 3271,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/docs/PUBLISHING_CHECKLIST.md",
+      "sha256": "5b10166fdfd94ef6b6d7a706e12b87f7e5438b2e2d026a9ff10406389b0714a6",
+      "bytes": 6298,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/docs/kaggle-dataset-metadata.json",
+      "sha256": "61cf2baa8ebf7cc63fd4a025da17e448a50444987bc290824720eb1944c437ad",
+      "bytes": 1551,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/metadata/column_schema.csv",
+      "sha256": "b85a93fc757cdd4c353d80bc9ba140413f8757e4fd1ca0c5a0812c31ac55265f",
+      "bytes": 1800,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/metadata/domain_summary.csv",
+      "sha256": "80fd37e59081de8699776c650b5da1307d80a12a929be29f7a1cdcadad463556",
+      "bytes": 3309,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/metadata/label_mapping.json",
+      "sha256": "17467a28c3f36eae26bcae6a46e9c67482123f6a48d9b4eb0637b6f9c943fd77",
+      "bytes": 275,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/metadata/split_summary.csv",
+      "sha256": "e9a5010025591bec4d07d948e0c4e086279922d87c79edbacdc4d3490fcd82d4",
+      "bytes": 89,
+      "provenance_tier": "upstream_sha256sums",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Matches upstream data/raw/banglaphish2026/SHA256SUMS.txt."
+    },
+    {
+      "path": "data/raw/banglaphish2026/paper/BanglaPhish2026_paper.md",
+      "sha256": "63690d206c2a6d0ebfaa4b56671bf00b22909b899cd9c9d7a9a52ce26ff90391",
+      "bytes": 20826,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/paper/BanglaPhish2026_paper.tex",
+      "sha256": "50c4fd869b8c86588202c77d1ac40e15be1ef015fa0925b9f6f302963940c334",
+      "bytes": 29287,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/paper/baseline_results.json",
+      "sha256": "49c9c496e46861de49e1398840e52f554c85daa3020bd68aa97eb722b9efab7c",
+      "bytes": 1472,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/paper/images/fig1_class_split_distribution.png",
+      "sha256": "b8b1206357f5e0f7f8d30c3e4468f34a4ddbbe15b06409db29e53d9a75faf143",
+      "bytes": 68901,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/paper/images/fig2_domain_distribution.png",
+      "sha256": "5a36eee340be4750e167d68eceee003b0070ddd6cb119bafe7b931460bc61fb6",
+      "bytes": 181677,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/paper/images/fig3_confusion_roc.png",
+      "sha256": "8f056aaf6d1d0fbb46e907081061ae02a6b1baa929171aa17f2d62cbf7a68df0",
+      "bytes": 97665,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/paper/images/fig4_dataset_architecture.png",
+      "sha256": "be3fb360648cb9a2d2b8ccb25842f0eb2e12826a187bb2c502d4e2e1c4b3f5c3",
+      "bytes": 117550,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/paper/index.html",
+      "sha256": "a7851cdafebb83990515aea84cd840c979f7a63e80d5649196be513c8c46f31b",
+      "bytes": 44571,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/banglaphish2026/paper/run_simulation.py",
+      "sha256": "861cf64e07c50bda97b276f09e312dafbe77e74adcd2d93b60e68ef83f8be156",
+      "bytes": 13068,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; tracked in nested Git commit 3c42aae9 (not in upstream SHA256SUMS)."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/.gitignore",
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+      "bytes": 1,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/CACHEDIR.TAG",
+      "sha256": "f6572428f6d5e1575e73a1502895a8731f10757dfbb634909c6e154b849af91d",
+      "bytes": 191,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/.gitattributes.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/.gitattributes.metadata",
+      "sha256": "3b75062dc78dc9cfdab144a84ccb848241ad0989bbc5a1d1bb79e1d19d8e815b",
+      "bytes": 101,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/README.md.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/README.md.metadata",
+      "sha256": "035ef9578e23787648d066286743343ab8bf6013904aa2e6cc2572c4aba6bf10",
+      "bytes": 100,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/data/test-00000-of-00001.parquet.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/data/test-00000-of-00001.parquet.metadata",
+      "sha256": "c6e40f6bbe2716acb7e4eb051b322f55292713f810694a9afcf56f78893fd46b",
+      "bytes": 125,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/data/train-00000-of-00001.parquet.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/data/train-00000-of-00001.parquet.metadata",
+      "sha256": "a60be8f4bd31bbdbe2c056ba29d0b3d1c27f9b0375e3b0f11493a51b5544910e",
+      "bytes": 125,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/data/validation-00000-of-00001.parquet.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/download/data/validation-00000-of-00001.parquet.metadata",
+      "sha256": "c54dd576f145c534867c950a6dfb7000639a605667ba7b684907bbc17a985de2",
+      "bytes": 125,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.cache/huggingface/trees/9d7c131cc63187c54dfd069d8070776c82f0be45.json",
+      "sha256": "132cc21abf4239c45a0087dda7fdbedb884eacbe36a701d218c424a0a7b649e9",
+      "bytes": 1177,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "machine_specific_metadata",
+      "verification_note": "Current-state snapshot of machine-specific HuggingFace download cache/lock metadata."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/.gitattributes",
+      "sha256": "e7a120ab07b1bc5b486be249e9fc6c83d59448d0093e1dfebe95d1566d9cafc0",
+      "bytes": 2461,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; Git-blob SHA1 matches sibling HF download metadata ETag."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/README.md",
+      "sha256": "96ef40f0466dbd2a40f2e0ce7da8d4a2650257f4dee7d6f656c4d63952b47abc",
+      "bytes": 3030,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only; Git-blob SHA1 matches sibling HF download metadata ETag."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/data/test-00000-of-00001.parquet",
+      "sha256": "2719d61aaf82b4b38e256e7e0d5ecee4a19588a7f522b863c713a435d0dffa31",
+      "bytes": 117557,
+      "provenance_tier": "consolidation_v1_prefix_and_intrep",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "10-hex prefix in 282ef63:dataset_consolidation_v1.md + full SHA256 in integrity report."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/data/train-00000-of-00001.parquet",
+      "sha256": "9fb92ea7e185297f4dd66442a7ed5f11ffc82d501c1ca2ea38385f430b9fe18e",
+      "bytes": 403979,
+      "provenance_tier": "consolidation_v1_prefix_and_intrep",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "10-hex prefix in 282ef63:dataset_consolidation_v1.md + full SHA256 in integrity report."
+    },
+    {
+      "path": "data/raw/smishdetect_hf/data/validation-00000-of-00001.parquet",
+      "sha256": "a6a652087bbc328618cc39720a3ec66be53e106d9184dcf83791bc4da705a1fc",
+      "bytes": 60552,
+      "provenance_tier": "consolidation_v1_prefix_and_intrep",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "10-hex prefix in 282ef63:dataset_consolidation_v1.md + full SHA256 in integrity report."
+    },
+    {
+      "path": "reports/dataset_consolidation_v1.md",
+      "sha256": "4103c2ea2dcb357b8656bef1c81b6d992709abb4e4b5c68e8353b67c39fc2291",
+      "bytes": 10524,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/phase1_audit.json",
+      "sha256": "beaa235d863c49c4ddf3bce0ce6d868ad3ab80eeddf9a331cdd96bab938b8f42",
+      "bytes": 6972,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only (not historical proof); metrics match tracked 282ef63 MD reports."
+    },
+    {
+      "path": "reports/phase1_dataset_audit.md",
+      "sha256": "a5a83e52a004b670e437055689171bbe2936f109c7074820d7c3e8d9ef260e4e",
+      "bytes": 3473,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/phase2_3_cpu_baselines.json",
+      "sha256": "d73ff42aeef235121d78795e9cb8be96879bc6157dd4e0d2966cd60ccfc74414",
+      "bytes": 10558,
+      "provenance_tier": "current_state_snapshot_accepted_not_historical_proof",
+      "historical_proof": false,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Current-state snapshot only (not historical proof); metrics match tracked 282ef63 MD reports."
+    },
+    {
+      "path": "reports/phase2_3_cpu_baselines.md",
+      "sha256": "a0dc8a145a1bc0e1a25160ab65b4d030fdb539ddfbe96b5fd697e41f48b7b7cc",
+      "bytes": 2406,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/post_stage_b_colab_readiness_report.md",
+      "sha256": "3bf6a21b27f01ee66b72f3038599840495f535c8b751736981ead7e8a97fd841",
+      "bytes": 17398,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "reports/post_stage_b_comprehensive_audit.md",
+      "sha256": "0960b78103ea386d0fccfbc805ee152bd1a7a9f9d43d62d6c521860d6ffd37df",
+      "bytes": 13956,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "reports/post_stage_b_final_readiness_report.md",
+      "sha256": "71476dff8f10394e6d159fe7a49a3d1a7c28bde2bf72db721a10e6f504c0f9b2",
+      "bytes": 4896,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "reports/post_stage_b_implementation_report.md",
+      "sha256": "7ae5162ce4ec6ab6fe8eaff85a4d38d9b895fa86b8c56ddef93a8418ee684060",
+      "bytes": 8306,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "reports/post_stage_b_integrity_and_leakage_report.md",
+      "sha256": "6ebff5a317d99675ffe942103e66d7a145b9ccac548e592535154c0c5a539c0b",
+      "bytes": 15176,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "reports/post_stage_b_model_view_collision_adjudication.md",
+      "sha256": "f1ad45680e77930252a2dd94ad1361b341989fae9f3d80d2b01ecc9580284a7b",
+      "bytes": 19733,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "reports/post_stage_b_test_report.md",
+      "sha256": "1e1be5cffada663c9a53110d5d43606ed074bda32c65b983c0e5f1f8797b6631",
+      "bytes": 7977,
+      "provenance_tier": "git_4d34118_v2_and_reports",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 4d34118."
+    },
+    {
+      "path": "reports/stage_a_focused_audit_v2.md",
+      "sha256": "19dbe6442e5d5200fccfd6cc6f547eb6c940cf0bd7f475129acf500cd883f1f3",
+      "bytes": 8734,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_batch1_50_report.md",
+      "sha256": "46e5d76b15466f0f7dd539d90ed2657019dc83baf17757fe0d7eb8c14f5efcfd",
+      "bytes": 15531,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_batch2_50_report.md",
+      "sha256": "6274f52d766b2776aea3651c64808d250edd9937f93399717e59f0b41df6a9fa",
+      "bytes": 16105,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_batch3_50_report.md",
+      "sha256": "c5462cd4e718715beb67df991b69b9b4e83a1682397af47369b746273ec0aae1",
+      "bytes": 34677,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_batch3_rejection_audit.md",
+      "sha256": "1c074c440358b72140ad43862a4eb94956597b12ac3678b1ab9d4f96fba6eba5",
+      "bytes": 26682,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_batch4_50_report.md",
+      "sha256": "190de1e4fe655b1b9c7aa6fcce47bd20caf7fbefab9fb1bbe508509f7674cb3f",
+      "bytes": 33795,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_batch5_50_report.md",
+      "sha256": "de8350857c436d568cc16d4d0308452637af7594ec2fa8cb04f06148823c1d0d",
+      "bytes": 27888,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_batch6_50_report.md",
+      "sha256": "e8819e07a7c7aa3ae267524de2bba20e8e856635d437bedc79ee4e0bd52f047c",
+      "bytes": 28705,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_batch7_45_report.md",
+      "sha256": "4ef0242157b94431c675a149247445211333df6577492490756c7cbdc40e3acb",
+      "bytes": 27041,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_completion_report.md",
+      "sha256": "ac42cd808ad19d5ef40905c39fb24a2526cf1f5639f11603bd0ad90aec716b97",
+      "bytes": 16612,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_coverage_and_pilot_plan.md",
+      "sha256": "68057405188cd1e860e47dfe6639c09ad88fd01b7166262c56ef6ffe45455a84",
+      "bytes": 4825,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    },
+    {
+      "path": "reports/stage_b_pilot_v2.md",
+      "sha256": "add27b3d7f8b2fe907140e16de951272779ab00e49f178c89ed5bca97a260724",
+      "bytes": 5921,
+      "provenance_tier": "git_282ef63",
+      "historical_proof": true,
+      "artifact_class": "scientific_dataset_or_report",
+      "verification_note": "Exact Git blob match at commit 282ef63."
+    }
+  ]
+}

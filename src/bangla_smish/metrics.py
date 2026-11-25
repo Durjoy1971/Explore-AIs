@@ -194,6 +194,7 @@ def paired_family_accuracy_delta(
     family_ids: np.ndarray,
     *,
     n_resamples: int = 1000,
+    seed: int = 42,
 ) -> dict[str, Any]:
     """Bootstrap paired (B minus A) accuracy deltas over complete families."""
     if y_true.ndim != 1 or pred_a.shape != y_true.shape or pred_b.shape != y_true.shape:
@@ -202,7 +203,7 @@ def paired_family_accuracy_delta(
     delta = (pred_b == y_true).astype(int) - (pred_a == y_true)
     group_delta = np.bincount(indices, weights=delta, minlength=n_clusters)
     group_sizes = np.bincount(indices, minlength=n_clusters)
-    rng = np.random.default_rng(42)
+    rng = np.random.default_rng(seed)
     values = np.empty(n_resamples)
     for i in range(n_resamples):
         draw = rng.integers(n_clusters, size=n_clusters)
@@ -221,6 +222,7 @@ def evaluate_predictions(
     *,
     family_ids: np.ndarray | None = None,
     operating_threshold: float | None | _ThresholdSelection = _ThresholdSelection.EMPIRICAL,
+    seed: int = 42,
 ) -> dict[str, Any]:
     """Evaluate predictions and optionally apply a threshold learned on validation."""
     y_pred = probs.argmax(axis=1)
@@ -228,7 +230,7 @@ def evaluate_predictions(
     promo_idx = label_names.index("Promotional")
     smish_idx = label_names.index("Smishing")
     points, intervals = _confusion_intervals(
-        y_true, y_pred, len(label_names), smish_idx, n_boot, family_ids
+        y_true, y_pred, len(label_names), smish_idx, n_boot, family_ids, seed=seed
     )
     fpr_stats = smishing_recall_at_fpr(
         y_true, probs, smish_idx, normal_idx, operating_threshold=operating_threshold
