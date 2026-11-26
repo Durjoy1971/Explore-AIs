@@ -6,3 +6,5 @@ data/processed/*.parquet
 reports/*.json
 *.egg-info/
 .ipynb_checkpoints/
+response-local.md
+STAGE4_V9_SESSION_HANDOFF.md
